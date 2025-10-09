@@ -20,27 +20,23 @@
             <table class="table table--result">
                 <thead>
                     <tr>
-                        <th>EmployeeID</th>
-                        <th>EmployeeName</th>
-                        <th>EmployeeStatus</th>
+                        {% for col in columns %}
+                            <th>{{ col }}</th>
+                        {% endfor %}
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>ち～ん（笑）</td>
-                        <td>Fired!!</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>( ´,_ゝ`)ﾌﾟｯ</td>
-                        <td>Fired!!</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>( ´_ゝ`)ﾌｰﾝ</td>
-                        <td>Fired!!</td>
-                    </tr>
+                    {% for row in rows %}
+                        <tr>
+                            {% for cell in row %}
+                                <td>{{ cell }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="{{ columns|length }}">データがありません</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
