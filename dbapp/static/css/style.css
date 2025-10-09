@@ -1,2 +1,126 @@
 @charset "utf-8";
 
+/* ===== ページ全体 ===== */
+.page {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #333;
+    padding: 2rem;
+    background-color: #fdfcfb;
+}
+
+/* ページバリエーション（SQLページ用） */
+.page--sql {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* ===== セクション共通 ===== */
+.section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: #fff8f0; /* 軽く暖かい背景 */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* セクション固有 */
+.section--query {
+    background-color: #fef3f8;
+}
+
+.section--result {
+    background-color: #f0f7ff;
+}
+
+/* ===== タイトル・テキスト ===== */
+.heading {
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
+}
+
+.heading--xl { font-size: 2rem; color: #ff6f91; }
+.heading--lg { font-size: 1.5rem; color: #6fafff; }
+
+.text { margin: 0; }
+.text--lead { font-size: 1.1rem; color: #555; }
+
+/* ===== フォーム ===== */
+.form textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    font-family: "Courier New", monospace;
+    font-size: 1rem;
+    resize: vertical;
+    background-color: #fffdfc;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+.form textarea:focus {
+    border-color: #ff9c6e;
+    box-shadow: 0 0 5px rgba(255, 156, 110, 0.5);
+    outline: none;
+}
+
+/* ===== テーブル ===== */
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 0.95rem;
+    background-color: #fff;
+}
+
+/* テーブルヘッダー */
+.table--result thead th {
+    background-color: #ffe4e1; /* パステルピンク */
+    color: #ff5c8d;
+    text-align: left;
+    padding: 0.75rem;
+    font-weight: 600;
+}
+
+/* テーブルボディ */
+.table--result tbody td {
+    padding: 0.65rem;
+    background-color: #fff7f6; /* パステル系明るめ */
+    border-bottom: 1px solid #ffeaea;
+    color: #333;
+}
+
+/* 行のホバー効果 */
+.table--result tbody tr:hover td {
+    background-color: #ffe0e6; /* ほんのりピンクのハイライト */
+}
+
+/* テーブルコンテナ（スクロール用） */
+.table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+    margin-top: 0.5rem;
+}
+
+/* ===== テーブルボディのストライプ ===== */
+.table--result tbody tr:nth-child(odd) td {
+    background-color: #e0f7e9; /* パステルグリーン */
+}
+
+.table--result tbody tr:nth-child(even) td {
+    background-color: #e0f0ff; /* パステルブルー */
+}
+
+/* ホバー効果は少し強めに */
+.table--result tbody tr:hover td {
+    background-color: #cdeffd; /* 淡い水色系ハイライト */
+}
+
+/* ===== レスポンシブ調整 ===== */
+@media (max-width: 600px) {
+    .heading--xl { font-size: 1.5rem; }
+    .heading--lg { font-size: 1.2rem; }
+    .form textarea { min-height: 100px; }
+}
