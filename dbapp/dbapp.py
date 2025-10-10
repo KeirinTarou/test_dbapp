@@ -31,14 +31,14 @@ def show_table_structure(table_name):
         abort(404)
     
     # DESC文実行
-    columns, rows = db.describe_table(table_name)
+    fields, values = db.describe_table(table_name)
 
     # テンプレートにデータを投げる
     return render_template(
         "pages/table.html", 
         table_name=table_name, 
-        columns=columns, 
-        rows=rows
+        columns=fields, 
+        rows=values
     )
 
 if __name__ == "__main__":
