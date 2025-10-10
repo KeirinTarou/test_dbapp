@@ -21,11 +21,7 @@ def index():
 @app.route("/table/<table_name>")
 def show_table_structure(table_name):
     # 表示するテーブル名のリスト
-    allowed_tables = [
-        "BelongTo", "Categories", "CustomerClasses", "Customers", 
-        "Departments", "Employees", "Prefecturals", "Products", 
-        "Salary", "Sales"
-    ]
+    allowed_tables = db.TABLE_NAMES
     # テーブル名がリストになかったら404
     if table_name not in allowed_tables:
         abort(404)
