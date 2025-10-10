@@ -5,7 +5,10 @@
 {% block contents %}
     <main class="page page--sql">
         <section class="section section--result">
-            <h1 class="heading heading--xl">{{ table_name }} テーブル</h1>
+            <div class="page-header">
+                <h1 class="heading heading--xl">{{ table_name }} の構造</h1>
+                <a href="{{ url_for('index') }}" class="btn btn--back">← 戻る</a>
+            </div>
             <div class="table table--result">
                 <table>
                     <thead>
@@ -25,6 +28,22 @@
                         {% endfor %}
                     </tbody>
                 </table>
+            </div>
+
+            <div class="related-tables">
+                <h2 class="heading heading--lg">他のテーブルを見る</h2>
+                <div class="pill-list">
+                    {% for t in table_names %}
+                        {% if t != table_name %}
+                            <a 
+                                href="{{ url_for('show_table_structure', table_name=t) }}" class="pill pill--{{ loop.index0 % 6 }}"
+                                title="{{ t }}テーブルの構造を表示"
+                                >
+                                {{ t }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             </div>
         </section>
     </main>

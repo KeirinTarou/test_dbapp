@@ -84,6 +84,10 @@
     background-color: #fff;
 }
 
+.table table {
+    margin: 0 auto;
+}
+
 /* テーブルヘッダー */
 .table--result thead th {
     background-color: #ffe4e1; /* パステルピンク */
@@ -125,6 +129,86 @@
 /* ホバー効果は少し強めに */
 .table--result tbody tr:hover td {
     background-color: #cdeffd; /* 淡い水色系ハイライト */
+}
+
+/* ===== テーブル一覧ピル（タグ風リンク） ===== */
+.pill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.pill {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border-radius: 9999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: #444; /* 白ではなく、濃いグレー文字 */;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    transition: 
+        transform 0.4s ease, 
+        box-shadow 0.4s ease, 
+        opacity 0.4s ease;
+    opacity: 0.6;
+}
+
+/* カラーバリエーション（6色ローテーション） */
+.pill--0 { background-color: #ff6f91; } /* ピンク */
+.pill--1 { background-color: #ff9671; } /* コーラル */
+.pill--2 { background-color: #ffc75f; } /* イエロー */
+.pill--3 { background-color: #f9f871; }  /* レモン */
+.pill--4 { background-color: #a3d2ca; } /* ミント */
+.pill--5 { background-color: #84b6f4; } /* スカイブルー */
+
+/* ホバー・フォーカス時 */
+.pill:hover,
+.pill:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    opacity: 0.95;
+}
+.pill:active {
+    transform: translateY(0);
+}
+
+/* ===== ページヘッダー ===== */
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.btn--back {
+    display: inline-block;
+    background-color: #ff9671;
+    color: #333;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.btn--back:hover {
+    background-color: #ffc75f;
+    transform: translateY(-2px);
+}
+
+/* ===== 関連テーブル一覧 ===== */
+.related-tables {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 2px dashed #ddd;
+}
+
+.related-tables .heading--lg {
+    color: #6fafff;
+    margin-bottom: 0.5rem;
 }
 
 /* ===== レスポンシブ調整 ===== */

@@ -14,7 +14,8 @@ def index():
     return render_template(
         "pages/index.html", 
         columns=columns, 
-        rows=rows
+        rows=rows, 
+        table_names=db.TABLE_NAMES
     )
 
 # 各テーブルの構造表示用ページ
@@ -32,6 +33,7 @@ def show_table_structure(table_name):
     # テンプレートにデータを投げる
     return render_template(
         "pages/table.html", 
+        table_names=allowed_tables, 
         table_name=table_name, 
         columns=fields, 
         rows=values
