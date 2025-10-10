@@ -5,22 +5,26 @@
 {% block contents %}
     <main class="page page--sql">
         <section class="section section--result">
-            <h1 class="heading heading--xl">{{ table_name }} の構造</h1>
+            <h1 class="heading heading--xl">{{ table_name }} テーブル</h1>
             <div class="table table--result">
-                <thead>
-                    <tr>
-                        {% for col in columns %}
-                            <th>{{ col }}</th>
+                <table>
+                    <thead>
+                        <tr>
+                            {% for col in columns %}
+                                <th>{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in rows %}
+                            <tr>
+                                {% for cell in row %}
+                                    <td>{{ cell }}</td>
+                                {% endfor %}
+                            </tr>
                         {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in rows %}
-                        {% for cell in row %}
-                            <td>{{ cell }}</td>
-                        {% endfor %}
-                    {% endfor %}
-                </tbody>
+                    </tbody>
+                </table>
             </div>
         </section>
     </main>
