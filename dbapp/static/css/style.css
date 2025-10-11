@@ -236,6 +236,33 @@
     transform: translateY(0);
 }
 
+/* クリアボタン */
+.btn--clear {
+    display: inline-block;
+    background-color: #ddd;
+    color: #333;
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 0.5rem;
+    transition: 
+        background-color 0.4s, 
+        transform 0.4s, 
+        opacity 0.4s;
+}
+
+.btn--clear:hover {
+    background-color: #bbb;
+    transform: translateY(-2px);
+    opacity: 0.6;
+}
+.btn--clear:active {
+    background-color: #ddd;
+    transform: translateY(0);
+    opacity: 1;
+}
+
 /* ===== 関連テーブル一覧 ===== */
 .related-tables {
     margin-top: 2rem;
