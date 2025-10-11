@@ -26,6 +26,15 @@
 
     <section class="section section--query">
         <h2 class="heading heading--lg">クエリを入力</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="messages">
+                    {% for category, msg in messages %}
+                        <li class="{{ category }}">{{ msg }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
         <form class="form form--query" method="post" action="{{ url_for('index') }}">
             <!-- CodeMirrorをdivでラップ -->
             <div id="sql_query_wrapper" class="cm-wrapper">
