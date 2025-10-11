@@ -51,3 +51,17 @@ def sanitize_sql(sql_query: str) -> str:
     sql = re.sub(r'--.*$', '', sql, flags=re.MULTILINE)
     # 前後の空白除去
     return sql.strip()
+
+def valid_sql(sql_query: str, allowed_start=("SELECT", )) -> bool:
+    """SQL文が安全かどうかを判定する
+        先頭キーワードが`allowed_start`のいずれかであることをチェック
+        コメントや空白は無視して判定
+    """
+    clean_sql = sanitize_sql(sql_query)
+    if not clean_sql:
+        return False
+    for kw in allowed_start:
+        if clean_sql.upper().startswith(kw):
+            return True
+    # ここにたどり着いたということは`allowed_start`で始まらないということ
+    return False
