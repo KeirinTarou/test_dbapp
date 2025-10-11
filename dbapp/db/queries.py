@@ -24,7 +24,7 @@ TABLE_NAMES = [
 ]
 
 def fetch_all(query: str):
-    """クエリを渡して全件取得する
+    """ クエリを渡して全件取得する
     """
     with get_connection() as conn:
         with conn.cursor() as cur:
@@ -37,13 +37,13 @@ def fetch_all(query: str):
             return columns, rows
 
 def describe_table(table_name: str):
-    """`DESC`コマンドを使ってテーブル構造を取得
+    """ `DESC`コマンドを使ってテーブル構造を取得
     """
     query = f"DESC {table_name};"
     return fetch_all(query)
 
 def sanitize_sql(sql_query: str) -> str:
-    """SQL文からコメントや不要な空白を除去する
+    """ SQL文からコメントや不要な空白を除去する
     """
     # ブロックコメント削除
     sql = re.sub(r'/\*.*?\*/', '', sql_query, flags=re.DOTALL)
@@ -53,7 +53,7 @@ def sanitize_sql(sql_query: str) -> str:
     return sql.strip()
 
 def valid_sql(sql_query: str, allowed_start=("SELECT", )) -> bool:
-    """SQL文が安全かどうかを判定する
+    """ SQL文が安全かどうかを判定する
         先頭キーワードが`allowed_start`のいずれかであることをチェック
         コメントや空白は無視して判定
     """
@@ -65,3 +65,12 @@ def valid_sql(sql_query: str, allowed_start=("SELECT", )) -> bool:
             return True
     # ここにたどり着いたということは`allowed_start`で始まらないということ
     return False
+
+def sanitize_and_validate_sql(sql_query: str, allowed_start=("SELECT", )) -> str:
+    """ サニタイズとバリデーションをまとめて行う
+        不正があれば例外をスロー
+    """
+    clean_sql = sanitize_sql(sql_query)
+    if not valid_sql(clean_sql, allowed_start):
+        raise ValueError(f"{', '.join(allowed_start)} 文のみ実行可能です。")
+    return clean_sql
