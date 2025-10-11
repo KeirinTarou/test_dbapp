@@ -1,8 +1,11 @@
-from flask import Flask, render_template, abort, request
+from flask import Flask, render_template, abort, request, flash, redirect, url_for
 import pyodbc
 import db.queries as db
 
 app = Flask(__name__)
+
+# セッション用の秘密鍵設定
+app.secret_key = "kps"
 
 # クエリ実行失敗時返却用データ（笑）
 FAILED_COLUMNS = ["( ´,_ゝ`)", "ち～ん（笑）"]
@@ -24,18 +27,29 @@ def index():
         sql_query = request.form.get("sql_query", "").strip()
         # クエリ実行 -> レコードセット取得
         try:
-            columns, rows = db.fetch_all(sql_query)
+            safe_query = db.sanitize_and_validate_sql(sql_query)
+            columns, rows = db.fetch_all(safe_query)
+            # クエリ実行成功のフラッシュメッセージ
+            flash("クエリは正常に実行されました。", "success")
+        # `ValueError`例外をキャッチ
+        except ValueError as e:
+            # 例外発生時のフラッシュメッセージ
+            flash(str(e), "error")
+            columns, rows = [], []
         except Exception as e:
+            # 例外発生時のフラッシュメッセージ
+            flash("( ´,_ゝ`) < クエリ実行に失敗しました。", "error")
             columns = FAILED_COLUMNS
             rows = FAILED_ROWS.copy()
             # エラー情報を追加
-            rows.append(["原因はたぶん……", str(e)[:80] + "..."])
+            rows.append(["原因はたぶん……", str(e)[:200] + "..."])
+        # return redirect(url_for("index"))
     # GETリクエストのとき
     else:
         sql_query = ""
         # デフォルトの擬似テーブルを表示
         columns, rows = [DEFAULT_COLUMNS, DEFAULT_ROWS]
-    print(columns, rows)
+
     # レコードセットをテンプレートに渡す
     return render_template(
         "pages/index.html", 
