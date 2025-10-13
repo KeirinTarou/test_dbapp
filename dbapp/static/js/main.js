@@ -29,6 +29,12 @@
             }
         });
 
+        // フォームサブミット時にCodeMirrorラッパーの高さをinput:hiddenに入れる
+        $('form').on('submit', function() {
+            const height = $('#sql_query_wrapper').outerHeight();
+            $('#sql_query_height').val(height);
+        });
+
         // フォームサブミット時にCodeMirrorの値をtextareaに反映
         $('form').on('submit', function() {
             editor.save(); // textareaの値にコピー
