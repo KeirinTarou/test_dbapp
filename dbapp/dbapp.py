@@ -1,4 +1,6 @@
-from flask import Flask, render_template, abort, request, flash, redirect, url_for
+from flask import (
+    Flask, render_template, abort, request, flash, redirect, 
+    url_for, session)
 import pyodbc
 import db.queries as db
 
@@ -18,6 +20,8 @@ DEFAULT_ROWS = [
     ["(･ω･)", "クエリを入力して実行ボタンをクリックしてね！"]
 ]
 
+DEFAULT_EDITOR_HEIGHT = 400
+
 # トップページ
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -25,6 +29,16 @@ def index():
     if request.method == "POST":
         # フォームからクエリを取得
         sql_query = request.form.get("sql_query", "").strip()
+
+        # CodeMirrorラッパーの高さを保存
+        sql_query_height = request.form.get("sql_query", "")
+        if sql_query_height:
+            try:
+                session["sql_query_height"] = float(sql_query_height)
+                # 値がおかしかったらデフォルト値をセット
+            except ValueError:
+                session["sql_query_height"] = DEFAULT_EDITOR_HEIGHT 
+
         # クエリ実行 -> レコードセット取得
         try:
             safe_query = db.sanitize_and_validate_sql(sql_query)
@@ -50,13 +64,15 @@ def index():
         # デフォルトの擬似テーブルを表示
         columns, rows = [DEFAULT_COLUMNS, DEFAULT_ROWS]
 
+    sql_query_height = session.get("sql_query_height", DEFAULT_EDITOR_HEIGHT)
     # レコードセットをテンプレートに渡す
     return render_template(
         "pages/index.html", 
         columns=columns, 
         rows=rows, 
         table_names=db.TABLE_NAMES, 
-        sql_query=sql_query
+        sql_query=sql_query, 
+        sql_query_height=sql_query_height
     )
 
 # 各テーブルの構造表示用ページ
