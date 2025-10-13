@@ -108,7 +108,10 @@ def index():
         # デフォルトの擬似テーブルを表示
         columns, rows = [DEFAULT_COLUMNS, DEFAULT_ROWS]
 
+    # エディタの高さ情報をセッションから取り出し
     sql_query_height = session.get("sql_query_height", DEFAULT_EDITOR_HEIGHT)
+    # エディタへのスクロールフラグをセッションから取り出し
+    scroll_to_editor = session.pop("scroll_to_editor")
     # レコードセットをテンプレートに渡す
     return render_template(
         "pages/index.html", 
@@ -116,7 +119,8 @@ def index():
         rows=rows, 
         table_names=db.TABLE_NAMES, 
         sql_query=sql_query, 
-        sql_query_height=sql_query_height
+        sql_query_height=sql_query_height, 
+        scroll_to_editor=scroll_to_editor
     )
 
 # 各テーブルの構造表示用ページ
