@@ -31,7 +31,7 @@ def index():
         sql_query = request.form.get("sql_query", "").strip()
 
         # CodeMirrorラッパーの高さを保存
-        sql_query_height = request.form.get("sql_query", "")
+        sql_query_height = request.form.get("sql_query_height")
         if sql_query_height:
             try:
                 session["sql_query_height"] = float(sql_query_height)
@@ -48,7 +48,7 @@ def index():
         # `ValueError`例外をキャッチ
         except ValueError as e:
             # 例外発生時のフラッシュメッセージ
-            flash(str(e), "error")
+            flash("( ´,_ゝ｀) < " + str(e), "error")
             columns, rows = [], []
         except Exception as e:
             # 例外発生時のフラッシュメッセージ
