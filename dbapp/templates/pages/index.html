@@ -47,6 +47,7 @@
                 id="sql_query_wrapper" 
                 class="cm-wrapper"
                 data-sql-query-height="{{ sql_query_height | default('', true) }}"
+                {% if sql_query_height %}style="height: {{ sql_query_height }}px;"{% endif %}
             >
                 <textarea
                     name="sql_query" 
