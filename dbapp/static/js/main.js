@@ -29,6 +29,12 @@
             }
         });
 
+        // CodeMirrorラッパーのdata属性から受け取った値をCodeMirrorオブジェクトにセット
+        const height = $("#sql_query_wrapper").data('sql-query-height')
+        if (height) {
+            editor.setSize("100%", parsInt(height) + "px");
+        }
+
         // フォームサブミット時にCodeMirrorラッパーの高さをinput:hiddenに入れる
         $('form').on('submit', function() {
             const height = $('#sql_query_wrapper').outerHeight();
