@@ -43,7 +43,11 @@
                 id="sql_query_height" 
             /> 
             <!-- CodeMirrorをdivでラップ -->
-            <div id="sql_query_wrapper" class="cm-wrapper">
+            <div 
+                id="sql_query_wrapper" 
+                class="cm-wrapper"
+                data-sql-query-height="{{ sql_query_height | default('', true) }}"
+            >
                 <textarea
                     name="sql_query" 
                     id="sql_query" 
