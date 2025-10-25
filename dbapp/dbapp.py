@@ -112,7 +112,7 @@ def index():
     sql_query_height = session.get("sql_query_height", DEFAULT_EDITOR_HEIGHT)
     # エディタへのスクロールフラグをセッションから取り出し
     scroll_to_editor = session.pop("scroll_to_editor", False)
-    print(scroll_to_editor)
+
     # レコードセットをテンプレートに渡す
     return render_template(
         "pages/index.html", 
