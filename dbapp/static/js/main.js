@@ -18,6 +18,11 @@
                 $("#table-structure-container").show();
 
                 // 非同期でWeb APIからJSONを取得
+                // 取得するJSON（`data`）の形式は次の通り
+                // {
+                //      columns: <array of column names>, 
+                //      rows: <array of value arrays>, 
+                // }
                 $.getJSON(url)
                     // 取得成功
                     .done(function(data) {
