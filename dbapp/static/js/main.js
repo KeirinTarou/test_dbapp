@@ -44,7 +44,8 @@
                     })
                     // 取得失敗
                     .fail(function() {
-
+                        $("#table-structure-title").text("通信エラー");
+                        $("#table-structure thead, #table-structure tbody").empty();
                     });
             });
 
