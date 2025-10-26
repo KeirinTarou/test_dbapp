@@ -40,6 +40,7 @@
 
 .heading--xl { font-size: 2rem; color: #ff6f91; }
 .heading--lg { font-size: 1.5rem; color: #6fafff; }
+.heading--md { font-size: 1.2rem; color: #6cda8d; }
 
 .text { margin: 0; }
 .text--lead { font-size: 1.1rem; color: #555; }
