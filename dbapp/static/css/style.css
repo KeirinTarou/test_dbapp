@@ -196,6 +196,7 @@
 }
 
 .table--structure th {
+    padding: 4px 8px;
     text-align: left;
     background: #333;
     color: #fff;
