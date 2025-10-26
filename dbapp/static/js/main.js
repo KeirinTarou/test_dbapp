@@ -11,6 +11,11 @@
                 const tableName = $(this).data("table");
                 // URL組み立て
                 const url = `/api/table/${tableName}`;
+
+                // ローディング表示
+                $("#table-structure-title").text(`${tableName} テーブル構造を取得中...`);
+                // 非表示の結果表示divを表示
+                $("#table-structure-container").show();
             });
 
         /* --------------------------------------------------------------------
