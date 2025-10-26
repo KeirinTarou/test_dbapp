@@ -196,10 +196,15 @@
 }
 
 .table--structure th {
-    padding: 4px 8px;
+    padding: 0.25em 0.5em;
     text-align: left;
     background: #333;
     color: #fff;
+}
+
+.table--structure td {
+    padding: 0.25em 0.5em;
+    color: #333;
 }
 
 /* ===== ページヘッダー ===== */
