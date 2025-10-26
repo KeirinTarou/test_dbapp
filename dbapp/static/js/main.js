@@ -30,6 +30,17 @@
                             );
                             return
                         }
+                        // 正しいデータが返ってきた
+                        // ヘッダを描画
+                        const thead = data.columns.map(col => `<th>${col}</th>`).join("");
+                        $("$table-structure thead").html(`<tr>${thead}</tr>`)
+
+                        // ボディ描画
+                        const rows = data.rows.map(row => 
+                            `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`
+                        ).join("");
+                        $("#table-structure tbody").html(rows);
+                        $("#table-structure-title").text(`${tableName} テーブル構造`);
                     })
                     // 取得失敗
                     .fail(function() {
