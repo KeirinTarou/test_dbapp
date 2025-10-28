@@ -1,11 +1,15 @@
 from flask import (
     Flask, render_template, abort, request, flash, redirect, 
     url_for, session)
+from dotenv import load_dotenv
 # import pyodbc
 import db.queries as db
 import re
 from datetime import datetime
 import os
+
+# `.env`読み込み
+load_dotenv()
 
 app = Flask(__name__)
 
