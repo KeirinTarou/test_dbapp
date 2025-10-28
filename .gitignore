@@ -1,5 +1,7 @@
+.env
 test_dbapp_env/*
 memo.md
+chatgpt.md
 __pycache__/
 .py[cod]
 jquery*
