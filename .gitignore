@@ -6,3 +6,4 @@ __pycache__/
 .py[cod]
 jquery*
 storage/
+*source.xlsm
