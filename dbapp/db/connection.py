@@ -2,7 +2,7 @@ import pyodbc
 import os
 
 CONNECTION_STRING = f"""
-DRIVER={os.getenv('DB_DRIVER')};
+DRIVER={ os.getenv('DB_DRIVER') };
 SERVER={ os.getenv('DB_SERVER') };
 PORT={ os.getenv('DB_PORT') };
 DATABASE={ os.getenv('DB_DATABASE') };
