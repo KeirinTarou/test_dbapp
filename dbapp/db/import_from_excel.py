@@ -14,6 +14,7 @@ EXCEL_PATH = os.path.join(os.path.dirname(__file__), "source.xlsm")
 STATUS_SHEET = "Status"
 DATA_SHEET = "Data"
 STATUS_CELL = "A1"
+ERROR_CELL = "A2"
 STATUS_DONE = "Done!!"
 STATUS_ERROR = "Error..."
 STATUS_WORKING = "Working..."
@@ -44,7 +45,8 @@ def fetch_all_excel(query: str):
                 if status == STATUS_DONE:
                     break
                 elif status == STATUS_ERROR:
-                    raise RuntimeError("ExcelでのDB処理中にエラーが発生しました。")
+                    err_msg = wb.Sheets(STATUS_SHEET).Range(ERROR_CELL).Value
+                    raise RuntimeError(err_msg)
                 time.sleep(0.5)
 
             # 結果取得
