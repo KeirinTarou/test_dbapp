@@ -159,7 +159,8 @@ def show_table_structure(table_name):
         abort(404)
     
     # DESC文実行
-    fields, values = db.describe_table(table_name)
+    # fields, values = db.describe_table(table_name)
+    fields, values = db_excel.describe_table(table_name)
 
     # テンプレートにデータを投げる
     return render_template(
