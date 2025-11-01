@@ -4,6 +4,7 @@ from flask import (
 from dotenv import load_dotenv
 # import pyodbc
 import db.queries as db
+import db.import_from_excel as db_excel
 import re
 from datetime import datetime
 import os
