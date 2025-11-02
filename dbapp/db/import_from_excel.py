@@ -19,6 +19,13 @@ STATUS_DONE = "Done!!"
 STATUS_ERROR = "Error..."
 STATUS_WORKING = "Working..."
 
+def normalize_number(v):
+    """ 整数値なら整数型に変換する
+    """
+    if isinstance(v, float) and v.is_integer():
+        return int(v)
+    return v
+
 def fetch_all_excel(query: str):
     """ Excel経由でDBからレコードセットを取得
         (columns, rows)の形で結果を返却
@@ -63,7 +70,7 @@ def fetch_all_excel(query: str):
             # カラム名のリスト
             columns = list(data[0])
             # データ行のリスト（タプルのリスト）
-            rows = [tuple(r) for r in data[1:]]
+            rows = [tuple(normalize_number(x) for x in r) for r in data[1:]]
 
             # 結果を返却
             return columns, rows
