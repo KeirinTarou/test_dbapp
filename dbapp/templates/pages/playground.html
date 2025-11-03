@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Playground{% endblock %}
+{% block contents %}
+<main class="page page--sql">
+    <section class="section section--intro">
+        <h1 class="heading heading--xl">お笑いSQL道場</h1>
+        <p class="text text--lead">入力したクエリを実行し、結果セットを表示します。</p>
+    </section>
+
+    <section class="section section--tables">
+        <h2 class="heading heading--lg">テーブル一覧</h2>
+        <p class="text text--lead">各テーブルの構造を確認できます。</p>
+
+        <div class="pill-list">
+            {% for table_name in table_names %}
+                <button 
+                    type="button" 
+                    class="pill pill--{{ loop.index0 % 6 }}"
+                    data-table="{{ table_name }}"
+                    title="{{ table_name }}テーブルの構造を表示します。"
+                >
+                    {{ table_name }}
+                </button>
+            {% endfor %}
+        </div>
+
+        <!-- テーブル構造表示エリア -->
+        <div id="table-structure-container" class="table-container" style="display:none;">
+            <!-- JSで闘魂注入するため、要素の中身は空にしておく -->
+            <h3 id="table-structure-title" class="heading heading--md"></h3>
+            <table id="table-structure" class="table table--structure">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </section>
+
+    {% include "parts/query_editor_lite.html" %}
+    
+    <section class="section section--result">
+        <h2 class="heading heading--lg">実行結果</h2>
+        <div class="table-container">
+            <table class="table table--result">
+                <thead>
+                    <tr>
+                        {% for col in columns %}
+                            <th>{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in rows %}
+                        <tr>
+                            {% for cell in row %}
+                                <td>{{ cell }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="{{ columns|length }}">データがありません</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+{% endblock %}
