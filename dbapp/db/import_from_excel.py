@@ -4,6 +4,7 @@ import pandas as pd
 import win32com.client
 import pythoncom
 from dotenv import load_dotenv
+from datetime import datetime
 
 # `.env`読み込み
 load_dotenv()
@@ -19,11 +20,17 @@ STATUS_DONE = "Done!!"
 STATUS_ERROR = "Error..."
 STATUS_WORKING = "Working..."
 
-def normalize_number(v):
-    """ 整数値なら整数型に変換する
+def normalize_value(v):
+    """ 値を正規化する
     """
-    if isinstance(v, float) and v.is_integer():
+    # NoneはNULLに補正
+    if v is None:
+        return 'NULL'
+    # 整数値を補正
+    elif isinstance(v, float) and v.is_integer():
         return int(v)
+    elif isinstance(v, datetime):
+        return v.strftime('%Y-%m-%d %H:%M:%S')
     return v
 
 def fetch_all_excel(query: str):
@@ -70,7 +77,7 @@ def fetch_all_excel(query: str):
             # カラム名のリスト
             columns = list(data[0])
             # データ行のリスト（タプルのリスト）
-            rows = [tuple(normalize_number(x) for x in r) for r in data[1:]]
+            rows = [tuple(normalize_value(x) for x in r) for r in data[1:]]
 
             # 結果を返却
             return columns, rows
