@@ -3,6 +3,7 @@ test_dbapp_env/*
 memo.md
 chatgpt.md
 __pycache__/
+*.pyc
 .py[cod]
 jquery*
 storage/
