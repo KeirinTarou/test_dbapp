@@ -189,6 +189,12 @@
 }
 
 /* ===== テーブル構造結果表示テーブル ===== */
+#table-structure-wrapper {
+    padding: 0.5em;
+    margin-top: 1em;
+    background-color: #fff;
+}
+
 .table--structure th {
     padding: 0.25em 0.5em;
     text-align: left;
