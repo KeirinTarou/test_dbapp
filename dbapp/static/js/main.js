@@ -15,7 +15,7 @@
                 // ローディング表示
                 $("#table-structure-title").text(`${tableName} テーブル構造を取得中...`);
                 // 非表示の結果表示divを表示
-                $("#table-structure-container").show();
+                $("#table-structure-wrapper").show();
 
                 // 非同期でWeb APIからJSONを取得
                 // 取得するJSON（`data`）の形式は次の通り
