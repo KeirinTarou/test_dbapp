@@ -11,32 +11,6 @@
 
     {% include "parts/query_editor/query_editor_lite.html" %}
     
-    <section class="section section--result">
-        <h2 class="heading heading--lg">実行結果</h2>
-        <div class="table-container">
-            <table class="table table--result">
-                <thead>
-                    <tr>
-                        {% for col in columns %}
-                            <th>{{ col }}</th>
-                        {% endfor %}
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in rows %}
-                        <tr>
-                            {% for cell in row %}
-                                <td>{{ cell }}</td>
-                            {% endfor %}
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="{{ columns|length }}">データがありません</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </section>
+    {% include "parts/show_result/show_result.html" %}
 </main>
 {% endblock %}
