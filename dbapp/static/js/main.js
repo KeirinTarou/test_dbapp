@@ -36,6 +36,14 @@
                             return
                         }
                         // 正しいデータが返ってきた
+                        // ローカルストレージにデータをキャッシュ
+                        try {
+                            localStorage.setItem(cacheKey, JSON.stringify(data));
+                            console.log(`キャッシュ保存: ${cacheKey}`);
+                        } catch (e) {
+                            console.warn("localStorageへの保存に失敗しました。: ", e);
+                        }
+
                         $("#table-structure-title").text(`${tableName} テーブルの構造`);
                         // theadとtbodyに闘魂注入
                         renderTableStructureTable(data);
