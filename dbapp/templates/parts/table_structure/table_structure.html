@@ -1,0 +1,29 @@
+<section class="section section--tables">
+    <h2 class="heading heading--lg">テーブル一覧</h2>
+    <p class="text text--lead">各テーブルの構造を確認できます。</p>
+
+    <div class="pill-list">
+        {% for table_name in table_names %}
+            <button 
+                type="button" 
+                class="pill pill--{{ loop.index0 % 6 }}"
+                data-table="{{ table_name }}"
+                title="{{ table_name }}テーブルの構造を表示します。"
+            >
+                {{ table_name }}
+            </button>
+        {% endfor %}
+    </div>
+
+    <!-- テーブル構造表示エリア -->
+    <div id="table-structure-wrapper" style="display:none;">
+        <!-- JSで闘魂注入するため、要素の中身は空にしておく -->
+        <h3 id="table-structure-title" class="heading heading--md"></h3>
+        <div id="table-structure-container" class="table-container">
+            <table id="table-structure" class="table table--structure">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</section>

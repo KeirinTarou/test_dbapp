@@ -1,0 +1,16 @@
+{% extends 'parts/query_editor_base.html' %}
+{% block query_editor_actions %}
+    <div class="form-actions form-actions-row">
+        <button 
+            type="submit" 
+            name="execute"
+            class="btn btn--execute"
+            title="入力したクエリを実行します。"
+        >クエリ実行</button>
+        <a 
+            href="{{ url_for('index') }}" 
+            class="btn btn--clear" 
+            title="入力内容をクリアします。"
+        >クリア</a>
+    </div>
+{% endblock %}

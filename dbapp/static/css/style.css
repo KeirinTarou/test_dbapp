@@ -79,6 +79,19 @@
 }
 
 /* ===== テーブル ===== */
+/* テーブルコンテナ（スクロール用） */
+.table-container {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 600px;
+    max-width: 640px;
+    min-width: 400px;
+    border-radius: 12px;
+    margin-top: 1rem;
+    padding: 0 0.5em;
+    background-color: #fff;
+}
+
 .table {
     width: 100%;
     border-collapse: separate;
@@ -115,16 +128,6 @@
 /* 行のホバー効果 */
 .table--result tbody tr:hover td {
     background-color: #ffe0e6; /* ほんのりピンクのハイライト */
-}
-
-/* テーブルコンテナ（スクロール用） */
-.table-container {
-    overflow-x: auto;
-    overflow-y: auto;
-    max-height: 600px;
-    border-radius: 12px;
-    margin-top: 0.5rem;
-    background-color: #fff;
 }
 
 /* ===== テーブルボディのストライプ ===== */
@@ -186,14 +189,11 @@
 }
 
 /* ===== テーブル構造結果表示テーブル ===== */
-.table-container {
-    max-width: 640px;
-    min-width: 400px;
-    margin-top: 1em;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+#table-structure-wrapper {
     padding: 0.5em;
-    background: #fafafa;
+    margin-top: 1em;
+    background-color: #fff;
+    border-radius: 8px;
 }
 
 .table--structure th {

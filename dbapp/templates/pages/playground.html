@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Top Page{% endblock %}
+{% block title %}Playground{% endblock %}
 {% block contents %}
 <main class="page page--sql">
     <section class="section section--intro">
@@ -9,8 +9,8 @@
 
     {% include "parts/table_structure/table_structure.html" %}
 
-    {% include "parts/query_editor/query_editor_full.html" %}
-
+    {% include "parts/query_editor/query_editor_lite.html" %}
+    
     {% include "parts/show_result/show_result.html" %}
 </main>
 {% endblock %}
