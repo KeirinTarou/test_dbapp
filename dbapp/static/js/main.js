@@ -9,13 +9,30 @@
             $(".pill-list").on("click", ".pill", function(){
                 // クリックしたピルケースのdata属性からテーブル名を取得
                 const tableName = $(this).data("table");
+                // キャッシュのキーを作成
+                const cacheKey = `table:${tableName}`;
+                // localStorageにキャッシュされたデータを取得
+                const cachedData = localStorage.getItem(cacheKey);
+
+                // デフォルト非表示の結果表示divを表示
+                $("#table-structure-wrapper").show();
+
+                // キャッシュがある場合は即描画
+                if (cachedData) {
+                    const data = JSON.parse(cachedData);
+                    $("#table-structure-title").text(`${tableName} テーブルの構造（キャッシュ）`);
+                    // theadとtbodyに闘魂注入
+                    renderTableStructureTable(data);
+                    // API呼び出しをスキップ
+                    return;
+                } 
+
+                // キャッシュがないときはAPIを叩く
                 // URL組み立て
                 const url = `/api/table/${tableName}`;
 
                 // ローディング表示
                 $("#table-structure-title").text(`${tableName} テーブル構造を取得中...`);
-                // 非表示の結果表示divを表示
-                $("#table-structure-wrapper").show();
 
                 // 非同期でWeb APIからJSONを取得
                 // 取得するJSON（`data`）の形式は次の通り
