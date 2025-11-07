@@ -78,6 +78,44 @@
     outline: none;
 }
 
+/* ===== クエリコピー関係 ===== */
+/* コピーボタン */
+.copy-btn {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+.copy-btn {
+    opacity: 1.0;
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #333;
+    color: #fff;
+    padding: 16px 24px;
+    border-radius: 2px;
+    opacity: 0.9;
+    font-size: 14px;
+    z-index: 9999;
+    animation: fadeout 2s forwards;
+}
+@keyframes fadeout {
+    0% { opacity: 0; transform: translateY(10px); }
+    10%, 
+    90% { opacity: 0.9; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
 /* ===== テーブル ===== */
 /* テーブルコンテナ（スクロール用） */
 .table-container {
