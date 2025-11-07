@@ -27,6 +27,13 @@
             data-sql-query-height="{{ sql_query_height | default('', true) }}"
             {% if sql_query_height %}style="height: {{ sql_query_height }}px;"{% endif %}
         >
+            <!-- コピーアイコン -->
+            <button
+                type="button" 
+                id="copy-query-btn"
+                title="クエリをコピー"
+                class="copy-btn"
+            >📋</button>
             <textarea
                 name="sql_query" 
                 id="sql_query" 
