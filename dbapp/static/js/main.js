@@ -36,23 +36,27 @@
                             return
                         }
                         // 正しいデータが返ってきた
-                        // ヘッダを描画
-                        const thead = data.columns.map(col => `<th>${col}</th>`).join("");
-                        $("#table-structure thead").html(`<tr>${thead}</tr>`)
-
-                        // ボディ描画
-                        const rows = data.rows.map(row => 
-                            `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`
-                        ).join("");
-                        $("#table-structure tbody").html(rows);
                         $("#table-structure-title").text(`${tableName} テーブルの構造`);
+                        // theadとtbodyに闘魂注入
+                        renderTableStructureTable(data);
                     })
                     // 取得失敗
                     .fail(function() {
                         $("#table-structure-title").text("通信エラー");
                         $("#table-structure thead, #table-structure tbody").empty();
-                    });
+                    }
+                );
             });
+
+            // テーブル構造表示テーブル描画用関数
+            function renderTableStructureTable(data) {
+                const thead = data.columns.map(col => `<th>${col}</th>`).join("");
+                $("#table-structure thead").html(`<tr>${thead}</tr>`);
+
+                const rows = data.rows.map(row => 
+                    `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("");
+                $("#table-structure tbody").html(rows);
+            }
 
         /* --------------------------------------------------------------------
             CodeMirror関係
