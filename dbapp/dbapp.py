@@ -87,8 +87,8 @@ def index():
             # クエリ実行 -> レコードセット取得
             try:
                 safe_query = db.sanitize_and_validate_sql(sql_query)
-                # columns, rows = db.fetch_all(safe_query)
-                columns, rows = db_excel.fetch_all_excel(safe_query)
+                columns, rows = db.fetch_all(safe_query)
+                # columns, rows = db_excel.fetch_all_excel(safe_query)
                 # クエリ実行成功のフラッシュメッセージ
                 flash("クエリは正常に実行されました。", "success")
             # `ValueError`例外をキャッチ
@@ -139,8 +139,8 @@ def api_table_structure(table_name):
         return {"error": "Invalid table name"}, 400
     # `fields`: カラム名のリスト
     # `values`: `Row`オブジェクトのリスト
-    # fields, values = db.describe_table(table_name)
-    fields, values = db_excel.describe_table(table_name)
+    fields, values = db.describe_table(table_name)
+    # fields, values = db_excel.describe_table(table_name)
     # Rowオブジェクトをリストに変換してリストのリストにする
     rows_list = [list(row) for row in values]
     # クライアントにJSONを返す
@@ -148,6 +148,46 @@ def api_table_structure(table_name):
         "columns": fields, 
         "rows": rows_list, 
     }
+
+# クエリを実行するだけのページ
+@app.route('/playground', methods=['GET', 'POST'])
+def playground():
+    sql_query = ''
+    columns = []
+    rows = []
+    scroll_to_editor = False
+
+    if request.method == 'POST':
+        sql_query = request.form.get('sql_query', '')
+        # DBにクエリを投げてレコードセットを取得する処理
+        # 後で書く
+        # 実験用ダミーレコードセット
+        columns = ['id', 'name', 'score']
+        rows = [
+            [1, 'James', 90], 
+            [2, 'Lars', 75], 
+        ]
+        scroll_to_editor = True
+    else:
+        # セッションに保存した直近のクエリをテンプレートに渡す
+        sql_query = session.pop("last_posted_query", "")
+        # デフォルトの擬似テーブルを表示
+        columns, rows = [DEFAULT_COLUMNS, DEFAULT_ROWS]
+
+    # エディタの高さ情報をセッションから取り出し
+    sql_query_height = session.get("sql_query_height", DEFAULT_EDITOR_HEIGHT)
+    # エディタへのスクロールフラグをセッションから取り出し
+    scroll_to_editor = session.pop("scroll_to_editor", False)
+    
+    return render_template(
+        'pages/playground.html', 
+        columns=columns, 
+        rows=rows, 
+        table_names=db.TABLE_NAMES,
+        sql_query=sql_query, 
+        sql_query_height=sql_query_height, 
+        scroll_to_editor=scroll_to_editor
+    )
 
 # 各テーブルの構造表示用ページ
 @app.route("/table/<table_name>")
@@ -159,8 +199,8 @@ def show_table_structure(table_name):
         abort(404)
     
     # DESC文実行
-    # fields, values = db.describe_table(table_name)
-    fields, values = db_excel.describe_table(table_name)
+    fields, values = db.describe_table(table_name)
+    # fields, values = db_excel.describe_table(table_name)
 
     # テンプレートにデータを投げる
     return render_template(

@@ -1,0 +1,61 @@
+<section 
+    class="section section--query" 
+    id="query_editor"
+    {% if scroll_to_editor %}data-scroll="true"{% endif %}
+>
+    <h2 class="heading heading--lg">クエリを入力</h2>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class="messages">
+                {% for category, msg in messages %}
+                    <li class="{{ category }}">{{ msg }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form class="form form--query" method="post" action="{{ url_for('index') }}">
+        <!-- CodeMirrorラッパーの高さを保持 -->
+        <input 
+            type="hidden" 
+            name="sql_query_height"
+            id="sql_query_height" 
+        /> 
+        <!-- CodeMirrorをdivでラップ -->
+        <div 
+            id="sql_query_wrapper" 
+            class="cm-wrapper"
+            data-sql-query-height="{{ sql_query_height | default('', true) }}"
+            {% if sql_query_height %}style="height: {{ sql_query_height }}px;"{% endif %}
+        >
+            <textarea
+                name="sql_query" 
+                id="sql_query" 
+                class="textarea textarea--sql" 
+                placeholder="SELECT文を入力"
+            >{{ sql_query | default('', true) }}</textarea>
+        </div>
+        <div class="form-actions form-actions-row">
+            <button 
+                type="submit" 
+                name="execute"
+                class="btn btn--execute"
+                title="入力したクエリを実行します。"
+            >クエリ実行</button>
+            <a 
+                href="{{ url_for('index') }}" 
+                class="btn btn--clear" 
+                title="入力内容をクリアします。"
+            >クリア</a>
+        </div>
+        <div class="form-actions-row">
+            <label for="filename">保存ファイル名（拡張子`.sql`は自動付与）</label>
+            <input type="text" name="filename" id="filename" placeholder="任意の名前を入力">
+            <button 
+                type="submit"
+                name="save"
+                class="btn btn--save"
+                title="クエリを`.sql`ファイルとして保存します。"
+            >保存</button>
+        </div>
+    </form>
+</section>

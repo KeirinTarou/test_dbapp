@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Top Page{% endblock %}
+{% block title %}Playground{% endblock %}
 {% block contents %}
 <main class="page page--sql">
     <section class="section section--intro">
@@ -35,8 +35,8 @@
         </div>
     </section>
 
-    {% include "parts/query_editor_full.html" %}
-
+    {% include "parts/query_editor_lite.html" %}
+    
     <section class="section section--result">
         <h2 class="heading heading--lg">実行結果</h2>
         <div class="table-container">
