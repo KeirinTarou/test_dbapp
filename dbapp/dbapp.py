@@ -86,7 +86,7 @@ def index():
         elif "execute" in request.form:
             # クエリ実行 -> レコードセット取得
             try:
-                safe_query = db.sanitize_and_validate_sql(sql_query)
+                safe_query = db.sanitize_and_validate_sql(sql_query, allowed_start=("SELECT", "WITH"))
                 columns, rows = db.fetch_all(safe_query)
                 # columns, rows = db_excel.fetch_all_excel(safe_query)
                 # クエリ実行成功のフラッシュメッセージ
