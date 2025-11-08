@@ -78,7 +78,58 @@
     outline: none;
 }
 
+/* ===== クエリコピー関係 ===== */
+/* コピーボタン */
+.copy-btn {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    z-index: 10;
+}
+.copy-btn {
+    opacity: 1.0;
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #333;
+    color: #fff;
+    padding: 16px 24px;
+    border-radius: 2px;
+    opacity: 0.9;
+    font-size: 14px;
+    z-index: 9999;
+    animation: fadeout 2s forwards;
+}
+@keyframes fadeout {
+    0% { opacity: 0; transform: translateY(10px); }
+    10%, 
+    90% { opacity: 0.9; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
 /* ===== テーブル ===== */
+/* テーブルコンテナ（スクロール用） */
+.table-container {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 600px;
+    max-width: 640px;
+    min-width: 400px;
+    border-radius: 12px;
+    margin-top: 1rem;
+    padding: 0 0.5em;
+    background-color: #fff;
+}
+
 .table {
     width: 100%;
     border-collapse: separate;
@@ -115,16 +166,6 @@
 /* 行のホバー効果 */
 .table--result tbody tr:hover td {
     background-color: #ffe0e6; /* ほんのりピンクのハイライト */
-}
-
-/* テーブルコンテナ（スクロール用） */
-.table-container {
-    overflow-x: auto;
-    overflow-y: auto;
-    max-height: 600px;
-    border-radius: 12px;
-    margin-top: 0.5rem;
-    background-color: #fff;
 }
 
 /* ===== テーブルボディのストライプ ===== */
@@ -186,14 +227,11 @@
 }
 
 /* ===== テーブル構造結果表示テーブル ===== */
-.table-container {
-    max-width: 640px;
-    min-width: 400px;
-    margin-top: 1em;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+#table-structure-wrapper {
     padding: 0.5em;
-    background: #fafafa;
+    margin-top: 1em;
+    background-color: #fff;
+    border-radius: 8px;
 }
 
 .table--structure th {

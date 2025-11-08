@@ -3,19 +3,61 @@
 {
 
     $(function() {
+
+        /* --------------------------------------------------------------------
+            ページ読み込み時の処理
+        -------------------------------------------------------------------- */
+            // ローカルストレージにテーブル構造のデータがあれば、
+            // テーブル構造表示領域を描画する
+            $(document).ready(function() {
+                // 最後に見たテーブルのテーブル名を取得
+                const lastViewed = localStorage.getItem("lastViewedTable");
+                // キャッシュデータがあれば、データを取得して描画
+                if (lastViewed) {
+                    const cacheKey = `table:${lastViewed}`;
+                    const cachedData = localStorage.getItem(cacheKey);
+                    if (cachedData) {
+                        const data = JSON.parse(cachedData);
+                        $("#table-structure-wrapper").show();
+                        $("#table-structure-title").text(`${lastViewed} テーブルの構造（キャッシュ）`);
+                        renderTableStructureTable(data);
+                    }
+                }
+            });
+
         /* --------------------------------------------------------------------
             テーブル詳細表示関係
         -------------------------------------------------------------------- */
             $(".pill-list").on("click", ".pill", function(){
                 // クリックしたピルケースのdata属性からテーブル名を取得
                 const tableName = $(this).data("table");
+                // キャッシュのキーを作成
+                const cacheKey = `table:${tableName}`;
+                // localStorageにキャッシュされたデータを取得
+                const cachedData = localStorage.getItem(cacheKey);
+
+                // 最後に見たテーブルのテーブル名をローカルストレージにキャッシュ
+                localStorage.setItem("lastViewedTable", tableName);
+
+                // デフォルト非表示の結果表示divを表示
+                $("#table-structure-wrapper").show();
+
+                // キャッシュがある場合は即描画
+                if (cachedData) {
+                    const data = JSON.parse(cachedData);
+                    $("#table-structure-title").text(`${tableName} テーブルの構造（キャッシュ）`);
+                    // theadとtbodyに闘魂注入
+                    renderTableStructureTable(data);
+                    // API呼び出しをスキップ
+                    return;
+                } 
+
+                // キャッシュがないときはAPIを叩く
                 // URL組み立て
                 const url = `/api/table/${tableName}`;
 
                 // ローディング表示
                 $("#table-structure-title").text(`${tableName} テーブル構造を取得中...`);
-                // 非表示の結果表示divを表示
-                $("#table-structure-container").show();
 
                 // 非同期でWeb APIからJSONを取得
                 // 取得するJSON（`data`）の形式は次の通り
@@ -36,23 +78,35 @@
                             return
                         }
                         // 正しいデータが返ってきた
-                        // ヘッダを描画
-                        const thead = data.columns.map(col => `<th>${col}</th>`).join("");
-                        $("#table-structure thead").html(`<tr>${thead}</tr>`)
+                        // ローカルストレージにデータをキャッシュ
+                        try {
+                            localStorage.setItem(cacheKey, JSON.stringify(data));
+                            console.log(`キャッシュ保存: ${cacheKey}`);
+                        } catch (e) {
+                            console.warn("localStorageへの保存に失敗しました。: ", e);
+                        }
 
-                        // ボディ描画
-                        const rows = data.rows.map(row => 
-                            `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`
-                        ).join("");
-                        $("#table-structure tbody").html(rows);
                         $("#table-structure-title").text(`${tableName} テーブルの構造`);
+                        // theadとtbodyに闘魂注入
+                        renderTableStructureTable(data);
                     })
                     // 取得失敗
                     .fail(function() {
                         $("#table-structure-title").text("通信エラー");
                         $("#table-structure thead, #table-structure tbody").empty();
-                    });
+                    }
+                );
             });
+
+            // テーブル構造表示テーブル描画用関数
+            function renderTableStructureTable(data) {
+                const thead = data.columns.map(col => `<th>${col}</th>`).join("");
+                $("#table-structure thead").html(`<tr>${thead}</tr>`);
+
+                const rows = data.rows.map(row => 
+                    `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("");
+                $("#table-structure tbody").html(rows);
+            }
 
         /* --------------------------------------------------------------------
             CodeMirror関係
@@ -114,6 +168,28 @@
                     editor.setSize(null, ui.size.height);
                 }
             });
+
+            // クエリコピー機能 & トースト通知
+            $('#copy-query-btn').on('click', async function() {
+                try {
+                    // エディタの値を取得
+                    const text = editor.getValue();
+                    // クリップボードに書き込み
+                    await navigator.clipboard.writeText(text);
+
+                    // トースト通知作成
+                    // トースト通知用divを作成・追加
+                    const toast = $('<div class="toast">Copied!!</div>');
+                    $('body').append(toast);
+                    // 2秒後に除去
+                    setTimeout(() => toast.remove(), 2000);
+                } catch (e) {
+                    console.error('コピー失敗: ', e);
+                    const toast= $('<div class="toast" style="background:#a00">Copy failed...</div>');
+                    $('body').append(toast);
+                    setTimeout(() => toast.remove(), 2000);
+                }
+            });
         
         /* --------------------------------------------------------------------
             スクロール関係
@@ -128,6 +204,7 @@
                     'swing' 
                 );
             }
+
     });
 
 }
