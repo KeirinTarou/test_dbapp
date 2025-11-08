@@ -1,4 +1,4 @@
-from db.connection import get_connection
+from dbapp.db.connection import get_connection
 import re
 
 TEST_QUERY = """

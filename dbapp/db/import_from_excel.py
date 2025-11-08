@@ -9,7 +9,7 @@ from datetime import datetime
 # `.env`読み込み
 load_dotenv()
 
-from db.connection import CONNECTION_STRING
+from dbapp.db.connection import CONNECTION_STRING
 
 EXCEL_PATH = os.path.join(os.path.dirname(__file__), "source.xlsm")
 STATUS_SHEET = "Status"
