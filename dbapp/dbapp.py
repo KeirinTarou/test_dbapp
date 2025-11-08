@@ -87,8 +87,8 @@ def index():
             # クエリ実行 -> レコードセット取得
             try:
                 safe_query = db.sanitize_and_validate_sql(sql_query)
-                # columns, rows = db.fetch_all(safe_query)
-                columns, rows = db_excel.fetch_all_excel(safe_query)
+                columns, rows = db.fetch_all(safe_query)
+                # columns, rows = db_excel.fetch_all_excel(safe_query)
                 # クエリ実行成功のフラッシュメッセージ
                 flash("クエリは正常に実行されました。", "success")
             # `ValueError`例外をキャッチ
@@ -139,8 +139,8 @@ def api_table_structure(table_name):
         return {"error": "Invalid table name"}, 400
     # `fields`: カラム名のリスト
     # `values`: `Row`オブジェクトのリスト
-    # fields, values = db.describe_table(table_name)
-    fields, values = db_excel.describe_table(table_name)
+    fields, values = db.describe_table(table_name)
+    # fields, values = db_excel.describe_table(table_name)
     # Rowオブジェクトをリストに変換してリストのリストにする
     rows_list = [list(row) for row in values]
     # クライアントにJSONを返す
@@ -199,8 +199,8 @@ def show_table_structure(table_name):
         abort(404)
     
     # DESC文実行
-    # fields, values = db.describe_table(table_name)
-    fields, values = db_excel.describe_table(table_name)
+    fields, values = db.describe_table(table_name)
+    # fields, values = db_excel.describe_table(table_name)
 
     # テンプレートにデータを投げる
     return render_template(
