@@ -9,6 +9,7 @@ import re
 from datetime import datetime
 import os
 from dbapp.services.file_service import save_query_to_file
+from dbapp.services.query_service import exec_query
 
 # `.env`読み込み
 load_dotenv()
@@ -21,12 +22,6 @@ app.secret_key = "kps"
 # クエリ保存用フォルダを用意
 STORAGE_DIR = os.path.join(os.getcwd(), "storage", "queries")
 os.makedirs(STORAGE_DIR, exist_ok=True)
-
-# クエリ実行失敗時返却用データ（笑）
-FAILED_COLUMNS = ["( ´,_ゝ`)", "ち～ん（笑）"]
-FAILED_ROWS = [
-    ["残念ｗ", "レコードセットが返らなかったよｗｗｗ"]
-]
 
 DEFAULT_COLUMNS = ["( ´_ゝ`)", "クエリ未実行"]
 DEFAULT_ROWS = [
@@ -72,25 +67,9 @@ def index():
             return redirect(url_for("index"))
         elif "execute" in request.form:
             # クエリ実行 -> レコードセット取得
-            try:
-                safe_query = dbq.sanitize_and_validate_sql(sql_query, allowed_start=("SELECT", "WITH"))
-                columns, rows = dbq.fetch_all(safe_query)
-                # columns, rows = db_excel.fetch_all_excel(safe_query)
-                # クエリ実行成功のフラッシュメッセージ
-                flash("クエリは正常に実行されました。", "success")
-            # `ValueError`例外をキャッチ
-            except ValueError as e:
-                # 例外発生時のフラッシュメッセージ
-                flash("( ´,_ゝ｀) < " + str(e), "error")
-                columns, rows = [], []
-            except Exception as e:
-                # 例外発生時のフラッシュメッセージ
-                flash("( ´,_ゝ`) < クエリ実行に失敗しました。", "error")
-                columns = FAILED_COLUMNS
-                rows = FAILED_ROWS.copy()
-                # エラー情報を追加
-                rows.append(["原因はたぶん……", str(e)[:200] + "..."])
-
+            columns, rows, message, category = exec_query(sql_query)
+            # フラッシュメッセージ
+            flash(message, category)
             # セッションにスクロールフラグを立てる
             session["scroll_to_editor"] = True
 
