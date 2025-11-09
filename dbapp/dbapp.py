@@ -16,6 +16,10 @@ from datetime import datetime
 import os
 from dbapp.services.file_service import save_query_to_file
 from dbapp.services.query_service import exec_query
+from dbapp.services.session_service import (
+    save_query_editor_height, 
+    load_query_editor_height
+)
 
 # `.env`読み込み
 load_dotenv()
@@ -40,11 +44,10 @@ def index():
         # CodeMirrorラッパーの高さを保存
         sql_query_height = request.form.get("sql_query_height")
         if sql_query_height:
-            try:
-                session["sql_query_height"] = float(sql_query_height)
-                # 値がおかしかったらデフォルト値をセット
-            except ValueError:
-                session["sql_query_height"] = DEFAULT_EDITOR_HEIGHT
+            # エディタの高さをセッションに保存
+            save_query_editor_height(
+                sql_query_height=sql_query_height
+            )
         
         # 「保存」ボタンが押された
         if "save" in request.form:
@@ -80,7 +83,7 @@ def index():
         columns, rows = [DEFAULT_COLUMNS, DEFAULT_ROWS]
 
     # エディタの高さ情報をセッションから取り出し
-    sql_query_height = session.get("sql_query_height", DEFAULT_EDITOR_HEIGHT)
+    sql_query_height = load_query_editor_height()
     # エディタへのスクロールフラグをセッションから取り出し
     scroll_to_editor = session.pop("scroll_to_editor", False)
 
