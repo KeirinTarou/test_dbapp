@@ -6,7 +6,7 @@ from dbapp.config import (
     FAILED_ROWS, 
 )
 
-def exec_query(sql_query, use_excel=False):
+def exec_query(sql_query: str, use_excel: bool=False):
     """ SQLクエリを安全に実行し、
         (columns, rows, message, category)を返す
     """
