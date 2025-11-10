@@ -4,8 +4,7 @@ from flask import (
 from dotenv import load_dotenv
 # import pyodbc
 
-from dbapp.config import (
-    DEFAULT_EDITOR_HEIGHT, 
+from dbapp.config import ( 
     DEFAULT_COLUMNS, DEFAULT_ROWS, 
 )
 
