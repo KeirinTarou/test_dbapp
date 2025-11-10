@@ -122,22 +122,20 @@ def api_table_structure(table_name):
 # クエリを実行するだけのページ
 @app.route('/playground', methods=['GET', 'POST'])
 def playground():
-    sql_query = ''
-    columns = []
-    rows = []
-    scroll_to_editor = False
+    # ローカル変数初期化
+    sql_query: str = ''
+    columns: list = []
+    rows: list = []
+    scroll_to_editor: bool = False
 
     if request.method == 'POST':
         sql_query = request.form.get('sql_query', '')
-        # DBにクエリを投げてレコードセットを取得する処理
-        # 後で書く
-        # 実験用ダミーレコードセット
-        columns = ['id', 'name', 'score']
-        rows = [
-            [1, 'James', 90], 
-            [2, 'Lars', 75], 
-        ]
-        scroll_to_editor = True
+        # クエリ実行 -> レコードセット取得
+        columns, rows, message, category = exec_query(sql_query)
+        # フラッシュメッセージ
+        flash(message, category)
+        # セッションにスクロールフラグを立てる
+        set_scroll_to_editor(True)
     else:
         # セッションに保存した直近のクエリをテンプレートに渡す
         sql_query = session.pop("last_posted_query", "")
@@ -145,9 +143,9 @@ def playground():
         columns, rows = [DEFAULT_COLUMNS, DEFAULT_ROWS]
 
     # エディタの高さ情報をセッションから取り出し
-    sql_query_height = session.get("sql_query_height", DEFAULT_EDITOR_HEIGHT)
+    sql_query_height = load_query_editor_height()
     # エディタへのスクロールフラグをセッションから取り出し
-    scroll_to_editor = session.pop("scroll_to_editor", False)
+    scroll_to_editor = pop_scroll_to_editor()
     
     return render_template(
         'pages/playground.html', 
