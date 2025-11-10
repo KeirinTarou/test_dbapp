@@ -86,11 +86,7 @@ def index():
             return redirect(url_for("index"))
         elif "execute" in request.form:
             # クエリ実行 -> レコードセット取得
-            columns, rows, message, category = exec_query(sql_query)
-            # フラッシュメッセージ
-            flash(message, category)
-            # セッションにスクロールフラグを立てる
-            set_scroll_to_editor(True)
+            columns, rows = _exec_sql_query(sql_query, use_excel=False)
 
     # GETリクエストのとき
     else:
@@ -146,11 +142,7 @@ def playground():
     if request.method == 'POST':
         sql_query = request.form.get('sql_query', '')
         # クエリ実行 -> レコードセット取得
-        columns, rows, message, category = exec_query(sql_query)
-        # フラッシュメッセージ
-        flash(message, category)
-        # セッションにスクロールフラグを立てる
-        set_scroll_to_editor(True)
+        columns, rows = _exec_sql_query(sql_query, use_excel=False)
     else:
         # セッションに保存した直近のクエリをテンプレートに渡す
         sql_query = session.pop("last_posted_query", "")
