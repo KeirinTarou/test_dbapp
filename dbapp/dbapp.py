@@ -16,6 +16,8 @@ import os
 from dbapp.services.file_service import save_query_to_file
 from dbapp.services.query_service import exec_query
 from dbapp.services.session_service import (
+    # エディタのクエリ保存
+    save_editor_query, pop_editor_query, 
     # エディタの高さ関連
     save_query_editor_height, load_query_editor_height, 
     # エディタへのスクロールフラグ
@@ -34,7 +36,7 @@ app.secret_key = "kps"
 STORAGE_DIR = os.path.join(os.getcwd(), "storage", "queries")
 os.makedirs(STORAGE_DIR, exist_ok=True)
 
-def _exec_sql_query(sql_query, use_excel=False):
+def _exec_sql_query(sql_query, page, use_excel=False):
     # クエリ実行 -> レコードセット取得
     if use_excel:
         use_excel = True
@@ -44,7 +46,7 @@ def _exec_sql_query(sql_query, use_excel=False):
     # フラッシュメッセージ
     flash(message, category)
     # セッションにスクロールフラグを立てる
-    set_scroll_to_editor(True)
+    set_scroll_to_editor(page, True)
     # レコードセットを返す
     return columns, rows
 
@@ -66,7 +68,8 @@ def index():
         if sql_query_height:
             # エディタの高さをセッションに保存
             save_query_editor_height(
-                sql_query_height=sql_query_height
+                sql_query_height=sql_query_height, 
+                page="index", 
             )
         
         # 「保存」ボタンが押された
@@ -82,26 +85,26 @@ def index():
             flash(f"{message}{filename}", category)
 
             # エディタのクエリをセッションに保存
-            session["last_posted_query"] = sql_query
+            save_editor_query(sql_query=sql_query, page="index")
             # セッションにスクロールフラグを立てる
             set_scroll_to_editor(True)
             # トップページにリダイレクト
             return redirect(url_for("index"))
         elif "execute" in request.form:
             # クエリ実行 -> レコードセット取得
-            columns, rows = _exec_sql_query(sql_query, use_excel=False)
+            columns, rows = _exec_sql_query(sql_query=sql_query, page="index", use_excel=False)
 
     # GETリクエストのとき
     else:
         # セッションに保存した直近のクエリをテンプレートに渡す
-        sql_query = session.pop("last_posted_query", "")
+        sql_query = pop_editor_query("index")
         # デフォルトの擬似テーブルを表示
         columns, rows = [DEFAULT_COLUMNS, DEFAULT_ROWS]
 
     # エディタの高さ情報をセッションから取り出し
-    sql_query_height = load_query_editor_height()
+    sql_query_height = load_query_editor_height("index")
     # エディタへのスクロールフラグをセッションから取り出し
-    scroll_to_editor = pop_scroll_to_editor()
+    scroll_to_editor = pop_scroll_to_editor("index")
 
     # レコードセットをテンプレートに渡す
     return render_template(
@@ -143,19 +146,28 @@ def playground():
     scroll_to_editor: bool = False
 
     if request.method == 'POST':
+        # エディタのクエリを取得
         sql_query = request.form.get('sql_query', '')
+        # CodeMirrorラッパーの高さを保存
+        sql_query_height = request.form.get("sql_query_height")
+        if sql_query_height:
+            # エディタの高さをセッションに保存
+            save_query_editor_height(
+                sql_query_height=sql_query_height, 
+                page="playground", 
+            )
         # クエリ実行 -> レコードセット取得
-        columns, rows = _exec_sql_query(sql_query, use_excel=False)
+        columns, rows = _exec_sql_query(sql_query=sql_query, page="playground", use_excel=False)
     else:
         # セッションに保存した直近のクエリをテンプレートに渡す
-        sql_query = session.pop("last_posted_query", "")
+        sql_query = pop_editor_query("playgcound")
         # デフォルトの擬似テーブルを表示
         columns, rows = [DEFAULT_COLUMNS, DEFAULT_ROWS]
 
     # エディタの高さ情報をセッションから取り出し
-    sql_query_height = load_query_editor_height()
+    sql_query_height = load_query_editor_height(page="playground")
     # エディタへのスクロールフラグをセッションから取り出し
-    scroll_to_editor = pop_scroll_to_editor()
+    scroll_to_editor = pop_scroll_to_editor(page="playground")
     
     return render_template(
         'pages/playground.html', 
