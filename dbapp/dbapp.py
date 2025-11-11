@@ -139,6 +139,14 @@ def api_table_structure(table_name):
         "rows": rows_list, 
     }
 
+# 練習問題の一覧を表示するページ
+@app.route('/practices', methods=['GET'])
+def practices():
+    return render_template(
+        "pages/practices/index.html", 
+        dummy_text="ち～ん（笑）"
+    )
+
 # クエリを実行するだけのページ
 @app.route('/playground', methods=['GET', 'POST'])
 def playground():
