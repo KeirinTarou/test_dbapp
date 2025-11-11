@@ -36,7 +36,7 @@ app.secret_key = "kps"
 STORAGE_DIR = os.path.join(os.getcwd(), "storage", "queries")
 os.makedirs(STORAGE_DIR, exist_ok=True)
 
-def _exec_sql_query(sql_query, page, use_excel=False):
+def _exec_sql_query(sql_query, page, use_excel=False) -> tuple[list, list]:
     # クエリ実行 -> レコードセット取得
     if use_excel:
         use_excel = True
@@ -50,7 +50,7 @@ def _exec_sql_query(sql_query, page, use_excel=False):
     # レコードセットを返す
     return columns, rows
 
-def _prepare_exec_query(form, page: str):
+def _prepare_exec_query(form, page: str) -> tuple[str, str | None]:
     sql_query = form.get("sql_query", "").strip()
      # CodeMirrorラッパーの高さを保存
     sql_query_height = request.form.get("sql_query_height")
