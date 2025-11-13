@@ -24,6 +24,10 @@ from dbapp.services.session_service import (
     set_scroll_to_editor, pop_scroll_to_editor, 
 )
 
+# 練習問題リスト作成用
+from itertools import groupby
+from operator import itemgetter
+
 # `.env`読み込み
 load_dotenv()
 
@@ -51,6 +55,7 @@ def _exec_sql_query(sql_query: str, page: str, use_excel: bool=False) -> tuple[l
     return columns, rows
 
 def _prepare_exec_query(form, page: str) -> tuple[str, str | None]:
+    # クエリ実行の前処理
     sql_query = form.get("sql_query", "").strip()
      # CodeMirrorラッパーの高さを保存
     sql_query_height = request.form.get("sql_query_height")
@@ -61,6 +66,40 @@ def _prepare_exec_query(form, page: str) -> tuple[str, str | None]:
             page=page, 
         )
     return sql_query, sql_query_height
+
+def _generate_structured_practice_list():
+    """ 練習問題リスト作成
+        章 -> 節 -> 問題の階層を作る
+    """
+    # 問題データを全取得
+    columns, rows, _, _ = exec_query(sql_query=dbq.ALL_PRACTICES, use_excel=False)
+
+    rows = [dict(zip(columns, row)) for row in rows]
+
+    # 章 -> 節 -> 問題 のネスト構造を構築
+    chapters = []
+    # 章番号グループをループ
+    for chapter_number, chapter_group in groupby(rows, key=itemgetter("ChapterNumber")):
+        chapter_rows = list(chapter_group)
+        # タイトルは、同じ章の中で共通なので、先頭レコードの値を採る
+        chapter_title = chapter_rows[0]["ChapterTitle"]
+        sections = []
+        # 章内の節グループをループ
+        for section_number, section_group in groupby(chapter_rows, key=itemgetter("SectionNumber")):
+            section_rows = list(section_group)
+            section_title = section_rows[0]["SectionTitle"]
+            sections.append({
+                "section_number": section_number, 
+                "section_title": section_title, 
+                "questions": section_rows
+            })
+        chapters.append({
+            "chapter_number": chapter_number, 
+            "chapter_title": chapter_title, 
+            "sections": sections
+        })
+
+    return chapters
 
 # トップページ
 @app.route("/", methods=["GET", "POST"])
@@ -142,14 +181,17 @@ def api_table_structure(table_name):
 # 練習問題の一覧を表示するページ
 @app.route('/practices', methods=['GET'])
 def practices():
+    # 問題データ取得
+    chapters = _generate_structured_practice_list()
+    
     return render_template(
         "pages/practices/index.html", 
-        dummy_text="ち～ん（笑）"
+        chapters=chapters
     )
 
 # 練習問題のページ
-@app.route('/practices/<int:chapter>/<int:number>')
-def practice_detail(chapter, number):
+@app.route('/practices/<int:chapter>/<int:section>/<int:number>', methods=['GET, POST'])
+def practice_detail(chapter, section, number):
     # ダミー実装
     question_number:str = ""
     if number == 0:
