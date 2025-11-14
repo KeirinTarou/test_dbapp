@@ -1,0 +1,18 @@
+{% extends 'parts/query_editor_base.html' %}
+{% block action_url %}{{ url_for('judge_result') }}{% endblock %}
+{% block query_editor_actions %}
+    <div class="form-actions form-actions-row">
+        <button 
+            type="submit" 
+            name="execute"
+            class="btn btn--execute"
+            title="クエリを実行して結果を判定します。"
+        >クエリ実行</button>
+        <button 
+            id="clear-query-btn"
+            type="button"
+            class="btn btn--clear" 
+            title="入力内容をクリアします。"
+        >クリア</button>
+    </div>
+{% endblock %}
