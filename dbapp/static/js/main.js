@@ -206,7 +206,7 @@
             $("#clear-query-btn").on("click", function() {
                 const val = editor.getValue()
                 let msg = "";
-                if (val == "") {
+                if (val === "") {
                     msg = "( ´,_ゝ`) < 何も書いてへんがなｗｗｗ"
                 } else if (confirm("( ´_ゝ`) < 入力したクエリをクリアします。")) {
                     // CodeMirrorのテキストをクリア

@@ -212,6 +212,12 @@ def practice_detail(chapter, section, number):
         table_names=dbq.TABLE_NAMES
     )
 
+@app.route('/practices/judge_result', methods=["POST"])
+def judge_result():
+    """ 答案クエリと正解クエリを受け取って、正誤を判定
+        結果表示ページにリダイレクト
+    """
+    pass
 
 # クエリを実行するだけのページ
 @app.route('/playground', methods=['GET', 'POST'])
