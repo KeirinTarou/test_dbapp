@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Playground{% endblock %}
+{% block title %}Practice{% endblock %}
 {% block contents %}
 <main class="page page--sql">
     <section class="section section--intro">
@@ -10,13 +10,23 @@
     {% include "parts/table_structure/table_structure.html" %}
 
     <section class="section">
-        <h2 class="heading heading--lg">第{{ chapter }}章</h2>
-        <h3 class="heading heading--md">{{ question_number }}</h3>
-        <p>{{ question }}</p>
+        <h2 class="heading heading--lg">第{{ row.ChapterNumber }}章 {{ row.ChapterTitle }}</h2>
+        <h3 class="heading heading--md">【その{{ row.SectionNumber }}】{{ row.SectionTitle }}</h3>
+        <div class="practice-question">
+            <p class="text text--lead">
+                {% if row.QuestionNumber == 0 %}
+                    書いてみよう
+                {% else %}
+                    第{{ row.QuestionNumber }}問
+                {% endif %}
+            </p><br>
+            <p class="text">
+                {{ row.Question | safe }}
+            </p>
+        </div>
     </section>
 
     {% include "parts/query_editor/query_editor_lite.html" %}
-    
-    {% include "parts/show_result/show_result.html" %}
+
 </main>
 {% endblock %}
