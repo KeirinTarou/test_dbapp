@@ -202,6 +202,28 @@
                 }
             });
 
+            // クリアボタン押下で
+            $("#clear-query-btn").on("click", function() {
+                const val = editor.getValue()
+                let msg = "";
+                if (val == "") {
+                    msg = "( ´,_ゝ`) < 何も書いてへんがなｗｗｗ"
+                } else if (confirm("( ´_ゝ`) < 入力したクエリをクリアします。")) {
+                    // CodeMirrorのテキストをクリア
+                    editor.setValue("");
+                    // 元のtextareaのテキストもクリア
+                    $("#sql_query").val("");
+                    msg = "( ´,_ゝ`) < クリアしましたｗ";
+                } else {
+                    msg = "( ´,_ゝ`) < クリアせんのかいｗｗｗ";
+                }
+                // トースト通知
+                    const toast = $(`<div class="toast">${msg}</div>`);
+                    $('body').append(toast);
+                    // 2秒後に除去
+                    setTimeout(() => toast.remove(), 2000);
+            });
+
             // クエリコピー機能 & トースト通知
             $('#copy-query-btn').on('click', async function() {
                 try {

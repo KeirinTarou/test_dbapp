@@ -8,10 +8,11 @@
             class="btn btn--execute"
             title="入力したクエリを実行します。"
         >クエリ実行</button>
-        <a 
-            href="{{ url_for('playground') }}" 
+        <button 
+            id="clear-query-btn"
+            type="button"
             class="btn btn--clear" 
             title="入力内容をクリアします。"
-        >クリア</a>
+        >クリア</button>
     </div>
 {% endblock %}
