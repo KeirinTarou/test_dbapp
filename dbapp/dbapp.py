@@ -73,7 +73,6 @@ def _generate_structured_practice_list():
     """
     # 問題データを全取得
     columns, rows, _, _ = exec_query(sql_query=dbq.ALL_PRACTICES, use_excel=False)
-
     rows = [dict(zip(columns, row)) for row in rows]
 
     # 章 -> 節 -> 問題 のネスト構造を構築
@@ -190,31 +189,27 @@ def practices():
     )
 
 # 練習問題のページ
-@app.route('/practices/<int:chapter>/<int:section>/<int:number>', methods=['GET, POST'])
+@app.route('/practices/<int:chapter>/<int:section>/<int:number>', methods=["GET"])
 def practice_detail(chapter, section, number):
-    # ダミー実装
-    question_number:str = ""
-    if number == 0:
-        question_number = "書いてみよう"
-    else:
-        question_number = "第" + str(number) + "問"
+    # 問題データを取得
+    params = (chapter, section, number)
+    _, rows, _, _ = exec_query(
+        sql_query=dbq.SELECT_QUESTION, 
+        params=params, 
+        use_excel=False
+    )
     
-    # 問題を取得
-    questions = ["ち～ん（笑）", "( ´,_ゝ｀)ﾌﾟｯ"]
-    question = questions[number]
-
-    # 結果セット
-    columns = DEFAULT_COLUMNS
-    rows = DEFAULT_ROWS
+    # レコードセットがない
+    if not rows:
+        abort(404, "( ´,_ゝ`)ﾌﾟｯ < 指定された問題がないｗｗｗ")
+    
+    # 1件だけが返る想定
+    row = rows[0]
 
     return render_template(
         "pages/practices/practice_detail.html", 
-        chapter=chapter, 
-        question_number=question_number, 
-        question=question, 
-        table_names=dbq.TABLE_NAMES, 
-        columns=columns, 
-        rows=rows
+        row=row, 
+        table_names=dbq.TABLE_NAMES
     )
 
 
