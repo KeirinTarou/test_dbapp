@@ -7,6 +7,12 @@ from typing import (
 )
 import pyodbc
 
+from .exceptions import (
+    DatabaseExecutionError, 
+    QuerySyntaxError, 
+    QueryRuntimeError
+)
+
 TEST_QUERY = """
 SELECT
     *
@@ -101,22 +107,32 @@ FORBIDDEN_KEYWORDS = {
     "REPLACE"
 }
 
+
 def fetch_one(query: str, params: Optional[Sequence[Any]]=None) -> Optional[Dict[str, Any]]:
     if params is None:
         params = ()
-    with get_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(query, params)
 
-            columns = [col[0] for col in cur.description]
-            row = cur.fetchone()
+    try:
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(query, params)
 
-            # 結果セットが返らなかったらNone
-            if row is None:
-                return None
+                columns = [col[0] for col in cur.description]
+                row = cur.fetchone()
+
+                # 結果セットが返らなかったらNone
+                if row is None:
+                    return None
+                # 取得した1件のレコードをdictにして返す
+                return dict(zip(columns, row))
         
-            # 取得した1件のレコードをdictにして返す
-            return dict(zip(columns, row))
+    # DB由来の例外をキャッチ
+    except pyodbc.ProgrammingError as e:
+        # SQLの構文エラーはここでキャッチ -> スロー
+        raise QuerySyntaxError(str(e)) from e
+    except pyodbc.Error as e:
+        raise QueryRuntimeError(str(e)) from e
+        
 
 def fetch_all(query: str, params: Optional[Sequence[Any]]=None) -> Tuple[List[str], List[pyodbc.Row]]:
     """ クエリを渡して全件取得する
@@ -124,15 +140,25 @@ def fetch_all(query: str, params: Optional[Sequence[Any]]=None) -> Tuple[List[st
     """
     if params is None:
         params = ()
-    with get_connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(query, params)
-            # カラム名のリストを取得
-            columns = [col[0] for col in cur.description]
-            # レコードセットを取得（`pyodbc.Row`オブジェクトのリスト）
-            rows = cur.fetchall()
-            # カラム名のリストと`Row`オブジェクトのリストを返却
-            return columns, rows
+    
+    try:
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(query, params)
+                # カラム名のリストを取得
+                columns = [col[0] for col in cur.description]
+                # レコードセットを取得（`pyodbc.Row`オブジェクトのリスト）
+                rows = cur.fetchall()
+                # カラム名のリストと`Row`オブジェクトのリストを返却
+                return columns, rows
+    
+    # DB由来の例外をキャッチ
+    except pyodbc.ProgrammingError as e:
+        # SQLの構文エラーはここでキャッチ -> スロー
+        raise QuerySyntaxError(str(e)) from e
+    except pyodbc.Error as e:
+        raise QueryRuntimeError(str(e)) from e
+
 
 def describe_table(table_name: str) -> Tuple[List[str], List[pyodbc.Row]]:
     """ `DESC`コマンドを使ってテーブル構造を取得
