@@ -217,7 +217,23 @@ def judge_result():
     """ 答案クエリと正解クエリを受け取って、正誤を判定
         結果表示ページにリダイレクト
     """
-    pass
+    # 章・節・問題番号を取得
+    chapter_number = request.form.get("chapter_number")
+    section_number = request.form.get("section_number")
+    question_number = request.form.get("question_number")
+    params = (chapter_number, section_number, question_number)
+
+    # 正解クエリとチェックモードを取得
+    answer_data = dbq.fetch_one(dbq.SELECT_ANSWER_QUERY, params=params)
+    answer_query, checkmode = (answer_data["AnswerQuery"], answer_data["CheckMode"])
+
+    # ユーザが投稿したクエリを取得
+    #   併せてエディタの高さをセッションに保存
+    user_query, editor_height = _prepare_exec_query(form=request.form, page="practice")
+
+    # クエリの実行結果を判定
+    
+
 
 # クエリを実行するだけのページ
 @app.route('/playground', methods=['GET', 'POST'])
