@@ -28,6 +28,9 @@ from dbapp.services.session_service import (
 from itertools import groupby
 from operator import itemgetter
 
+# 正解/不正解判定用
+from dbapp.services.practice_service import compare_queries
+
 # `.env`読み込み
 load_dotenv()
 
@@ -231,14 +234,16 @@ def judge_result():
     #   併せてエディタの高さをセッションに保存
     user_query, editor_height = _prepare_exec_query(form=request.form, page="practice")
 
-
     # クエリの実行結果を判定
-    
-    result = True
-    user_columns = []
-    user_rows = []
-    answer_columns = []
-    answer_rows = []
+    (
+        result, message, detail, 
+        user_columns, user_rows, 
+        answer_columns, answer_rows) = compare_queries(
+            user_query=user_query, 
+            answer_query=answer_query, 
+            check_mode="strict", 
+            rule=None
+        )
 
     return render_template(
         "pages/practices/judge_result.html", 
