@@ -1,0 +1,42 @@
+<section class="section section--judge-detail">
+    <h2 class="heading heading--lg">詳細</h2>
+    {# 列数の不一致 #}
+    {% if result_enum == CompareResult.COLUMN_COUNT_MISMATCH %}
+        <div class="detail-box">
+            <p>( ´_ゝ`)</p>
+            <p><strong>あなたのクエリの結果: </strong>{{ detail.user_columns|length }}</p>
+            <p><strong>正解クエリの結果: </strong>{{ detail.answer_columns|length }}</p>
+        </div>
+    {% endif %}
+    {# 列名の不一致 #}
+    {% if result_enum == CompareResult.COLUMN_NAME_MISMATCH %}
+        <div class="detail-box">
+            <p>( ´_ゝ`)</p>
+            <p><strong>あなたのクエリの結果: </strong>{{ detail.user_columns }}</p>
+            <p><strong>正解クエリの結果: </strong>{{ detail.answer_columns }}</p>
+        </div>
+    {% endif %}
+    {# 行数の不一致 #}
+    {% if result_enum == CompareResult.ROW_COUNT_MISMATCH %}
+        <div class="detail-box">
+            <p>( ´_ゝ`)</p>
+            <p><strong>あなたのクエリの結果: </strong>{{ detail.user_rows }}</p>
+            <p><strong>正解クエリの結果: </strong>{{ detail.answer_rows }}</p>
+        </div>
+    {% endif %}
+    {# 行の順序不一致 #}{# レコードセットの内容不一致 #}
+    {% if result_enum == CompareResult.ROW_ORDER_MISMATCH or 
+        result_enum == CompareResult.ROW_CONTENT_MISMATCH %}
+        <div class="table-result-scroll">
+            <p>( ´_ゝ`)</p>
+            <h3 class="heading heading--md">あなたのクエリの結果</h3>
+            {% set columns = user_columns %}
+            {% set rows = detail.user_rows %}
+            {% include "parts/judge/result_table.html" %}
+            <h3 class="heading heading--md">正解クエリの結果</h3>
+            {% set columns = answer_columns %}
+            {% set rows = detail.answer_rows %}
+            {% include "parts/judge/result_table.html" %}
+        </div>
+    {% endif %}
+</section>

@@ -4,5 +4,8 @@
     <main class="page page--sql">
         {% include "parts/intro/judge_result_intro.html" %}
         {% include "parts/judge/message.html" %}
+        {% if not result %}
+            {% include "parts/judge/detail.html" %}
+        {% endif %}
     </main>
 {% endblock %}
