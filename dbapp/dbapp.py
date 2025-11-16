@@ -224,10 +224,10 @@ def judge_result():
     chapter_number = request.form.get("chapter_number")
     section_number = request.form.get("section_number")
     question_number = request.form.get("question_number")
-    params = (chapter_number, section_number, question_number)
+    question_info = (chapter_number, section_number, question_number)
 
     # 正解クエリとチェックモードを取得
-    answer_data = dbq.fetch_one(dbq.SELECT_ANSWER_QUERY, params=params)
+    answer_data = dbq.fetch_one(dbq.SELECT_ANSWER_QUERY, params=question_info)
     answer_query, checkmode = (answer_data["AnswerQuery"], answer_data["CheckMode"])
 
     # ユーザが投稿したクエリを取得
@@ -248,6 +248,9 @@ def judge_result():
     return render_template(
         "pages/practices/judge_result.html", 
         result=result, 
+        message=message, 
+        detail=detail, 
+        question_info=question_info,
         user_columns=user_columns, 
         user_rows=user_rows, 
         answer_columns=answer_columns, 
