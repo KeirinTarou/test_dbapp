@@ -7,7 +7,7 @@ class CompareResult(Enum):
     ROW_COUNT_MISMATCH = auto()
     ROW_ORDER_MISMATCH = auto()
     ROW_CONTENT_MISMATCH = auto()
-    OTHER_DEFFERENCE = auto()
+    OTHER_DIFFERENCE = auto()
 
     USER_HAS_EXTRA_ROWS = auto()
     USER_MISSING_ROWS = auto()
@@ -20,6 +20,6 @@ COMPARE_RESULT_MESSAGES = {
     CompareResult.ROW_ORDER_MISMATCH: "行の順序が異なっています。",
     CompareResult.ROW_CONTENT_MISMATCH: "結果セットの内容が一致しません。",
     CompareResult.OTHER_DIFFERENCE: "結果が一致しません。",
-    CompareResult.USER_HAS_EXTRA_ROWS: "ユーザクエリに余分な行があります。",
-    CompareResult.USER_MISSING_ROWS: "正解に存在する行がユーザクエリの結果にありません。",
+    CompareResult.USER_HAS_EXTRA_ROWS: "ユーザークエリに余分な行があります。",
+    CompareResult.USER_MISSING_ROWS: "正解に存在する行がユーザークエリの結果にありません。",
 }
