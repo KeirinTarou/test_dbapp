@@ -146,8 +146,9 @@
         -------------------------------------------------------------------- */
             // textareaをCodeMirrorに置き換え
             const textarea = document.getElementById('sql_query');
+            let editor
             if (textarea) {
-                const editor = 
+                editor = 
                     CodeMirror.fromTextArea(
                         // 置き換えるHTML要素
                         textarea, 
