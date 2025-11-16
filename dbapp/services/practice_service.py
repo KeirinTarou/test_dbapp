@@ -1,5 +1,5 @@
 from dbapp.db import queries as dbq
-from typing import Tuple, List, Any, Sequence, Literal, Optional
+from typing import Tuple, List, Dict, Any, Sequence, Literal, Optional
 
 from dbapp.config import (
     FAILED_COLUMNS, 
@@ -53,8 +53,12 @@ def compare_queries(
     except RuntimeError as e:
         return False, str(e), {}, user_columns, user_rows, answer_columns, answer_rows
     
+    # ユーザクエリの結果セットと正解クエリの結果セットをタプルにする
+    user_result = (user_columns, user_rows)
+    answer_result = (answer_columns, answer_rows)
+
     if check_mode == "strict":
-        result, message, detail = True, "ち～ん（笑）", {}
+        result, message, detail = _compare_result_strict(user_result=user_result, answer_result=answer_result)
     elif check_mode == "loose":
         pass
     else:
@@ -70,3 +74,11 @@ def _safe_fetch_all(query: str, role: str, params: Optional[Sequence[Any]]=None)
         raise RuntimeError(f"{role}（SQL実行時エラー）: {e}") from e
     except DatabaseExecutionError as e:
         raise RuntimeError(f"{role}（DBエラー）: {e}") from e
+
+
+
+def _compare_result_strict(
+        user_result: Tuple[List[str], List[pyodbc.Row]], 
+        answer_result: Tuple[List[str], List[pyodbc.Row]]
+        ) -> Tuple[bool, str, Dict[str, Any]]:
+    pass
