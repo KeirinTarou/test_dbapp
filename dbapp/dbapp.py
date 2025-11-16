@@ -221,6 +221,10 @@ def practice_detail(chapter, section, number):
         sql_query_height=sql_query_height
     )
 
+from .services.query_compare.messages import (
+    CompareResult, 
+    COMPARE_RESULT_MESSAGES
+)
 @app.route('/practices/judge_result', methods=["POST"])
 def judge_result():
     """ 答案クエリと正解クエリを受け取って、正誤を判定
@@ -244,7 +248,7 @@ def judge_result():
 
     # クエリの実行結果を判定
     (
-        result, message, detail, 
+        result, result_enum, message, detail, 
         user_columns, user_rows, 
         answer_columns, answer_rows) = compare_queries(
             user_query=user_query, 
@@ -256,13 +260,16 @@ def judge_result():
     return render_template(
         "pages/practices/judge_result.html", 
         result=result, 
+        result_enum=result_enum, 
         message=message, 
         detail=detail, 
         question_info=question_info,
         user_columns=user_columns, 
         user_rows=user_rows, 
         answer_columns=answer_columns, 
-        answer_rows=answer_rows
+        answer_rows=answer_rows, 
+        CompareResult=CompareResult, 
+        COMPARE_RESULT_MESSAGES=COMPARE_RESULT_MESSAGES
     )
 
 # クエリを実行するだけのページ
