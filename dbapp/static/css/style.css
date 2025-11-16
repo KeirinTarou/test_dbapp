@@ -32,6 +32,29 @@
     background-color: #f0f7ff;
 }
 
+/* 結果判定メッセージ用セクション */
+.section--judge-message {
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    background-color: #fffdf6;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    text-align: left;
+}
+
+.section--judge-message .text--success, 
+.section--judge-message .text--danger {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
 /* ===== タイトル・テキスト ===== */
 .heading {
     margin: 0 0 0.5rem 0;
@@ -44,6 +67,17 @@
 
 .text { margin: 0; }
 .text--lead { font-size: 1.1rem; font-weight: bold; color: #555; }
+
+/* 判定メッセージ */
+.text--success {
+    color: #046b2e; /* messages li.success と同じ緑 */
+    font-weight: bold;
+}
+
+.text--danger {
+    color: #8b0f12; /* messages li.error と同じ赤 */
+    font-weight: bold;
+}
 
 /* ===== フォーム ===== */
 .form textarea {
