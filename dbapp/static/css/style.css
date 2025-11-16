@@ -55,6 +55,33 @@
     margin-top: 1rem;
 }
 
+/* 判定結果詳細表示領域セクション */
+.section--judge-detail {
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    background-color: #f7faff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05)
+}
+
+.detail-box {
+    background: #fff;
+    padding: .5rem .8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: .5rem;
+}
+
+.table-result-scroll {
+    max-height: 260px;
+    overflow-y: auto;
+    margin-top: 1rem;
+}
+
+/* .table--result {
+
+} */
+
 /* ===== タイトル・テキスト ===== */
 .heading {
     margin: 0 0 0.5rem 0;
