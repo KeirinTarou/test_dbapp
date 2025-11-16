@@ -145,35 +145,38 @@
             CodeMirror関係
         -------------------------------------------------------------------- */
             // textareaをCodeMirrorに置き換え
-            const editor = 
-                CodeMirror.fromTextArea(
-                    // 置き換えるHTML要素
-                    document.getElementById('sql_query'), 
-                    // CodeMirrorの設定
-                    {
-                        mode: 'text/x-sql', 
-                        theme: 'eclipse', 
-                        lineNumbers: true, 
-                        indentWithTabs: true, 
-                        smartIndent: true, 
-                        autofocus: true, 
-                        tabSize: 4, 
-                        indentUnit: 4, 
-                        placeholder: "( ´_ゝ`) < SELECT文を入力してください。", 
-                        extraKeys: {
-                            "Tab": function(cm) {
-                                if (cm.somethingSelected()) {
-                                    cm.indentSelection("add");
-                                } else {
-                                    cm.replaceSelection("\t");
+            const textarea = document.getElementById('sql_query');
+            if (textarea) {
+                const editor = 
+                    CodeMirror.fromTextArea(
+                        // 置き換えるHTML要素
+                        textarea, 
+                        // CodeMirrorの設定
+                        {
+                            mode: 'text/x-sql', 
+                            theme: 'eclipse', 
+                            lineNumbers: true, 
+                            indentWithTabs: true, 
+                            smartIndent: true, 
+                            autofocus: true, 
+                            tabSize: 4, 
+                            indentUnit: 4, 
+                            placeholder: "( ´_ゝ`) < SELECT文を入力してください。", 
+                            extraKeys: {
+                                "Tab": function(cm) {
+                                    if (cm.somethingSelected()) {
+                                        cm.indentSelection("add");
+                                    } else {
+                                        cm.replaceSelection("\t");
+                                    }
+                                }, 
+                                "Shift-Tab": function(cm) {
+                                    cm.indentSelection("subtract");
                                 }
-                            }, 
-                            "Shift-Tab": function(cm) {
-                                cm.indentSelection("subtract");
                             }
                         }
-                    }
-                );
+                    );
+            }
 
             // CodeMirrorラッパーのdata属性から受け取った値をCodeMirrorオブジェクトにセット
             const height = $('#sql_query_wrapper').data('sql-query-height')
