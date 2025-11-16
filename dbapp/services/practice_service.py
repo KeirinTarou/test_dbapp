@@ -13,13 +13,14 @@ from dbapp.db.exceptions import (
 )
 
 import pyodbc
+from .query_compare.messages import CompareResult
 
 def compare_queries(
     user_query: str, 
     answer_query: str, 
     check_mode: Literal["strict", "loose", "custom"] = "strict", 
     rule: Optional[dict] = None
-) -> Tuple[bool, str, dict[str, Any]]:
+) -> Tuple[bool, CompareResult, str, dict[str, Any], List[str], List[pyodbc.Row], List[str], List[pyodbc.Row]]:
     """ 2つのクエリを受け取って結果を比較する
         Returns:
         result(bool): 正解 / 不正解
@@ -27,6 +28,7 @@ def compare_queries(
         detail(dict): 比較の詳細情報
     """
     result = False
+    result_enum = None
     message = ""
     detail = {}
     user_columns = []
@@ -42,7 +44,7 @@ def compare_queries(
         cleansed_query = dbq.sanitize_and_validate_sql(sql_query=user_query, allowed_start=("SELECT", "WITH"))
     except ValueError as e:
         result, message, detail = False, f"{query_role_user}: {e}", {}
-        return result, message, detail, user_columns, user_rows, answer_columns, answer_rows
+        return result, result_enum, message, detail, user_columns, user_rows, answer_columns, answer_rows
 
     # ユーザークエリと正解クエリを実行して結果を取得
     # ユーザークエリ・正解クエリの実行結果を取得
@@ -51,14 +53,14 @@ def compare_queries(
         user_columns, user_rows = _safe_fetch_all(query=cleansed_query, role=query_role_user, params=None)
         answer_columns, answer_rows = _safe_fetch_all(query=answer_query, role=query_role_answer, params=None)
     except RuntimeError as e:
-        return False, str(e), {}, user_columns, user_rows, answer_columns, answer_rows
+        return False, result_enum, str(e), {}, user_columns, user_rows, answer_columns, answer_rows
     
     # ユーザクエリの結果セットと正解クエリの結果セットをタプルにする
     user_result = (user_columns, user_rows)
     answer_result = (answer_columns, answer_rows)
 
     if check_mode == "strict":
-        result, message, detail = _compare_result_strict(
+        result, result_enum, message, detail = _compare_result_strict(
             user_result=user_result, 
             answer_result=answer_result
         )
@@ -66,7 +68,7 @@ def compare_queries(
         pass
     else:
         pass
-    return result, message, detail, user_columns, user_rows, answer_columns, answer_rows
+    return result, result_enum, message, detail, user_columns, user_rows, answer_columns, answer_rows
 
 def _safe_fetch_all(query: str, role: str, params: Optional[Sequence[Any]]=None)  -> Tuple[List[str], List[pyodbc.Row]]:
     try:
@@ -92,4 +94,4 @@ def _compare_result_strict(
     message = COMPARE_RESULT_MESSAGES[result_enum]
 
     result = (result_enum == CompareResult.OK)
-    return result, message, detail
+    return result, result_enum, message, detail
