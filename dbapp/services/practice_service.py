@@ -58,7 +58,10 @@ def compare_queries(
     answer_result = (answer_columns, answer_rows)
 
     if check_mode == "strict":
-        result, message, detail = _compare_result_strict(user_result=user_result, answer_result=answer_result)
+        result, message, detail = _compare_result_strict(
+            user_result=user_result, 
+            answer_result=answer_result
+        )
     elif check_mode == "loose":
         pass
     else:
@@ -74,11 +77,19 @@ def _safe_fetch_all(query: str, role: str, params: Optional[Sequence[Any]]=None)
         raise RuntimeError(f"{role}（SQL実行時エラー）: {e}") from e
     except DatabaseExecutionError as e:
         raise RuntimeError(f"{role}（DBエラー）: {e}") from e
-
-
+    
+from .query_compare.messages import (
+    CompareResult, 
+    COMPARE_RESULT_MESSAGES
+)
+from .query_compare.strict import compare_strict
 
 def _compare_result_strict(
         user_result: Tuple[List[str], List[pyodbc.Row]], 
         answer_result: Tuple[List[str], List[pyodbc.Row]]
         ) -> Tuple[bool, str, Dict[str, Any]]:
-    pass
+    result_enum, detail = compare_strict(user_result=user_result, answer_result=answer_result)
+    message = COMPARE_RESULT_MESSAGES[result_enum]
+
+    result = (result_enum == CompareResult.OK)
+    return result, message, detail
