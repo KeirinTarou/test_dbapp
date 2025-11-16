@@ -209,10 +209,16 @@ def practice_detail(chapter, section, number):
     # 1件だけが返る想定
     row = rows[0]
 
+    # セッションにエディタの高さとクエリがあれば復元
+    preserved_query = pop_editor_query("practice")
+    sql_query_height = load_query_editor_height("practice")
+
     return render_template(
         "pages/practices/practice_detail.html", 
         row=row, 
-        table_names=dbq.TABLE_NAMES
+        table_names=dbq.TABLE_NAMES, 
+        sql_query=preserved_query, 
+        sql_query_height=sql_query_height
     )
 
 @app.route('/practices/judge_result', methods=["POST"])
@@ -233,6 +239,8 @@ def judge_result():
     # ユーザが投稿したクエリを取得
     #   併せてエディタの高さをセッションに保存
     user_query, editor_height = _prepare_exec_query(form=request.form, page="practice")
+    # エディタのクエリをセッションに保存
+    save_editor_query(sql_query=user_query, page="practice")
 
     # クエリの実行結果を判定
     (
@@ -241,7 +249,7 @@ def judge_result():
         answer_columns, answer_rows) = compare_queries(
             user_query=user_query, 
             answer_query=answer_query, 
-            check_mode="strict", 
+            check_mode=checkmode, 
             rule=None
         )
 
