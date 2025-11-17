@@ -16,10 +16,10 @@ import os
 from dbapp.services.file_service import save_query_to_file
 from dbapp.services.query_service import exec_query
 from dbapp.services.session_service import (
-    # エディタのクエリ保存
-    save_editor_query, pop_editor_query, 
+    # エディタのクエリ保存関係
+    save_editor_query, pop_editor_query, clear_editor_query, 
     # エディタの高さ関連
-    save_query_editor_height, load_query_editor_height, 
+    save_query_editor_height, load_query_editor_height, clear_query_editor_height, 
     # エディタへのスクロールフラグ
     set_scroll_to_editor, pop_scroll_to_editor, 
 )
@@ -185,7 +185,11 @@ def api_table_structure(table_name):
 def practices():
     # 問題データ取得
     chapters = _generate_structured_practice_list()
-    
+
+    # セッションに記録したエディタの高さ・入力クエリをクリアする
+    clear_editor_query(page="practice")
+    clear_query_editor_height(page="practice")
+
     return render_template(
         "pages/practices/index.html", 
         chapters=chapters
@@ -210,8 +214,8 @@ def practice_detail(chapter, section, number):
     row = rows[0]
 
     # セッションにエディタの高さとクエリがあれば復元
-    preserved_query = pop_editor_query("practice")
-    sql_query_height = load_query_editor_height("practice")
+    preserved_query = pop_editor_query(page="practice")
+    sql_query_height = load_query_editor_height(page="practice")
 
     return render_template(
         "pages/practices/practice_detail.html", 
