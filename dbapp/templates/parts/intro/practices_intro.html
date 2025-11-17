@@ -1,2 +1,8 @@
 {% extends 'parts/intro_base.html' %}
 {% block explain %}SQLの練習問題一覧です。{% endblock %}
+{% block action_parts %}
+    <a 
+        href="{{ url_for('index') }}"
+        class="btn btn--back"
+    >🔙トップページに戻る</a>
+{% endblock %}

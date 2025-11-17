@@ -1,2 +1,8 @@
 {% extends 'parts/intro_base.html' %}
 {% block explain %}入力したクエリを実行し、結果セットを表示します。{% endblock %}
+{% block action_parts %}
+    <a 
+        href="{{ url_for('practices') }}"
+        class="btn btn--proceed"
+    >🥋SQL道場へ👉</a>
+{% endblock %}

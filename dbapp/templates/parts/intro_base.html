@@ -1,4 +1,9 @@
 <section class="section section--intro">
     <h1 class="heading heading--xl">お笑いSQL道場</h1>
-    <p class="text text--lead">{% block explain %}{% endblock %}</p>
+    <div class="intro-row">
+        <p class="text text--lead">{% block explain %}{% endblock %}</p>
+        <div class="intro-actions">
+            {% block action_parts %}{% endblock %}
+        </div>
+    </div>
 </section>
