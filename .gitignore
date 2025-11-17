@@ -1,5 +1,6 @@
 .env
 test_dbapp_env/*
+import_data.py
 memo.md
 chatgpt.md
 __pycache__/
