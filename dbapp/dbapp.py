@@ -43,13 +43,12 @@ app.secret_key = "kps"
 STORAGE_DIR = os.path.join(os.getcwd(), "storage", "queries")
 os.makedirs(STORAGE_DIR, exist_ok=True)
 
+# DB接続に踏み台Excelを使うかどうか（`.env`から取得）
+using_excel =(os.getenv("USE_EXCEL").upper() == "TRUE")
+
 def _exec_sql_query(sql_query: str, page: str, use_excel: bool=False) -> tuple[list, list]:
     # クエリ実行 -> レコードセット取得
-    if use_excel:
-        use_excel = True
-    else:
-        use_excel = False
-    columns, rows, message, category = exec_query(sql_query, use_excel)
+    columns, rows, message, category = exec_query(sql_query=sql_query, use_excel=use_excel)
     # フラッシュメッセージ
     flash(message, category)
     # セッションにスクロールフラグを立てる
@@ -75,7 +74,7 @@ def _generate_structured_practice_list():
         章 -> 節 -> 問題の階層を作る
     """
     # 問題データを全取得
-    columns, rows, _, _ = exec_query(sql_query=dbq.ALL_PRACTICES, use_excel=False)
+    columns, rows, _, _ = exec_query(sql_query=dbq.ALL_PRACTICES, use_excel=using_excel)
     rows = [dict(zip(columns, row)) for row in rows]
 
     # 章 -> 節 -> 問題 のネスト構造を構築
@@ -136,7 +135,7 @@ def index():
             return redirect(url_for("index"))
         elif "execute" in request.form:
             # クエリ実行 -> レコードセット取得
-            columns, rows = _exec_sql_query(sql_query=sql_query, page="index", use_excel=False)
+            columns, rows = _exec_sql_query(sql_query=sql_query, page="index", use_excel=using_excel)
 
     # GETリクエストのとき
     else:
@@ -203,7 +202,7 @@ def practice_detail(chapter, section, number):
     _, rows, _, _ = exec_query(
         sql_query=dbq.SELECT_QUESTION, 
         params=params, 
-        use_excel=False
+        use_excel=using_excel
     )
     
     # レコードセットがない
@@ -289,7 +288,7 @@ def playground():
         # クエリ実行準備
         sql_query, sql_query_height = _prepare_exec_query(form=request.form, page="playground")
         # クエリ実行 -> レコードセット取得
-        columns, rows = _exec_sql_query(sql_query=sql_query, page="playground", use_excel=False)
+        columns, rows = _exec_sql_query(sql_query=sql_query, page="playground", use_excel=using_excel)
     else:
         # セッションに保存した直近のクエリをテンプレートに渡す
         sql_query = pop_editor_query("playgcound")
