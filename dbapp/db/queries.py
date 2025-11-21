@@ -29,61 +29,6 @@ TEST_QUERY_2 = """
 DESC Employees;
 """
 
-SELECT_ANSWER_QUERY = """
-    SELECT
-        q.AnswerQuery
-        , q.CheckMode
-    FROM
-        Questions AS q
-        JOIN
-            Chapters AS c
-            ON c.ChapterID = q.ChapterID
-        JOIN
-            Sections AS s
-            ON s.SectionID = q.SectionID
-    WHERE
-        c.ChapterNumber = ?
-        AND s.SectionNumber = ?
-        AND q.QuestionNumber = ?
-    ;
-"""
-
-INSERT_QUESTION_QUERY = """
-    INSERT INTO Questions (
-        ChapterID
-        , SectionID
-        , QuestionNumber
-        , Question
-        , AnswerQuery
-        , CheckMode
-    ) VALUES (
-        ?
-        , ?
-        , ?
-        , ?
-        , ?
-        , ?
-    )
-"""
-
-EXISTS_QUESTION_QUERY = """
-    SELECT
-        1
-    FROM
-        Questions AS q
-        JOIN
-            Chapters AS c
-            ON c.ChapterID = q.ChapterID
-        JOIN
-            Sections AS s
-            ON s.SectionID = q.SectionID
-    WHERE
-        c.ChapterNumber = ?
-        AND s.SectionNumber = ?
-        AND q.QuestionNumber = ?
-    ;
-"""
-
 TABLE_NAMES = [
     "BelongTo", "Categories", "CustomerClasses", "Customers", 
     "Departments", "Employees", "Prefecturals", "Products", 
@@ -98,54 +43,6 @@ FORBIDDEN_KEYWORDS = {
     "CREATE", "TRUNCATE", "GRANT", "REVOKE", "MERGE", 
     "REPLACE"
 }
-
-def insert_question(
-        chapter_number: int, 
-        section_number: int, 
-        question_number: int, 
-        question_text: str, 
-        answer_query: str, 
-        check_mode: str = "strict"
-) -> bool:
-    sql_query = INSERT_QUESTION_QUERY
-    params = (
-        chapter_number, 
-        section_number, 
-        question_number, 
-        question_text, 
-        answer_query, 
-        check_mode
-    )
-    try:
-        with get_connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute(sql_query, params)
-            # 変更をコミット
-            conn.commit()
-            return True
-    # DB由来の例外をキャッチ
-    except pyodbc.ProgrammingError as e:
-        # SQLの構文エラーはここでキャッチ -> スロー
-        raise QuerySyntaxError("db/queries/insert_query(): " + str(e)) from e
-        return False
-    except pyodbc.Error as e:
-        raise QueryRuntimeError("db/queries/insert_query(): " + str(e)) from e
-        return False
-
-def exists_question(
-    chapter_number: int, 
-    section_number: int, 
-    question_number: int
-) -> bool:
-    sql_query = EXISTS_QUESTION_QUERY
-    params = (chapter_number, section_number, question_number)
-    try:
-        with get_connection() as conn:
-            with conn.cursor() as cur:
-                cur.execute(sql_query, params)
-                return cur.fetchone() is not None
-    except Exception:
-        return False
 
 def fetch_one(query: str, params: Optional[Sequence[Any]]=None) -> Optional[Dict[str, Any]]:
     if params is None:
