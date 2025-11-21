@@ -1,0 +1,36 @@
+- chapter_number: 2
+  section_number: 7
+  question_number: 2
+  question: |
+    テーブルEmployeesのWeight合計を求め、「社員体重合計」と別名をつけなさい。
+  answer_query: |
+    SELECT
+        SUM(e.Weight) AS 社員体重合計 
+    FROM
+        Employees AS e
+    ;
+  check_mode: strict
+- chapter_number: 2
+  section_number: 7
+  question_number: 3
+  question: |
+    テーブルProductsのPriceの最大値を求め、「最高額価格」と別名をつけなさい。
+  answer_query: |
+    SELECT
+        MAX(p.Price) AS 最高額価格
+    FROM
+        Products AS p
+    ;
+  check_mode: strict
+- chapter_number: 2
+  section_number: 7
+  question_number: 4
+  question: |
+    テーブルEmployeesのWeightの最小値を求め、「最軽量体重」と別名をつけなさい。
+  answer_query: |
+    SELECT
+        MIN(e.Weight) AS 最軽量体重
+    FROM
+        Employees AS e
+    ;
+  check_mode: strict
