@@ -14,7 +14,7 @@
         <h2 class="heading heading--lg text--danger">💥 不合格</h2>
         <p class="text">{{ message }}</p>
         <div class="actions">
-            <a href="{{ url_for('practice_detail', chapter=question_info[0], section=question_info[1], number=question_info[2]) }}" class="btn btn--clear"
+            <a href="{{ url_for('practice_detail', chapter=question_info[0], section=question_info[1], question=question_info[2]) }}" class="btn btn--clear"
             >
                 🥺再挑戦
             </a>
