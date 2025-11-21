@@ -1,10 +1,16 @@
 import yaml
 import sqlite3
 import os
+from sqlite_connection import (
+    get_connection, 
+    BASE_DIR, 
+    DB_PATH, 
+    SRC_PATH
+)
 
-BASE_DIR = os.path.dirname(__file__)
-DB_PATH = os.path.join(BASE_DIR, "practice.db")
-SRC_PATH = os.path.join(BASE_DIR, "src")
+# BASE_DIR = os.path.dirname(__file__)
+# DB_PATH = os.path.join(BASE_DIR, "practice.db")
+# SRC_PATH = os.path.join(BASE_DIR, "src")
 
 def import_data():
     yaml_path = os.path.join(SRC_PATH, "questions.yaml")
@@ -44,7 +50,7 @@ def insert_question(item) -> bool:
     ):
         return False
     
-    conn = _get_connection()
+    conn = get_connection()
     cur = conn.cursor()
 
     query = """
@@ -78,7 +84,7 @@ def insert_question(item) -> bool:
 
 
 def exists_question(chapter_number: int, section_number: int, question_number: int) -> bool:
-    conn = _get_connection()
+    conn = get_connection()
     cur = conn.cursor()
 
     cur.execute("""
@@ -113,7 +119,7 @@ def initial_import():
             ?, ?
         );
     """
-    conn = _get_connection()
+    conn = get_connection()
     cur = conn.cursor()
     # chapters_yamlのデータを読み込む
     with open(chapters_yaml, encoding="utf-8") as f:
@@ -151,10 +157,10 @@ def initial_import():
     conn.commit()
     conn.close() 
 
-def _get_connection() -> sqlite3.Connection:
-    conn = sqlite3.connect(DB_PATH)
-    conn.execute("PRAGMA foreign_keys = ON;")
-    return conn
+# def _get_connection() -> sqlite3.Connection:
+#     conn = sqlite3.connect(DB_PATH)
+#     conn.execute("PRAGMA foreign_keys = ON;")
+#     return conn
 
 # エントリポイント
 if __name__ == "__main__":
