@@ -29,29 +29,6 @@ TEST_QUERY_2 = """
 DESC Employees;
 """
 
-SELECT_QUESTION = """
-SELECT
-    c.ChapterNumber
-    , c.ChapterTitle
-    , s.SectionNumber
-    , s.SectionTitle
-    , q.QuestionNumber
-    , q.Question
-FROM
-    Questions AS q
-    JOIN
-        Chapters AS c
-        ON c.ChapterID = q.ChapterID
-    JOIN
-        Sections AS s
-        ON s.SectionID = q.SectionID
-WHERE
-    c.ChapterNumber = ?
-    AND s.SectionNumber = ?
-    AND q.QuestionNumber = ?
-;
-"""
-
 SELECT_ANSWER_QUERY = """
     SELECT
         q.AnswerQuery
