@@ -1,11 +1,6 @@
 from dbapp.db import queries as dbq
 from typing import Tuple, List, Dict, Any, Sequence, Literal, Optional
 
-from dbapp.config import (
-    FAILED_COLUMNS, 
-    FAILED_ROWS, 
-)
-
 from dbapp.db.exceptions import (
     DatabaseExecutionError, 
     QuerySyntaxError, 

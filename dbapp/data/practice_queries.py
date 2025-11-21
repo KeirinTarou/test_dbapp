@@ -51,12 +51,53 @@ WHERE
 ;
 """
 
-def fetch_all(sql_query: str) -> Tuple[List[str], List[Dict[str, Any]]]:
+SELECT_ANSWER_QUERY = """
+    SELECT
+        q.AnswerQuery
+        , q.CheckMode
+    FROM
+        Questions AS q
+        JOIN
+            Chapters AS c
+            ON c.ChapterNumber = q.ChapterNumber
+        JOIN
+            Sections AS s
+            ON s.SectionNumber = q.SectionNumber
+            AND s.ChapterNumber = q.ChapterNumber
+    WHERE
+        c.ChapterNumber = ?
+        AND s.SectionNumber = ?
+        AND q.QuestionNumber = ?
+    ;
+"""
+
+EXISTS_QUESTION_QUERY = """
+    SELECT
+        1
+    FROM
+        Questions AS q
+        JOIN
+            Chapters AS c
+            ON c.ChapterNumber = q.ChapterNumber
+        JOIN
+            Sections AS s
+            ON s.SectionNumber = q.SectionNumber
+            AND s.ChapterNumber = q.ChapterNumber
+    WHERE
+        c.ChapterNumber = ?
+        AND s.SectionNumber = ?
+        AND q.QuestionNumber = ?
+    ;
+"""
+
+def fetch_all(sql_query: str, params: Optional[Sequence[Any]]=None) -> Tuple[List[str], List[Dict[str, Any]]]:
     """ 複数のレコードセットを取得する
     """
+    if params is None:
+        params = ()
     with get_connection() as conn:
         cur = conn.cursor()
-        cur.execute(sql_query)
+        cur.execute(sql_query, params)
         columns = [col[0] for col in cur.description]
         rows = [dict(row) for row in cur.fetchall()]
     return columns, rows
