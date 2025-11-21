@@ -24,13 +24,6 @@ from dbapp.services.session_service import (
     set_scroll_to_editor, pop_scroll_to_editor, 
 )
 
-# 練習問題リスト作成用
-from itertools import groupby
-from operator import itemgetter
-
-# 正解/不正解判定用
-from dbapp.services.practice_service import compare_queries
-
 # `.env`読み込み
 load_dotenv()
 
@@ -192,6 +185,11 @@ def practice_detail(chapter, section, question):
         sql_query_height=sql_query_height
     )
 
+# 正解データ取得用
+from dbapp.data import practice_queries as pq
+# 正解/不正解判定用
+from dbapp.services.practice_service import compare_queries
+# 結果表示用データ取得用
 from .services.query_compare.messages import (
     CompareResult, 
     COMPARE_RESULT_MESSAGES
@@ -208,7 +206,7 @@ def judge_result():
     question_info = (chapter_number, section_number, question_number)
 
     # 正解クエリとチェックモードを取得
-    answer_data = dbq.fetch_one(dbq.SELECT_ANSWER_QUERY, params=question_info)
+    answer_data = pq.fetch_one(pq.SELECT_ANSWER_QUERY, params=question_info)
     answer_query, checkmode = (answer_data["AnswerQuery"], answer_data["CheckMode"])
 
     # ユーザが投稿したクエリを取得
