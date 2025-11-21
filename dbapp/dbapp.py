@@ -69,39 +69,6 @@ def _prepare_exec_query(form, page: str) -> tuple[str, str | None]:
         )
     return sql_query, sql_query_height
 
-def _generate_structured_practice_list():
-    """ 練習問題リスト作成
-        章 -> 節 -> 問題の階層を作る
-    """
-    # 問題データを全取得
-    columns, rows, _, _ = exec_query(sql_query=dbq.ALL_PRACTICES, use_excel=using_excel)
-    rows = [dict(zip(columns, row)) for row in rows]
-
-    # 章 -> 節 -> 問題 のネスト構造を構築
-    chapters = []
-    # 章番号グループをループ
-    for chapter_number, chapter_group in groupby(rows, key=itemgetter("ChapterNumber")):
-        chapter_rows = list(chapter_group)
-        # タイトルは、同じ章の中で共通なので、先頭レコードの値を採る
-        chapter_title = chapter_rows[0]["ChapterTitle"]
-        sections = []
-        # 章内の節グループをループ
-        for section_number, section_group in groupby(chapter_rows, key=itemgetter("SectionNumber")):
-            section_rows = list(section_group)
-            section_title = section_rows[0]["SectionTitle"]
-            sections.append({
-                "section_number": section_number, 
-                "section_title": section_title, 
-                "questions": section_rows
-            })
-        chapters.append({
-            "chapter_number": chapter_number, 
-            "chapter_title": chapter_title, 
-            "sections": sections
-        })
-
-    return chapters
-
 # トップページ
 @app.route("/", methods=["GET", "POST"])
 def index():
