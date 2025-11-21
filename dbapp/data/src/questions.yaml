@@ -1,5 +1,30 @@
 - chapter_number: 2
   section_number: 7
+  question_number: 0
+  question: |
+    うちの商品って平均単価いくらなの？　ちょっと教えて。
+    【必要なカラム】平均単価
+  answer_query: |
+    SELECT 
+        AVG(p.Price) AS 平均単価
+    FROM
+        Products AS p;
+    ;
+  check_mode: strict
+- chapter_number: 2
+  section_number: 7
+  question_number: 1
+  question: |
+    テーブルCustomersの顧客数を求めて、「お得意様数」と別名をつけなさい。
+  answer_query: |
+    SELECT
+        COUNT(*) AS お得意様数 
+    FROM
+        Customers
+    ;
+  check_mode: strict
+- chapter_number: 2
+  section_number: 7
   question_number: 2
   question: |
     テーブルEmployeesのWeight合計を求め、「社員体重合計」と別名をつけなさい。
