@@ -164,23 +164,21 @@ def practices():
         chapters=chapters
     )
 
+from .data.practices import fetch_question
+
 # 練習問題のページ
-@app.route('/practices/<int:chapter>/<int:section>/<int:number>', methods=["GET"])
-def practice_detail(chapter, section, number):
+@app.route('/practices/<int:chapter>/<int:section>/<int:question>', methods=["GET"])
+def practice_detail(chapter, section, question):
     # 問題データを取得
-    params = (chapter, section, number)
-    _, rows, _, _ = exec_query(
-        sql_query=dbq.SELECT_QUESTION, 
-        params=params, 
-        use_excel=using_excel
+    row = fetch_question(
+        chapter_number=chapter, 
+        section_number=section, 
+        question_number=question
     )
     
     # レコードセットがない
-    if not rows:
+    if row is None:
         abort(404, "( ´,_ゝ`)ﾌﾟｯ < 指定された問題がないｗｗｗ")
-    
-    # 1件だけが返る想定
-    row = rows[0]
 
     # セッションにエディタの高さとクエリがあれば復元
     preserved_query = pop_editor_query(page="practice")

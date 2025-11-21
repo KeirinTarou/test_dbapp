@@ -1,31 +1,22 @@
 # 練習問題リスト作成用
 from itertools import groupby
 from operator import itemgetter
-from typing import Tuple, List, Dict, Any
 
-from .sqlite_connection import (
-    get_connection
-)
+from typing import List, Dict, Any, Optional
 
 from .practice_queries import (
-    PRACTICES_LIST_QUERY
+    PRACTICES_LIST_QUERY, 
+    fetch_all, 
+    SELECT_QUESTION, 
+    fetch_one
 )
-
-
-def _exec_query(sql_query: str) -> Tuple[List[str], List[Dict[str, Any]]]:
-    with get_connection() as conn:
-        cur = conn.cursor()
-        cur.execute(sql_query)
-        columns = [col[0] for col in cur.description]
-        rows = [dict(row) for row in cur.fetchall()]
-    return columns, rows
 
 def generate_structured_practice_list() -> List[Dict[str, Any]]:
     """ 練習問題リスト作成
         章 -> 節 -> 問題の階層を作る
     """
     # 問題データを全取得
-    _, rows = _exec_query(sql_query=PRACTICES_LIST_QUERY)
+    _, rows = fetch_all(sql_query=PRACTICES_LIST_QUERY)
 
     # 章 -> 節 -> 問題 のネスト構造を構築
     chapters = []
@@ -51,3 +42,9 @@ def generate_structured_practice_list() -> List[Dict[str, Any]]:
         })
 
     return chapters
+
+def fetch_question(chapter_number: int, section_number: int, question_number: int) -> Optional[Dict[str, Any]]:
+    """ 問題データ取得
+    """
+    params = (chapter_number, section_number, question_number)
+    return fetch_one(sql_query=SELECT_QUESTION, params=params)
