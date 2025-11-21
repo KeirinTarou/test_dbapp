@@ -2,34 +2,15 @@
 from itertools import groupby
 from operator import itemgetter
 from typing import Tuple, List, Dict, Any
-import sqlite3
 
 from .sqlite_connection import (
     get_connection
 )
 
-PRACTICES_LIST_QUERY = """
-SELECT
-    c.ChapterNumber
-    , c.ChapterTitle
-    , s.SectionNumber
-    , s.SectionTitle
-    , q.*
-FROM
-    Questions AS q
-    JOIN
-        Chapters AS c
-        ON c.ChapterNumber = q.ChapterNumber
-    JOIN
-        Sections AS s
-        ON s.SectionNumber = q.SectionNumber
-        AND s.ChapterNumber = q.ChapterNumber
-ORDER BY
-    c.ChapterNumber ASC
-    , s.SectionNumber ASC
-    , q.QuestionNumber ASC
-;
-"""
+from .practice_queries import (
+    PRACTICES_LIST_QUERY
+)
+
 
 def _exec_query(sql_query: str) -> Tuple[List[str], List[Dict[str, Any]]]:
     with get_connection() as conn:
