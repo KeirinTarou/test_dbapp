@@ -179,11 +179,14 @@ def api_table_structure(table_name):
         "rows": rows_list, 
     }
 
+from .data.practices import (
+    generate_structured_practice_list
+)
 # 練習問題の一覧を表示するページ
 @app.route('/practices', methods=['GET'])
 def practices():
     # 問題データ取得
-    chapters = _generate_structured_practice_list()
+    chapters = generate_structured_practice_list()
 
     # セッションに記録したエディタの高さ・入力クエリをクリアする
     clear_editor_query(page="practice")
