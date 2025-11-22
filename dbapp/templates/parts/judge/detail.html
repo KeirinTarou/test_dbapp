@@ -22,8 +22,8 @@
     {% if result_enum == CompareResult.ROW_COUNT_MISMATCH %}
         <div class="detail-box">
             <p>( ´_ゝ`)</p>
-            <p><strong>あなたのクエリの結果: </strong>{{ detail.user_rows }}</p>
-            <p><strong>正解クエリの結果: </strong>{{ detail.answer_rows }}</p>
+            <p><strong>あなたのクエリの結果: </strong>{{ detail.user_rows }} 行</p>
+            <p><strong>正解クエリの結果: </strong>{{ detail.answer_rows }} 行</p>
         </div>
     {% endif %}
     
