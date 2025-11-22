@@ -8,11 +8,15 @@ from sqlite_connection import (
     SRC_PATH
 )
 
-# BASE_DIR = os.path.dirname(__file__)
-# DB_PATH = os.path.join(BASE_DIR, "practice.db")
-# SRC_PATH = os.path.join(BASE_DIR, "src")
+# 問題データをインポート
+def import_questions(reimport: bool=False):
+    # `reimport`フラグがTrueだったら`Question`を空にする
+    if reimport:
+        with get_connection() as conn:
+            cur = conn.cursor()
+            cur.execute("DELETE FROM Questions;")
+            conn.commit()
 
-def import_data():
     yaml_path = os.path.join(SRC_PATH, "questions.yaml")
 
     # yamlのデータを読み込む
@@ -169,6 +173,7 @@ if __name__ == "__main__":
     parser.add_argument("--init-db", action="store_true", help="Initialize DB from schema.sql")
     parser.add_argument("--initial", action="store_true", help="Import chapters and sections")
     parser.add_argument("--questions", action="store_true", help="Import questions")
+    parser.add_argument("--questions-reset", action="store_true", help="Delete all existing questions before importing")
     parser.add_argument("--all", action="store_true", help="Import initial data and questions")
     parser.add_argument("--dry-run", action="store_true", help="Do not write to DB; only simulate")
 
@@ -209,7 +214,7 @@ if __name__ == "__main__":
             initial_import()
         if args.all or args.questions:
             print("Questions import running...")
-            import_data()
+            import_questions(reimport=args.questions_reset)
     except Exception as e:
         print(f"Error during import: {e}")
         raise
