@@ -1,6 +1,7 @@
 from typing import List, Tuple, Dict, Any
 from enum import Enum
 import pyodbc
+from itertools import islice
 
 from .messages import CompareResult, COMPARE_RESULT_MESSAGES
 
@@ -52,9 +53,18 @@ def compare_strict(
         else:
             # 順番違いだけが原因ではない
             #   -> 中身が異なる
+            # Setを用いて差分を取得
+            user_set = set(user_list)
+            answer_set = set(answer_list)
+            # 不足レコードと過剰レコード
+            missing = list(islice(answer_set - user_set, 3))
+            extra = list(islice(user_set - answer_set, 3))
+
             return CompareResult.ROW_CONTENT_MISMATCH, {
                 "user_rows": user_list, 
                 "answer_rows": answer_list, 
+                "missing": missing, 
+                "extra": extra, 
             }
     
     # ここまでたどり着いたら完全一致 -> 正解

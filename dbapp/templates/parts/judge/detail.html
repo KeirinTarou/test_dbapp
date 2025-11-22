@@ -30,23 +30,23 @@
     {# 行の順序不一致 #}
     {% if result_enum == CompareResult.ROW_ORDER_MISMATCH %}
         <p>( ´_ゝ`)</p>
-        <div class="table-result-scroll">
-            {% set columns = user_columns %}
-            {% set rows = detail.user_rows %}
-            {% set table_title = "あなたのクエリの結果" %}
-            {% include "parts/judge/result_table.html" %}
-        </div>
+        {% set columns = user_columns %}
+        {% set rows = detail.user_rows %}
+        {% set table_title = "あなたのクエリの結果" %}
+        {% include "parts/judge/result_table.html" %}
     {% endif %}
     
     {# レコードセットの内容不一致 #}
     {% if result_enum == CompareResult.ROW_ORDER_MISMATCH or 
         result_enum == CompareResult.ROW_CONTENT_MISMATCH %}
-        <p>{{ COMPARE_RESULT_MESSAGES[CompareResult.ROW_CONTENT_MISMATCH] }}</p>
-        <div class="table-result-scroll">
-            {% set columns = user_columns %}
-            {% set rows = detail.user_rows %}
-            {% set table_title = "あなたのクエリの結果" %}
-            {% include "parts/judge/result_table.html" %}
-        </div>
+        <p>( ´_ゝ`)</p>
+        {% set columns = user_columns %}
+        {% set rows = detail.extra %}
+        {% set table_title = "🤔あなたが何を血迷ったのか勝手に抽出したレコードの例" %}
+        {% include "parts/judge/result_table.html" %}
+        {% set columns = user_columns %}
+        {% set rows = detail.missing %}
+        {% set table_title = "🤣あなたが無能ゆえに抽出できなかったレコードの例" %}
+        {% include "parts/judge/result_table.html" %}
     {% endif %}
 </section>

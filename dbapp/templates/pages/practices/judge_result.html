@@ -6,21 +6,15 @@
         {% include "parts/judge/message.html" %}
         <!-- 不正解時に不一致の詳細を表示する -->
         {% if not result %}
-            <!-- 
-                `result_enum`がROW_CONTENT_MISMATCHだったら、
-                結果セットを表示するのではなく、簡潔に表示する改修が必要
-                `services/query_compare/strict@compare_strict()`の返り値と
-                `templates/parts/judge/detail.html`の内容を見直す 
-            -->
             {% include "parts/judge/detail.html" %}
             {% set codeblock_title = "🤮くそキモいあなたのクエリ" %}
             {% set user_query = user_query %}
             {% include "parts/judge/codeblock.html" %}
-            {% set table_title = "🤣あなたがたどり着けなかった正解クエリの結果" %}
+            {% set table_title = "🤪あなたがたどり着けなかった正解クエリの結果" %}
             {% set columns = answer_columns %}
             {% set rows = answer_rows %}
             {% include "parts/judge/result_table.html" %}
-            {% set table_title = "🤪くそダサいあなたのクエリの結果" %}
+            {% set table_title = "💩くっそダサいあなたのクエリの結果" %}
             {% set columns = user_columns %}
             {% set rows = user_rows %}
             {% include "parts/judge/result_table.html" %}
