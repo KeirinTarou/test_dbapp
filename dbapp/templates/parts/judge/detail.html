@@ -33,10 +33,6 @@
             {% set columns = user_columns %}
             {% set rows = detail.user_rows %}
             {% include "parts/judge/result_table.html" %}
-            <h3 class="heading heading--md">正解クエリの結果</h3>
-            {% set columns = answer_columns %}
-            {% set rows = detail.answer_rows %}
-            {% include "parts/judge/result_table.html" %}
         </div>
     {% endif %}
 </section>

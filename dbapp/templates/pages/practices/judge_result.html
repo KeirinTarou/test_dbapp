@@ -4,8 +4,24 @@
     <main class="page page--sql">
         {% include "parts/intro/judge_result_intro.html" %}
         {% include "parts/judge/message.html" %}
+        <!-- 不正解時に不一致の詳細を表示する -->
         {% if not result %}
             {% include "parts/judge/detail.html" %}
+            {% set table_title = "🤣あなたがたどり着けなかった正解クエリの結果" %}
+            {% set columns = answer_columns %}
+            {% set rows = answer_rows %}
+            {% include "parts/judge/result_table.html" %}
+            {% set table_title = "🤪くそダサいあなたのクエリの結果" %}
+            {% set columns = user_columns %}
+            {% set rows = user_rows %}
+            {% include "parts/judge/result_table.html" %}
+
+        <!-- 正解時は実行結果を表示 -->
+        {% else %}
+            {% set table_title = "🎯あなたのクエリの結果" %}
+            {% set columns = user_columns %}
+            {% set rows = user_rows %}
+            {% include "parts/judge/result_table.html" %}
         {% endif %}
     </main>
 {% endblock %}
