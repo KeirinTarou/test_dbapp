@@ -210,6 +210,7 @@ def judge_result():
     answer_query, checkmode = (answer_data["AnswerQuery"], answer_data["CheckMode"])
 
     # ユーザが投稿したクエリを取得
+    org_user_query = request.form.get("sql_query", "")
     #   併せてエディタの高さをセッションに保存
     user_query, editor_height = _prepare_exec_query(form=request.form, page="practice")
     # エディタのクエリをセッションに保存
@@ -238,7 +239,8 @@ def judge_result():
         answer_columns=answer_columns, 
         answer_rows=answer_rows, 
         CompareResult=CompareResult, 
-        COMPARE_RESULT_MESSAGES=COMPARE_RESULT_MESSAGES
+        COMPARE_RESULT_MESSAGES=COMPARE_RESULT_MESSAGES, 
+        user_query=org_user_query.strip()
     )
 
 # クエリを実行するだけのページ

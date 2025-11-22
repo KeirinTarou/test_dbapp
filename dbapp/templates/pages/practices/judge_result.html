@@ -7,6 +7,9 @@
         <!-- 不正解時に不一致の詳細を表示する -->
         {% if not result %}
             {% include "parts/judge/detail.html" %}
+            {% set codeblock_title = "🤮くそキモいあなたのクエリ" %}
+            {% set user_query = user_query %}
+            {% include "parts/judge/codeblock.html" %}
             {% set table_title = "🤣あなたがたどり着けなかった正解クエリの結果" %}
             {% set columns = answer_columns %}
             {% set rows = answer_rows %}
@@ -15,7 +18,6 @@
             {% set columns = user_columns %}
             {% set rows = user_rows %}
             {% include "parts/judge/result_table.html" %}
-
         <!-- 正解時は実行結果を表示 -->
         {% else %}
             {% set table_title = "🎯あなたのクエリの結果" %}

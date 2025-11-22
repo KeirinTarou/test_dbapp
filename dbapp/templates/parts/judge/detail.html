@@ -27,12 +27,12 @@
     {# 行の順序不一致 #}{# レコードセットの内容不一致 #}
     {% if result_enum == CompareResult.ROW_ORDER_MISMATCH or 
         result_enum == CompareResult.ROW_CONTENT_MISMATCH %}
-        <div class="table-result-scroll">
-            <p>( ´_ゝ`)</p>
-            <h3 class="heading heading--md">あなたのクエリの結果</h3>
+        <!-- <div class="table-result-scroll"> -->
+            <!-- <p>( ´_ゝ`)</p> -->
             {% set columns = user_columns %}
             {% set rows = detail.user_rows %}
+            {% set table_title = "あなたのクエリの結果" %}
             {% include "parts/judge/result_table.html" %}
-        </div>
+        <!-- </div> -->
     {% endif %}
 </section>
