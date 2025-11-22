@@ -1,8 +1,9 @@
+# 第2章
 - chapter_number: 2
   section_number: 7
   question_number: 0
   question: |
-    うちの商品って平均単価いくらなの？　ちょっと教えて。
+    うちの商品って平均単価いくらなの？　ちょっと教えて。<br>
     【必要なカラム】平均単価
   answer_query: |
     SELECT 
@@ -57,5 +58,98 @@
         MIN(e.Weight) AS 最軽量体重
     FROM
         Employees AS e
+    ;
+  check_mode: strict
+
+# 第5章
+- chapter_number: 5
+  section_number: 1
+  question_number: 1
+  question: |
+    今あるテーブルのレコードを元に別のデータベースに移行するためのデータを作りたいときがあります。こういう場合は、INSERT文を作ってしまうと便利です。では、都道府県テーブル（Prefectural）のデータを元に、1レコードごとのINSERT文をSELECT文を使って生成するにはどうすればよいでしょうか。<br>
+    【結果レコードの例】<br>
+    INSERT INTO Pref_Back VALUES (1, '北海道');<br>
+    INSERT INTO Pref_Back VALUES (2, '青森県');
+  answer_query: |
+    SELECT
+        'INSERT INTO Pref_Back VALUES (' 
+        || pf.PrefecturalID 
+        || ',''' 
+        || pf.PrefecturalName || ''');' AS 都道府県のINSERT文
+    FROM
+        Prefecturals AS pf
+    ;
+  check_mode: strict
+- chapter_number: 5
+  section_number: 2
+  question_number: 1
+  question: |
+    月別の販売額をそれぞれ合計して、一覧にしなさい。<br>
+    【出力項目】：年月、販売合計金額<br>
+    【出力順】：年月
+  answer_query: |
+    SELECT
+        ss.年月
+        , SUM(ss.販売金額) AS 販売合計金額
+    FROM
+        (
+            SELECT
+                SUBSTR(CAST(s.SaleDate AS VARCHAR), 1, 7) AS 年月
+                , p.Price * s.Quantity AS 販売金額 
+                , s.ProductID
+            FROM
+                Sales AS s
+            JOIN
+                Products AS p
+                ON
+                p.ProductID = s.ProductID
+        ) AS ss
+    GROUP BY
+        ss.年月
+    ORDER BY
+        ss.年月 ASC
+    ;
+  check_mode: strict
+- chapter_number: 5
+  section_number: 3
+  question_number: 1
+  question: |
+    すべての社員について、月別の販売額の合計を一覧にして出しなさい。<br>
+    【出力項目】：EmployeeID、EmployeeName、年月、販売合計金額；<br>
+    【出力順】：EmployeeID、EmployeeName、年月
+  answer_query: |
+    SELECT
+        e.EmployeeID
+        , e.EmployeeName
+        , 年月
+        SUM(
+            CASE 
+                WHEN subquery_s.販売金額 IS NULL THEN 0
+                ELSE subquery_s.販売金額
+            END
+        ) AS 販売合計金額
+    FROM
+        Employees AS e
+            LEFT JOIN
+                (
+                    SELECT
+                        , s.EmployeeID
+                        , SUBSTR(CAST(s.SaleDate AS VARCHAR), 1, 7) AS 年月
+                        , s.Quantity * p.Price AS 販売金額
+                    FROM
+                        Sales AS s
+                        JOIN
+                            Products AS p
+                            ON p.ProductID = s.ProductID
+                ) AS ss
+                ON ss.EmployeeID = e.EmployeeID
+    GROUP BY
+        e.EmployeeID
+        , e.EmployeeName
+        , 年月
+    ORDER BY
+        e.EmployeeID ASC
+        , e.EmployeeName ASC
+        , 年月 ASC
     ;
   check_mode: strict
