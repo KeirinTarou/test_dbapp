@@ -1,52 +1,45 @@
-<section class="section section--judge-detail">
-    <h2 class="heading heading--lg">詳細</h2>
-    {# 列数の不一致 #}
-    {% if result_enum == CompareResult.COLUMN_COUNT_MISMATCH %}
-        <div class="detail-box">
+{# 行の順序不一致のときは詳細欄を表示しない #}
+{% if result_enum != CompareResult.ROW_ORDER_MISMATCH %}
+    <section class="section section--judge-detail">
+        <h2 class="heading heading--lg">詳細</h2>
+        {# 列数の不一致 #}
+        {% if result_enum == CompareResult.COLUMN_COUNT_MISMATCH %}
+            <div class="detail-box">
+                <p>( ´_ゝ`)</p>
+                <p><strong>あなたのクエリの結果: </strong>{{ detail.user_columns|length }}</p>
+                <p><strong>正解クエリの結果: </strong>{{ detail.answer_columns|length }}</p>
+            </div>
+        {% endif %}
+        
+        {# 列名の不一致 #}
+        {% if result_enum == CompareResult.COLUMN_NAME_MISMATCH %}
+            <div class="detail-box">
+                <p>( ´_ゝ`)</p>
+                <p><strong>あなたのクエリの結果: </strong>{{ detail.user_columns }}</p>
+                <p><strong>正解クエリの結果: </strong>{{ detail.answer_columns }}</p>
+            </div>
+        {% endif %}
+        
+        {# 行数の不一致 #}
+        {% if result_enum == CompareResult.ROW_COUNT_MISMATCH %}
+            <div class="detail-box">
+                <p>( ´_ゝ`)</p>
+                <p><strong>あなたのクエリの結果: </strong>{{ detail.user_rows }} 行</p>
+                <p><strong>正解クエリの結果: </strong>{{ detail.answer_rows }} 行</p>
+            </div>
+        {% endif %}
+        
+        {# レコードセットの内容不一致 #}
+        {% if result_enum == CompareResult.ROW_CONTENT_MISMATCH %}
             <p>( ´_ゝ`)</p>
-            <p><strong>あなたのクエリの結果: </strong>{{ detail.user_columns|length }}</p>
-            <p><strong>正解クエリの結果: </strong>{{ detail.answer_columns|length }}</p>
-        </div>
-    {% endif %}
-    
-    {# 列名の不一致 #}
-    {% if result_enum == CompareResult.COLUMN_NAME_MISMATCH %}
-        <div class="detail-box">
-            <p>( ´_ゝ`)</p>
-            <p><strong>あなたのクエリの結果: </strong>{{ detail.user_columns }}</p>
-            <p><strong>正解クエリの結果: </strong>{{ detail.answer_columns }}</p>
-        </div>
-    {% endif %}
-    
-    {# 行数の不一致 #}
-    {% if result_enum == CompareResult.ROW_COUNT_MISMATCH %}
-        <div class="detail-box">
-            <p>( ´_ゝ`)</p>
-            <p><strong>あなたのクエリの結果: </strong>{{ detail.user_rows }} 行</p>
-            <p><strong>正解クエリの結果: </strong>{{ detail.answer_rows }} 行</p>
-        </div>
-    {% endif %}
-    
-    {# 行の順序不一致 #}
-    {% if result_enum == CompareResult.ROW_ORDER_MISMATCH %}
-        <p>( ´_ゝ`)</p>
-        {% set columns = user_columns %}
-        {% set rows = detail.user_rows %}
-        {% set table_title = "あなたのクエリの結果" %}
-        {% include "parts/judge/result_table.html" %}
-    {% endif %}
-    
-    {# レコードセットの内容不一致 #}
-    {% if result_enum == CompareResult.ROW_ORDER_MISMATCH or 
-        result_enum == CompareResult.ROW_CONTENT_MISMATCH %}
-        <p>( ´_ゝ`)</p>
-        {% set columns = user_columns %}
-        {% set rows = detail.extra %}
-        {% set table_title = "🤔あなたが何を血迷ったのか勝手に抽出したレコードの例" %}
-        {% include "parts/judge/result_table.html" %}
-        {% set columns = user_columns %}
-        {% set rows = detail.missing %}
-        {% set table_title = "🤣あなたが無能ゆえに抽出できなかったレコードの例" %}
-        {% include "parts/judge/result_table.html" %}
-    {% endif %}
-</section>
+            {% set columns = user_columns %}
+            {% set rows = detail.extra %}
+            {% set table_title = "🤔あなたが何を血迷ったのか勝手に抽出したレコードの例" %}
+            {% include "parts/judge/result_table.html" %}
+            {% set columns = user_columns %}
+            {% set rows = detail.missing %}
+            {% set table_title = "🤣あなたが無能ゆえに抽出できなかったレコードの例" %}
+            {% include "parts/judge/result_table.html" %}
+        {% endif %}
+    </section>
+{% endif %}
