@@ -191,12 +191,15 @@
     overflow-x: auto;
     overflow-y: auto;
     max-height: 600px;
-    max-width: 640px;
     min-width: 400px;
     border-radius: 12px;
     margin-top: 1rem;
     padding: 0 0.5em;
     background-color: #fff;
+}
+
+.table-container.table-compact {
+    max-height: 360px;
 }
 
 .table {
