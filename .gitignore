@@ -9,6 +9,4 @@ __pycache__/
 jquery*
 storage/
 *source.xlsm
-schema.sql
-migrate.py
 practice.db
