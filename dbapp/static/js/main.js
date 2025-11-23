@@ -264,6 +264,38 @@
                 );
             }
 
+        /* --------------------------------------------------------------------
+            判定結果表示ページのトグルテーブル
+        -------------------------------------------------------------------- */
+        $('.heading.toggle-header').on('click', function() {
+            const content = $(this).next('.toggle-content');
+            const isClosed = content.hasClass('is-close');
+
+            if (isClosed) {
+                $(this).removeClass('is-close').addClass('is-open');
+                content.removeClass('is-close').addClass('is-open');
+                $(this).attr('title', '( ´_ゝ`) < クリックで表示を折りたたみます。')
+                
+                content.one('transitionend', function() {
+                    const maxHeight = parseInt(content.css('max-height'));
+                    // 実際の高さを取得
+                    const actualHeight = content.prop('scrollHeight');
+                    // 実際のスクロール量
+                    const scrollAmount = Math.min(maxHeight, actualHeight);
+                    // なめらかスクロール
+                    $('html, body').animate(
+                        { scrollTop: $(window).scrollTop() + scrollAmount }, 
+                        400
+                    );
+                });
+
+            } else {
+                $(this).removeClass('is-open').addClass('is-close')
+                content.removeClass('is-open').addClass('is-close')
+                $(this).attr('title', '( ´,_ゝ`) < クリックで表示を展開します。')
+            }
+        });
+
     });
 
 }
