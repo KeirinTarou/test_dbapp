@@ -97,7 +97,7 @@
     FROM
         (
             SELECT
-                SUBSTR(CAST(s.SaleDate AS VARCHAR), 1, 7) AS 年月
+                DATE_FORMAT(s.SaleDate, '%Y-%m') AS 年月
                 , p.Price * s.Quantity AS 販売金額 
                 , s.ProductID
             FROM
@@ -137,7 +137,7 @@
                 (
                     SELECT
                         , s.EmployeeID
-                        , SUBSTR(CAST(s.SaleDate AS VARCHAR), 1, 7) AS 年月
+                        , DATE_FORMAT(s.SaleDate, '%Y-%m') AS 年月
                         , s.Quantity * p.Price AS 販売金額
                     FROM
                         Sales AS s
@@ -154,5 +154,309 @@
         e.EmployeeID ASC
         , e.EmployeeName ASC
         , 年月 ASC
+    ;
+  check_mode: strict
+- chapter_number: 5
+  section_number: 4
+  question_number: 1
+  question: |
+    商品別に、月ごとの販売額の合計を一覧にして出しなさい。ただし、商品のカテゴリIDが1または3または9のものだけで構いません。合計が5000円以下のものも表示する必要はありません。なお、最近のものから月別に並べてください。<br>
+    【出力項目】：ProductID、ProductName、年月、販売合計金額；<br>
+    【出力順】：ProductID、ProductName、年月（降順）
+  answer_query: |
+    SELECT
+        p.ProductID
+        , p.ProductName
+        , ss.年月
+        , SUM(subquery_s.Quantity * p.Price) AS 販売合計金額
+    FROM
+        (
+            SELECT
+                s.ProductID
+                , DATE_FORMAT(s.SaleDate, '%Y-%m') AS 年月
+                , s.Quantity
+            FROM
+                Sales AS s
+        ) AS ss
+        JOIN
+            Products AS p
+            ON p.ProductID = ss.ProductID
+    WHERE
+        p.CategoryID IN (1, 3, 9)
+    GROUP BY 
+        p.ProductID
+        , p.ProductName
+        , ss.年月
+    HAVING
+        SUM(ss.Quantity * p.Price) > 5000
+    ORDER BY
+        p.ProductID ASC
+        , p.ProductName ASC
+        , ss.年月 DESC
+    ;
+  check_mode: strict
+- chapter_number: 5
+  section_number: 5
+  question_number: 1
+  question: |
+    顧客別・商品別に販売額の合計を一覧にして出しなさい。<br>
+    【出力項目】：CustomerID、CustomerName、ProductName、販売合計金額；<br>
+    【出力順】：CustomerID、CustomerName、ProductName
+  answer_query: |
+    SELECT
+        c.CustomerID
+        , c.CustomerName
+        , p.ProductName
+        , SUM(s.Quantity * p.Price) AS 販売合計金額
+    FROM
+        Sales AS s
+        JOIN
+            Products AS p
+            ON p.ProductID = s.ProductID
+        JOIN
+            Customers AS c
+            ON c.CustomerID = s.CustomerID
+    GROUP BY
+        c.CustomerID
+        , c.CustomerName
+        , p.ProductName
+    ORDER BY
+        c.CustomerID ASC
+        , c.CustomerName ASC
+        , p.ProductName ASC
+    ;
+  check_mode: strict
+- chapter_number: 5
+  section_number: 6
+  question_number: 1
+  question: |
+    都道府県別・商品別に、販売額の合計を一覧にして出しなさい。<br>
+    【出力項目】：PrefecturalID、PrefecturalName、ProductName、販売合計金額；<br>
+    【出力順】：PrefecturalID、PrefecturalName、ProductName
+  answer_query: |
+    SELECT
+        pf.PrefecturalID
+        , pf.PrefecturalName
+        , p.ProductName
+        , SUM(
+            p.Price * s.Quantity
+        ) AS 販売合計金額
+    FROM
+        Sales AS s
+        JOIN
+            Customers AS c
+            ON c.CustomerID = s.CustomerID
+        JOIN
+            Prefecturals AS pf
+            ON pf.PrefecturalID = c.PrefecturalID
+        JOIN
+            Products AS p
+            ON p.ProductID = s.ProductID
+    GROUP BY
+        pf.PrefecturalID
+        , pf.PrefecturalName
+        , p.ProductName
+    ORDER BY
+        pf.PrefecturalID
+        , pf.PrefecturalName
+        , p.ProductName
+    ;
+  check_mode: strict
+- chapter_number: 5
+  section_number: 7
+  question_number: 1
+  question: |
+    部門別・月別の給与の平均を一覧にして出しなさい。なお、2007年に支払われたものだけで構いません。ただし部門は、給与支払日（PayDate）にその社員が所属していた部門としてください。<br>
+    【出力項目】：DepartmentID、DepartmentName、年月、平均給与；<br>
+    【出力順】：DepartmentID、DepartmentName、年月
+  answer_query: |
+    SELECT
+        d.DepartmentID
+        , d.DepartmentName
+        , ss.年月
+        , AVG(ss.Amount) AS 平均給与
+    FROM
+        (
+            SELECT
+                s.EmployeeID
+                , s.PayDate
+                , DATE_FORMAT(s.PayDate, '%Y-%m') AS 年月
+                , s.Amount
+            FROM
+                Salary AS s
+            WHERE
+                DATE_FORMAT(s.PayDate, '%Y-%m') = '2007'
+        ) AS ss
+    JOIN
+        BelongTo AS bt
+        ON bt.EmployeeID = ss.EmployeeID 
+        AND ss.PayDate >= bt.StartDate 
+        AND s.PayDate < 
+            CASE
+                WHEN bt.EndDate IS NULL THEN '9999-12-31'
+                ELSE bt.EndDate
+            END
+    JOIN
+        Departments AS d
+        ON d.DepartmentID = bt.DepartmentID
+    GROUP BY
+        d.DepartmentID
+        , d.DepartmentName
+        , ss.年月
+    ORDER BY
+        d.DepartmentID ASC
+        , d.DepartmentName ASC
+        , ss.年月
+    ;
+  check_mode: strict
+- chapter_number: 5
+  section_number: 8
+  question_number: 1
+  question: |
+    月別・カテゴリ別の合計販売額を一覧にして出しなさい。なお、各月ごとに1行にまとめて、カテゴリは1から10までIDごとに集計して横に並べて表示しなさい。<br>
+    【出力項目】：年月、Ct1、Ct2、Ct3、Ct4、Ct5、Ct6、Ct7、Ct8、Ct9、Ct10；<br>
+    【出力順】：年月
+  answer_query: |
+    SELECT
+        ss.年月
+        , SUM(
+            CASE
+            WHEN p.CategoryID = 1 THEN p.Price * ss.Quantity
+            ELSE 0
+            END
+        ) AS CT1,
+        , SUM(
+            CASE
+            WHEN p.CategoryID = 2 THEN p.Price * ss.Quantity
+            ELSE 0
+            END
+        ) AS CT2
+        , SUM(
+            CASE
+            WHEN p.CategoryID = 3 THEN p.Price * ss.Quantity
+            ELSE 0
+            END
+        ) AS CT3
+        , SUM(
+            CASE
+            WHEN p.CategoryID = 4 THEN p.Price * ss.Quantity
+            ELSE 0
+            END
+        ) AS CT4
+        , SUM(
+            CASE
+            WHEN p.CategoryID = 5 THEN p.Price * ss.Quantity
+            ELSE 0
+            END
+        ) AS CT5
+        , SUM(
+            CASE
+            WHEN p.CategoryID = 6 THEN p.Price * ss.Quantity
+            ELSE 0
+            END
+        ) AS CT6
+        , SUM(
+            CASE
+            WHEN p.CategoryID = 7 THEN p.Price * ss.Quantity
+            ELSE 0
+            END
+        ) AS CT7
+        , SUM(
+            CASE
+            WHEN p.CategoryID = 8 THEN p.Price * ss.Quantity
+            ELSE 0
+            END
+        ) AS CT8
+        , SUM(
+            CASE
+            WHEN p.CategoryID = 9 THEN p.Price * ss.Quantity
+            ELSE 0
+            END
+        ) AS CT9
+        , SUM(
+            CASE
+            WHEN p.CategoryID = 10 THEN p.Price * ss.Quantity
+            ELSE 0
+            END
+        ) AS CT10
+    FROM
+        (
+            SELECT
+                s.Quantity
+                , s.ProductID
+                , DATE_FORMAT(s.SaleDate AS VARCHAR), '%Y-%m') AS 年月
+            FROM
+                Sales AS s
+        ) AS ss
+    JOIN
+        Products AS p
+        ON p.ProductID = ss.ProductID
+    GROUP BY
+        ss.年月
+    ORDER BY
+        ss.年月 ASC
+    ;
+  check_mode: strict
+- chapter_number: 5
+  section_number: 9
+  question_number: 1
+  question: |
+    商品別に、2007年6月から8月までのそれぞれの月の販売額の推移を出しなさい。なお、7月と8月は前月に対して、増加・変化なし・減少のそれぞれについて、↑・→・↓でそれぞれ表現しなさい。<br>
+    【出力項目】：ProductID、ProductName、6月販売金額、7月販売金額、対6月増減、8月販売金額、対7月増減；<br>
+    【出力順】：ProductID
+  answer_query: |
+    SELECT
+        ps.ProductID
+        , ps.ProductName
+        , ps."6月販売金額"
+        , ps."7月販売金額"
+        , CASE
+            WHEN ps."6月販売金額" = ps."7月販売金額" THEN '→'
+            WHEN ps."6月販売金額" > ps."7月販売金額" THEN '↓'
+            WHEN ps."6月販売金額" < ps."7月販売金額" THEN '↑'
+        END AS 対6月増減
+        , ps."8月販売金額"
+        , CASE
+            WHEN ps."7月販売金額" = ps."8月販売金額" THEN '→'
+            WHEN ps."7月販売金額" > ps."8月販売金額" THEN '↓'
+            WHEN ps."7月販売金額" < ps."8月販売金額" THEN '↑'
+        END AS 対7月増減
+    FROM
+        (
+            SELECT
+                p.ProductID
+                , p.ProductName
+                , SUM(
+                    CASE
+                    WHEN s.SaleDate IS NULL THEN 0
+                    WHEN s.SaleDate BETWEEN '2007-06-01' AND '2007-06-30' THEN s.Quantity * p.Price
+                    ELSE 0
+                    END
+                ) AS "6月販売金額"
+                , SUM(
+                    CASE
+                    WHEN s.SaleDate IS NULL THEN 0
+                    WHEN s.SaleDate BETWEEN '2007-07-01' AND '2007-07-31' THEN s.Quantity * p.Price
+                    ELSE 0
+                    END
+                ) AS "7月販売金額"
+                , SUM(
+                    CASE
+                    WHEN s.SaleDate IS NULL THEN 0
+                    WHEN s.SaleDate BETWEEN '2007-08-01' AND '2007-08-31' THEN s.Quantity * p.Price
+                    ELSE 0
+                    END
+                ) AS "8月販売金額"
+            FROM
+                Products AS p
+                LEFT JOIN
+                    Sales AS s
+                    ON p.ProductID = s.ProductID
+            GROUP BY
+                p.ProductID
+                , p.ProductName 
+        ) ps
+    ORDER BY
+        ps.ProductID
     ;
   check_mode: strict
