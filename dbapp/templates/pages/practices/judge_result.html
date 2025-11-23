@@ -4,8 +4,17 @@
     <main class="page page--sql">
         {% include "parts/intro/judge_result_intro.html" %}
         {% include "parts/judge/message.html" %}
+        <!-- 正解時はクエリと実行結果を表示 -->
+        {% if result %}
+            {% set codeblock_title = "👏👏👏見事なあなたのクエリ👏👏👏" %}
+            {% set user_query = user_query %}
+            {% include "parts/judge/codeblock.html" %}
+            {% set table_title = "🎊🎊🎊すばらしいあなたのクエリの結果🎊🎊🎊" %}
+            {% set columns = user_columns %}
+            {% set rows = user_rows %}
+            {% include "parts/judge/result_table.html" %}
         <!-- 不正解時に不一致の詳細を表示する -->
-        {% if not result %}
+        {% else %}
             {% include "parts/judge/detail.html" %}
             {% set codeblock_title = "🤮くそキモいあなたのクエリ" %}
             {% set user_query = user_query %}
@@ -15,12 +24,6 @@
             {% set rows = answer_rows %}
             {% include "parts/judge/result_table.html" %}
             {% set table_title = "💩くっそダサいあなたのクエリの結果" %}
-            {% set columns = user_columns %}
-            {% set rows = user_rows %}
-            {% include "parts/judge/result_table.html" %}
-        <!-- 正解時は実行結果を表示 -->
-        {% else %}
-            {% set table_title = "🎯あなたのクエリの結果" %}
             {% set columns = user_columns %}
             {% set rows = user_rows %}
             {% include "parts/judge/result_table.html" %}
