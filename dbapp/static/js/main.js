@@ -284,8 +284,12 @@
 
             if (isClosed) {
                 $(this).removeClass('is-close').addClass('is-open');
-                content.removeClass('is-close').addClass('is-open');
                 $(this).attr('title', '( ´_ゝ`) < クリックで表示を折りたたみます。')
+                
+                // テーブル部分のis-close/is-openの切り替えを少し遅らせる
+                setTimeout(() => {
+                    content.removeClass('is-close').addClass('is-open');
+                }, 200);
                 
                 content.one('transitionend', function() {
                     const maxHeight = parseInt(content.css('max-height'));
@@ -302,8 +306,10 @@
 
             } else {
                 $(this).removeClass('is-open').addClass('is-close')
-                content.removeClass('is-open').addClass('is-close')
                 $(this).attr('title', '( ´,_ゝ`) < クリックで表示を展開します。')
+                setTimeout(() => {
+                    content.removeClass('is-open').addClass('is-close')
+                }, 200); 
             }
         });
 
