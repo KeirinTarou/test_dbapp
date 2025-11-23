@@ -30,3 +30,11 @@
         {% endif %}
     </main>
 {% endblock %}
+{% block loading_logo %}
+    {% if result %}
+    {% else %}
+        <div id="loading-logo">
+            <img src="{{ url_for('static', filename='img/aori-face.png') }}" alt="loading logo">
+        </div>
+    {% endif %}
+{% endblock %}
