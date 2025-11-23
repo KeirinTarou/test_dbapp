@@ -19,15 +19,23 @@
     <!-- jQuery UI -->
         <!-- jQuery UI CSS -->
         <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <!-- Prism.js -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet">
+
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
     {% block contents %}{% endblock %}
         <!-- jQuery -->
-        <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/jquery-3.7.1.min.js') }}"></script>
         <!-- jQuery UI JS -->
-        <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
-        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+            <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+        <!-- Prism.js -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+        <!-- Custom JS -->
+            <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% block javascript %}{% endblock %}
 </body>
 </html>
