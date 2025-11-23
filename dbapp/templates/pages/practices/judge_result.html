@@ -2,11 +2,11 @@
 {% block title %}結果判定{% endblock %}
 {% block contents %}
     <main class="page page--sql">
-        {% include "parts/intro/judge_result_intro.html" %}
+        {% include "parts/header/judge_result_header.html" %}
         {% include "parts/judge/message.html" %}
         <!-- 正解時はクエリと実行結果を表示 -->
         {% if result %}
-            {% set codeblock_title = "👏👏👏見事なあなたのクエリ👏👏👏" %}
+            {% set codeblock_title = "👏👏👏お見事なあなたのクエリ👏👏👏" %}
             {% set user_query = user_query %}
             {% include "parts/judge/codeblock.html" %}
             {% set table_title = "🎊🎊🎊すばらしいあなたのクエリの結果🎊🎊🎊" %}

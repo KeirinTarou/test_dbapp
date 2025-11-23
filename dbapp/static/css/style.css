@@ -24,6 +24,17 @@
 }
 
 /* セクション固有 */
+.section--footer {
+    padding: 1rem;
+}
+.section--footer .footer-text {
+    color: #888;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #888;
+    text-align: center;
+}
+
 .section--query {
     background-color: #fef3f8;
 }
@@ -103,14 +114,19 @@
 }
 
 /* ===== ページのイントロ部分 ===== */
-.intro-row {
+.header-row {
+    margin-top: 1rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
 }
 
-.intro-actions {
+.header-row-right {
+    justify-content: flex-end;
+}
+
+.header-actions { 
     flex-shrink: 0;
 }
 

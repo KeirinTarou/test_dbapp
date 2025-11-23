@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Top Page{% endblock %}
 {% block contents %}
+<!-- イントロダクション部分 -->
+{% include "parts/header/top_header.html" %}
 <main class="page page--sql">
-    <!-- イントロダクション部分 -->
-    {% include "parts/intro/top_intro.html" %}
     <!-- テーブル一覧部分（`table_names`を渡す必要あり） -->
     {% include "parts/table_structure/table_structure.html" %}
     <!-- クエリエディタ部分 -->
