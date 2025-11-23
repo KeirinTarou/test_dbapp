@@ -38,3 +38,26 @@
         </div>
     {% endif %}
 {% endblock %}
+{% block javascript %}
+    {% if result %}
+        <script>
+            const duration = 2.5 * 1000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,                   // 紙吹雪量
+                    spread: 90,                         // ヨコへの広がり
+                    origin: { x: Math.random(), y: 0 }, 
+                    gravity: 1.5,                       // 重力
+                    ticks: 200,                         // 生存時間
+                    scalar: 2.0,                        // 大きさ
+                    colors: ['#ff0', '#0ff', '#f0f', '#f00', '#0f0'], 
+                });
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            })();
+        </script>
+    {% endif %}
+{% endblock %}
