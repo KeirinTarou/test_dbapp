@@ -32,6 +32,9 @@
 {% endblock %}
 {% block loading_logo %}
     {% if result %}
+        <div id="loading-logo">
+            <img src="{{ url_for('static', filename='img/big-face.png') }}" alt="loading logo">
+        </div>
     {% else %}
         <div id="loading-logo">
             <img src="{{ url_for('static', filename='img/aori-face.png') }}" alt="loading logo">
