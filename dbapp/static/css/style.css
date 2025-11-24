@@ -20,7 +20,7 @@
 .section {
     margin-bottom: 2rem;
     padding: 1rem;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     background-color: var(--bg-section);
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
@@ -49,7 +49,7 @@
 .section--judge-message {
     padding: 1rem 1.2rem;
     margin-bottom: 1.5rem;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     text-align: left;
 }
@@ -71,7 +71,7 @@
 .section--judge-detail {
     padding: 1rem 1.2rem;
     margin-bottom: 1.5rem;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     background-color: #f7faff;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05)
 }
@@ -80,7 +80,7 @@
     background: #fff;
     padding: .5rem .8rem;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     margin-top: .5rem;
 }
 
@@ -136,7 +136,7 @@
     width: 100%;
     min-height: 200px;
     padding: 0.8rem;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     border: 2px solid #ddd;
     font-family: "Courier New", monospace;
     font-size: 1rem;
@@ -189,7 +189,7 @@
     background: #333;
     color: #fff;
     padding: 16px 24px;
-    border-radius: 2px;
+    border-radius: var(--radius-xxs);
     opacity: 0.9;
     font-size: 14px;
     z-index: 9999;
@@ -209,7 +209,7 @@
     overflow-y: auto;
     max-height: 600px;
     min-width: 400px;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     margin-top: 1rem;
     padding: 0 0.5em;
     background-color: #fff;
@@ -224,7 +224,7 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     font-size: 0.95rem;
     background-color: #fff;
 }
@@ -391,7 +391,7 @@
     padding: 0.5em;
     margin-top: 1em;
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
 }
 
 .table--structure th {
@@ -419,7 +419,7 @@
     background-color: var(--color-coral);
     color: #333;
     padding: 0.4rem 0.8rem;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     font-weight: 600;
     text-decoration: none;
     transition: background-color 0.3s, transform 0.3s;
@@ -436,7 +436,7 @@
     background-color: #4cd964;
     color: #fff;
     padding: 0.4rem 0.8rem;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     font-weight: 600;
     text-decoration: none;
     transition: background-color 0.3s, transform 0.3s;
@@ -487,7 +487,7 @@
     font-size: 1rem;
     font-weight: 600;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     padding: 0.4rem 1.2rem;
     cursor: pointer;
     transition: 
@@ -520,7 +520,7 @@
     background-color: #ddd;
     color: #333;
     padding: 0.4rem 0.8rem;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     font-weight: 600;
     text-decoration: none;
     margin-left: 0.5rem;
@@ -586,7 +586,7 @@
     min-height: 200px;
     max-height: 600px;
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     overflow: hidden;   /* CodeMirror内でスクロール */
 }
 
@@ -598,7 +598,7 @@
 .section {
     margin-top: 1.5rem;
     padding: 1rem 1.2rem;
-    border-radius: 10px;
+    border-radius: var(--radius-md);
     background-color: #fff;
     box-shadow: 0 1px 3px rgba(0,0,0,0.05)
 }
@@ -626,7 +626,7 @@
     display: inline-block;
     width: 100%;
     padding: 0.6rem 0.9rem;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     background-color: var(--bg-result);
     color: #0b4d8a;
     font-weight: 600;
@@ -655,7 +655,7 @@
     margin-top: 0.5rem;
     padding: 1rem;
     background-color: #fdd;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     border: solid 2px #6fafff;
 }
 
@@ -664,7 +664,7 @@
 .codeblock {
     background-color: #f5f7fa; /* パステル系の淡い水色 */
     border: 1px solid #d1e3f0; /* 薄めの青で柔らかい境界 */
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     padding: 1rem;
     font-family: "Courier New", monospace;
     font-size: 0.95rem;
@@ -727,7 +727,7 @@
   align-items: center;
   gap: 0.6rem;
   padding: 0.6rem 0.9rem;
-  border-radius: 10px;
+  border-radius: var(--radius-md);
   background-color: var(--bg-warning);
   color: #6a3f00;
   border: 1px solid #ffd7a8;
