@@ -1,11 +1,13 @@
 @charset "utf-8";
 
+@import "base/variables.css";
+
 /* ===== ページ全体 ===== */
 .page {
     font-family: "Helvetica Neue", Arial, sans-serif;
     color: #333;
     padding: 2rem;
-    background-color: #fdfcfb;
+    background-color: var(--bg-page);
 }
 
 /* ページバリエーション（SQLページ用） */
@@ -19,7 +21,7 @@
     margin-bottom: 2rem;
     padding: 1rem;
     border-radius: 12px;
-    background-color: #fff8f0; /* 軽く暖かい背景 */
+    background-color: var(--bg-section);
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
@@ -36,11 +38,11 @@
 }
 
 .section--query {
-    background-color: #fef3f8;
+    background-color: var(--bg-query);
 }
 
 .section--result {
-    background-color: #f0f7ff;
+    background-color: var(--bg-result);
 }
 
 /* 結果判定メッセージ用セクション */
@@ -48,7 +50,6 @@
     padding: 1rem 1.2rem;
     margin-bottom: 1.5rem;
     border-radius: 12px;
-    background-color: #fffdf6;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     text-align: left;
 }
@@ -95,7 +96,7 @@
     font-weight: 700;
 }
 
-.heading--xl { font-size: 2rem; color: #ff6f91; }
+.heading--xl { font-size: 2rem; color: var(--color-pink); }
 .heading--lg { font-size: 1.5rem; color: #6fafff; }
 .heading--md { font-size: 1.2rem; color: #6cda8d; }
 
@@ -104,12 +105,12 @@
 
 /* 判定メッセージ */
 .text--success {
-    color: #046b2e; /* messages li.success と同じ緑 */
+    color: var(--text-success);
     font-weight: bold;
 }
 
 .text--danger {
-    color: #8b0f12; /* messages li.error と同じ赤 */
+    color: var(--text-danger);
     font-weight: bold;
 }
 
@@ -366,13 +367,13 @@
 }
 
 /* カラーバリエーション（6色ローテーション） */
-.pill--0 { background-color: #ff6f91; } /* ピンク */
-.pill--1 { background-color: #ff9671; } /* コーラル */
-.pill--2 { background-color: #ffc75f; } /* イエロー */
-.pill--3 { background-color: #f9f871; }  /* レモン */
-.pill--4 { background-color: #a3d2ca; } /* ミント */
-.pill--5 { background-color: #84b6f4; } /* スカイブルー */
-.pill--6 { background-color: #c7a0e8; } /* ラベンダー */
+.pill--0 { background-color: var(--color-pink); } 
+.pill--1 { background-color: var(--color-coral); } 
+.pill--2 { background-color: var(--color-yellow); } 
+.pill--3 { background-color: var(--color-lemon); }  
+.pill--4 { background-color: var(--color-mint); } 
+.pill--5 { background-color: var(--color-sky); } 
+.pill--6 { background-color: var(--calor-lavender); } /* ラベンダー */
 
 /* ホバー・フォーカス時 */
 .pill:hover,
@@ -415,7 +416,7 @@
 
 .btn--back {
     display: inline-block;
-    background-color: #ff9671;
+    background-color: var(--color-coral);
     color: #333;
     padding: 0.4rem 0.8rem;
     border-radius: 8px;
@@ -426,7 +427,7 @@
 }
 
 .btn--back:hover {
-    background-color: #ffc75f;
+    background-color: var(--color-yellow);
     transform: translateY(-2px);
 }
 
@@ -497,7 +498,7 @@
 
 /* 実行ボタン */
 .btn--execute {
-    background-color: #84b6f4; /* スカイブルー */
+    background-color: var(--color-sky); 
     color: #fff;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
@@ -509,7 +510,7 @@
 }
 .btn--execute:active {
     opacity: 1;
-    background-color: #84b6f4;
+    background-color: var(--color-sky);
     transform: translateY(0);
 }
 
@@ -542,19 +543,17 @@
 
 /* 保存ボタン */
 .btn--save {
-    background-color: #a3d2ca;  /* ミント */
+    background-color: var(--color-mint); 
     color: #fff;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .btn--save:hover {
     opacity: 0.6;
-    background-color: #a3d2ca;
     transform: translateY(-2px);
 }
 .btn--save:active {
     opacity: 1;
-    background-color: #a3d2ca;
     transform: translateY(0);
 }
 
@@ -607,7 +606,7 @@
 /* 章タイトル */
 .section-title {
     margin-bottom: 0.5rem;
-    color: #ff6f91;
+    color: var(--color-pink);
 }
 
 /* 問題リスト全体 */
@@ -628,7 +627,7 @@
     width: 100%;
     padding: 0.6rem 0.9rem;
     border-radius: 8px;
-    background-color: #f0f7ff;
+    background-color: var(--bg-result);
     color: #0b4d8a;
     font-weight: 600;
     text-decoration: none;
@@ -729,7 +728,7 @@
   gap: 0.6rem;
   padding: 0.6rem 0.9rem;
   border-radius: 10px;
-  background-color: #fff4e5;   /* 薄いオレンジ（警告風） */
+  background-color: var(--bg-warning);
   color: #6a3f00;
   border: 1px solid #ffd7a8;
   box-shadow: 0 2px 6px rgba(0,0,0,0.04);
@@ -750,7 +749,7 @@
 /* 成功メッセージ */
 .messages li.success {
   background-color: #e8fff0;
-  color: #046b2e;
+  color: var(--text-success);
   border: 1px solid #b7f0c9;
 }
 .messages li.success::before { content: "✅"; }
@@ -766,7 +765,7 @@
 /* エラーメッセージ */
 .messages li.error {
   background-color: #fff0f0;
-  color: #8b0f12;
+  color: var(--text-danger);
   border: 1px solid #f5c6c6;
 }
 .messages li.error::before { content: "❗"; }

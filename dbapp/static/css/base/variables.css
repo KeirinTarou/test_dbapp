@@ -1,0 +1,21 @@
+:root {
+    /* Theme Colors */
+        --color-pink:       #ff6f91;
+        --color-coral:      #ff9671;
+        --color-yellow:     #ffc75f;
+        --color-lemon:      #f9f871;
+        --color-mint:       #a3d2ca;
+        --color-sky:        #84b6f4;
+        --color-lavender:   #c7a0e8;
+    
+    /* Background */
+        --bg-page:      #fdfcfb;
+        --bg-section:   #fffdf6;
+        --bg-query:     #fef3f8;
+        --bg-result:    #f0f7ff;
+        --bg-warning:   #fff8f0;
+    
+    /* Text Colors */
+        --text-success: #046b2e;
+        --text-danger:  #8b0f12;
+}
