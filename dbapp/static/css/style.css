@@ -22,7 +22,7 @@
     padding: 1rem;
     border-radius: var(--radius-md);
     background-color: var(--bg-section);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-sm);
 }
 
 /* セクション固有 */
@@ -50,7 +50,7 @@
     padding: 1rem 1.2rem;
     margin-bottom: 1.5rem;
     border-radius: var(--radius-md);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-sm);
     text-align: left;
 }
 
@@ -73,7 +73,7 @@
     margin-bottom: 1.5rem;
     border-radius: var(--radius-md);
     background-color: #f7faff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05)
+    box-shadow: var(--shadow-sm);
 }
 
 .detail-box {
@@ -358,7 +358,7 @@
     font-weight: 600;
     text-decoration: none;
     color: #444; /* 白ではなく、濃いグレー文字 */;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+    box-shadow: var(--shadow-sm);
     transition: 
         transform 0.4s ease, 
         box-shadow 0.4s ease, 
@@ -373,13 +373,13 @@
 .pill--3 { background-color: var(--color-lemon); }  
 .pill--4 { background-color: var(--color-mint); } 
 .pill--5 { background-color: var(--color-sky); } 
-.pill--6 { background-color: var(--calor-lavender); } /* ラベンダー */
+.pill--6 { background-color: var(--color-lavender); } /* ラベンダー */
 
 /* ホバー・フォーカス時 */
 .pill:hover,
 .pill:focus {
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    box-shadow: var(--shadow-md);
     opacity: 0.95;
 }
 .pill:active {
@@ -423,7 +423,7 @@
     font-weight: 600;
     text-decoration: none;
     transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-sm);
 }
 
 .btn--back:hover {
@@ -440,7 +440,7 @@
     font-weight: 600;
     text-decoration: none;
     transition: background-color 0.3s, transform 0.3s;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-sm);
 }
 
 .btn--proceed:hover {
@@ -500,7 +500,7 @@
 .btn--execute {
     background-color: var(--color-sky); 
     color: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-sm);
 }
 
 .btn--execute:hover {
@@ -545,7 +545,7 @@
 .btn--save {
     background-color: var(--color-mint); 
     color: #fff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-sm);
 }
 
 .btn--save:hover {
@@ -600,7 +600,7 @@
     padding: 1rem 1.2rem;
     border-radius: var(--radius-md);
     background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05)
+    box-shadow: var(--shadow-sm);
 }
 
 /* 章タイトル */
@@ -631,7 +631,7 @@
     color: #0b4d8a;
     font-weight: 600;
     text-decoration: none;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-sm);
     transition:
         background-color 0.3s ease, 
         transform 0.3 ease, 
@@ -641,13 +641,13 @@
 .practice-item a:hover {
     background-color: #d9ecff;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: var(--shadow-md);
 }
 
 /* クリック時 */
 .practice-item a:active {
     transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05)
+    box-shadow: var(--shadow-xxs);
 }
 
 /* ===== 問題文表示領域 ===== */
@@ -672,7 +672,7 @@
     overflow-x: auto;
     white-space: pre-wrap; /* 行が長い場合は折り返す */
     word-break: break-word;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: var(--shadow-sm);
     /* タブ幅を半角スペース4文字分に */
     tab-size: 4;
     -moz-tab-size: 4;  /* Firefox対応 */
@@ -731,7 +731,7 @@
   background-color: var(--bg-warning);
   color: #6a3f00;
   border: 1px solid #ffd7a8;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  box-shadow: var(--shadow-sm);
   font-weight: 600;
   margin-bottom: 0.5rem;
   line-height: 1.3;
