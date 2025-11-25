@@ -69,7 +69,15 @@ def fetch_all_excel(query: str, params=None, timeout: int=30):
         # あとかたづけ
         pythoncom.CoUninitialize()
 
+from dbapp.db.exceptions import (
+    DatabaseExecutionError, 
+    QuerySyntaxError, 
+    QueryRuntimeError
+)
 def fetch_both_with_single_excel(user_query, answer_query, timeout=30):
+    print("fetch_both_with_single_excel() executed!!")
+    role_user = "ユーザ投稿クエリ"
+    role_answer = "正解クエリ"
     pythoncom.CoInitialize()
     try: 
         excel = win32com.client.DispatchEx("Excel.Application")
@@ -77,11 +85,16 @@ def fetch_both_with_single_excel(user_query, answer_query, timeout=30):
         wb = excel.Workbooks.Open(EXCEL_PATH)
 
         try:
-            # ユーザクエリの結果セット取得
-            user_cols, user_rows = _execute_query_on_excel(excel, wb, user_query, timeout)
-
-            # 正解クエリの結果セット取得
-            answer_cols, answer_rows = _execute_query_on_excel(excel, wb, answer_query, timeout)
+            try:
+                # ユーザクエリの結果セット取得
+                user_cols, user_rows = _execute_query_on_excel(excel, wb, user_query, timeout)
+            except Exception:
+                _raise_excel_db_error(role=role_user, wb=wb)
+            try:
+                # 正解クエリの結果セット取得
+                answer_cols, answer_rows = _execute_query_on_excel(excel, wb, answer_query, timeout)
+            except Exception:
+                _raise_excel_db_error(role=role_answer, wb=wb)
             
             return user_cols, user_rows, answer_cols, answer_rows 
         finally: 
@@ -126,6 +139,20 @@ def _execute_query_on_excel(excel, wb, query, timeout):
 
     # 結果を返却
     return columns, rows
+
+def _raise_excel_db_error(role: str, wb):
+    status = wb.sheets("Status").Range("A1").Value
+    err_desc = wb.sheets("Status").Range("A2").Value
+    if status == "Error...":
+        if "syntax" in err_desc.lower():
+            raise RuntimeError(f"{role}（SQL構文エラー）: {err_desc}")
+        elif "timeout" in err_desc.lower():
+            raise RuntimeError(f"{role}（SQL実行時エラー）: {err_desc}")
+        else:
+            raise RuntimeError(f"{role}（DBエラー）: {err_desc}")
+    else:
+        # DBエラー以外のExcel起因の例外
+        raise RuntimeError(f"{role}（Excel実行エラー）")
 
 def describe_table(table_name: str):
     """ `DESC`コマンドを使ってテーブル構造を取得

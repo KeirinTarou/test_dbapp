@@ -46,11 +46,21 @@ def compare_queries(
     # ユーザークエリと正解クエリを実行して結果を取得
     # ユーザークエリ・正解クエリの実行結果を取得
     #   -> 例外発生時はキャッチしてRuntimeErrorをスロー
-    try:
-        user_columns, user_rows = _safe_fetch_all(query=cleansed_query, role=query_role_user, params=None, use_excel=use_excel)
-        answer_columns, answer_rows = _safe_fetch_all(query=answer_query, role=query_role_answer, params=None, use_excel=use_excel)
-    except RuntimeError as e:
-        return False, result_enum, str(e), {}, user_columns, user_rows, answer_columns, answer_rows
+    #   -> 例外発生時、`result_enum`は`None`のままで良い
+
+    # 踏み台Excel使用時
+    if use_excel:
+        try: 
+            user_columns, user_rows, answer_columns, answer_rows = db_excel.fetch_both_with_single_excel(user_query=cleansed_query, answer_query=answer_query, timeout=30)
+        except RuntimeError as e:
+            return False, result_enum, str(e), {}, user_columns, user_rows, answer_columns, answer_rows
+    # 通常時
+    else:
+        try:
+            user_columns, user_rows = _safe_fetch_all(query=cleansed_query, role=query_role_user, params=None, use_excel=use_excel)
+            answer_columns, answer_rows = _safe_fetch_all(query=answer_query, role=query_role_answer, params=None, use_excel=use_excel)
+        except RuntimeError as e:
+            return False, result_enum, str(e), {}, user_columns, user_rows, answer_columns, answer_rows
     
     # ユーザクエリの結果セットと正解クエリの結果セットをタプルにする
     user_result = (user_columns, user_rows)
@@ -69,10 +79,7 @@ def compare_queries(
 
 def _safe_fetch_all(query: str, role: str, params: Optional[Sequence[Any]]=None, use_excel=False) -> Tuple[List[str], List[pyodbc.Row]]:
     try:
-        if use_excel:
-            return db_excel.fetch_all_excel(query=query, params=params)
-        else:
-            return dbq.fetch_all(query=query, params=params)
+        return dbq.fetch_all(query=query, params=params)
     except QuerySyntaxError as e:
         raise RuntimeError(f"{role}（SQL構文エラー）: {e}") from e
     except QueryRuntimeError as e:
