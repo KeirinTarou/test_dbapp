@@ -1,4 +1,5 @@
 from dbapp.db import queries as dbq
+from dbapp.db import import_from_excel as db_excel
 from typing import Tuple, List, Dict, Any, Sequence, Literal, Optional
 
 from dbapp.db.exceptions import (
@@ -14,7 +15,8 @@ def compare_queries(
     user_query: str, 
     answer_query: str, 
     check_mode: Literal["strict", "loose", "custom"] = "strict", 
-    rule: Optional[dict] = None
+    rule: Optional[dict] = None, 
+    use_excel: bool=False
 ) -> Tuple[bool, CompareResult, str, dict[str, Any], List[str], List[pyodbc.Row], List[str], List[pyodbc.Row]]:
     """ 2つのクエリを受け取って結果を比較する
         Returns:
@@ -45,8 +47,8 @@ def compare_queries(
     # ユーザークエリ・正解クエリの実行結果を取得
     #   -> 例外発生時はキャッチしてRuntimeErrorをスロー
     try:
-        user_columns, user_rows = _safe_fetch_all(query=cleansed_query, role=query_role_user, params=None)
-        answer_columns, answer_rows = _safe_fetch_all(query=answer_query, role=query_role_answer, params=None)
+        user_columns, user_rows = _safe_fetch_all(query=cleansed_query, role=query_role_user, params=None, use_excel=use_excel)
+        answer_columns, answer_rows = _safe_fetch_all(query=answer_query, role=query_role_answer, params=None, use_excel=use_excel)
     except RuntimeError as e:
         return False, result_enum, str(e), {}, user_columns, user_rows, answer_columns, answer_rows
     
@@ -65,9 +67,12 @@ def compare_queries(
         pass
     return result, result_enum, message, detail, user_columns, user_rows, answer_columns, answer_rows
 
-def _safe_fetch_all(query: str, role: str, params: Optional[Sequence[Any]]=None)  -> Tuple[List[str], List[pyodbc.Row]]:
+def _safe_fetch_all(query: str, role: str, params: Optional[Sequence[Any]]=None, use_excel=False) -> Tuple[List[str], List[pyodbc.Row]]:
     try:
-        return dbq.fetch_all(query=query, params=params)
+        if use_excel:
+            return db_excel.fetch_all_excel(query=query, params=params)
+        else:
+            return dbq.fetch_all(query=query, params=params)
     except QuerySyntaxError as e:
         raise RuntimeError(f"{role}（SQL構文エラー）: {e}") from e
     except QueryRuntimeError as e:

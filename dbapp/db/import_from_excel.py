@@ -33,12 +33,14 @@ def normalize_value(v):
         return v.strftime('%Y-%m-%d %H:%M:%S')
     return v
 
-def fetch_all_excel(query: str, params=None):
+def fetch_all_excel(query: str, params=None, timeout: int=30):
     """ Excel経由でDBからレコードセットを取得
         (columns, rows)の形で結果を返却
     """
     # プレースホルダがあるときはパラメータを埋め込む
-    if params:
+    if params is None:
+        params = ()
+    else:
         # `params`をアンパックして`?`の部分に順番に埋め込む
         # `params`が`("foo", "bar", 2000)`だったら、
         # `"{} {} {}".format(*["foo", "bar", 2000])`となり、
@@ -58,42 +60,7 @@ def fetch_all_excel(query: str, params=None):
         wb = excel.Workbooks.Open(EXCEL_PATH)
 
         try:
-            # 踏み台Excelブックのマクロに引数を渡して実行
-            excel.Run(
-                "Std01Main.RefreshFromDB", 
-                CONNECTION_STRING.replace("\n", ""), 
-                query
-            )
-
-            # 完了待ち
-            while True:
-                status = wb.Sheets(STATUS_SHEET).Range(STATUS_CELL).Value 
-                if status == STATUS_DONE:
-                    break
-                elif status == STATUS_ERROR:
-                    err_msg = wb.Sheets(STATUS_SHEET).Range(ERROR_CELL).Value
-                    raise RuntimeError(err_msg)
-                time.sleep(0.5)
-
-            # 結果取得
-            ws = wb.Sheets(DATA_SHEET)
-            data = ws.UsedRange.Value
-
-            # data[0] -> カラム名の行
-            # data[1:] -> データの行
-
-            if not data or len(data) < 2:
-                # データがない
-                return [], []
-
-            # カラム名のリスト
-            columns = list(data[0])
-            # データ行のリスト（タプルのリスト）
-            rows = [tuple(normalize_value(x) for x in r) for r in data[1:]]
-
-            # 結果を返却
-            return columns, rows
-
+            return _execute_query_on_excel(excel=excel, wb=wb, query=query, timeout=timeout)
         finally:
             wb.Close(SaveChanges=False)
             excel.Quit()
@@ -101,6 +68,64 @@ def fetch_all_excel(query: str, params=None):
     finally:
         # あとかたづけ
         pythoncom.CoUninitialize()
+
+def fetch_both_with_single_excel(user_query, answer_query, timeout=30):
+    pythoncom.CoInitialize()
+    try: 
+        excel = win32com.client.DispatchEx("Excel.Application")
+        excel.Visible = False
+        wb = excel.Workbooks.Open(EXCEL_PATH)
+
+        try:
+            # ユーザクエリの結果セット取得
+            user_cols, user_rows = _execute_query_on_excel(excel, wb, user_query, timeout)
+
+            # 正解クエリの結果セット取得
+            answer_cols, answer_rows = _execute_query_on_excel(excel, wb, answer_query, timeout)
+            
+            return user_cols, user_rows, answer_cols, answer_rows 
+        finally: 
+            wb.Close(SaveChanges=False)
+            excel.Quit()
+    finally:
+        pythoncom.CoUninitialize()
+
+def _execute_query_on_excel(excel, wb, query, timeout):
+    # 踏み台Excelブックのマクロに引数を渡して実行
+    excel.Run(
+        "Std01Main.RefreshFromDB", 
+        CONNECTION_STRING.replace("\n", ""), 
+        query, 
+        timeout
+    )
+
+    # 完了待ち
+    while True:
+        status = wb.Sheets(STATUS_SHEET).Range(STATUS_CELL).Value 
+        if status == STATUS_DONE:
+            break
+        elif status == STATUS_ERROR:
+            err_msg = wb.Sheets(STATUS_SHEET).Range(ERROR_CELL).Value
+            raise RuntimeError(err_msg)
+        time.sleep(0.5)
+
+    # 結果取得
+    ws = wb.Sheets(DATA_SHEET)
+    data = ws.UsedRange.Value
+    # data[0] -> カラム名の行
+    # data[1:] -> データの行
+
+    if not data or len(data) < 2:
+        # データがない
+        return [], []
+
+    # カラム名のリスト
+    columns = list(data[0])
+    # データ行のリスト（タプルのリスト）
+    rows = [tuple(normalize_value(x) for x in r) for r in data[1:]]
+
+    # 結果を返却
+    return columns, rows
 
 def describe_table(table_name: str):
     """ `DESC`コマンドを使ってテーブル構造を取得

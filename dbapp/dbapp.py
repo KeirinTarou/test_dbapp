@@ -129,8 +129,10 @@ def api_table_structure(table_name):
         return {"error": "Invalid table name"}, 400
     # `fields`: カラム名のリスト
     # `values`: `Row`オブジェクトのリスト
-    fields, values = dbq.describe_table(table_name)
-    # fields, values = db_excel.describe_table(table_name)
+    if using_excel:
+        fields, values = db_excel.describe_table(table_name)
+    else:
+        fields, values = dbq.describe_table(table_name)
     # Rowオブジェクトをリストに変換してリストのリストにする
     rows_list = [list(row) for row in values]
     # クライアントにJSONを返す
@@ -224,7 +226,8 @@ def judge_result():
             user_query=user_query, 
             answer_query=answer_query, 
             check_mode=checkmode, 
-            rule=None
+            rule=None, 
+            use_excel=using_excel
         )
 
     return render_template(
@@ -286,9 +289,12 @@ def show_table_structure(table_name):
     # テーブル名がリストになかったら404
     if table_name not in allowed_tables:
         abort(404)
-    
+    print(using_excel)
     # DESC文実行
-    fields, values = dbq.describe_table(table_name)
+    if using_excel:
+        fields, values = db_excel.describe_table(table_name)
+    else:
+        fields, values = dbq.describe_table(table_name)
     # fields, values = db_excel.describe_table(table_name)
 
     # テンプレートにデータを投げる
