@@ -624,6 +624,7 @@
 /* リンク（各問題へのリンク） */
 .practice-item a {
     display: inline-block;
+    box-sizing: border-box;
     width: 100%;
     padding: 0.6rem 0.9rem;
     border-radius: var(--radius-sm);
