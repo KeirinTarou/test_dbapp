@@ -1,5 +1,5 @@
-{# 行の順序不一致のときは詳細欄を表示しない #}
-{% if result_enum != CompareResult.ROW_ORDER_MISMATCH %}
+{# 行の順序不一致のときとDBエラーのときは詳細欄を表示しない #}
+{% if result_enum is not none and result_enum != CompareResult.ROW_ORDER_MISMATCH %}
     <section class="section section--judge-detail">
         <h2 class="heading heading--lg">詳細</h2>
         {# 列数の不一致 #}
