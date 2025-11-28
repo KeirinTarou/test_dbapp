@@ -246,6 +246,11 @@ def judge_result():
         user_query=org_user_query.strip()
     )
 
+# 問題・正解クエリの編集ページ
+@app.route("/questions/edit/<chapter>/<section>/<question>")
+def questions_edit():
+    pass
+
 # クエリを実行するだけのページ
 @app.route('/playground', methods=['GET', 'POST'])
 def playground():
