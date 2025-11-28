@@ -2,63 +2,891 @@
 - chapter_number: 2
   section_number: 7
   question_number: 0
-  question: |
-    うちの商品って平均単価いくらなの？　ちょっと教えて。<br>
-    【必要なカラム】平均単価
-  answer_query: |
-    SELECT 
-        AVG(p.Price) AS 平均単価
-    FROM
-        Products AS p;
-    ;
+  question: うちの商品って、平均単価いくらくらいなの？　ちょっと教えて
+  answer_query: "SELECT\n\tAVG(p.Price) AS 平均単価\nFROM\n\tProducts AS p\n;"
   check_mode: strict
 - chapter_number: 2
   section_number: 7
   question_number: 1
-  question: |
-    テーブルCustomersの顧客数を求めて、「お得意様数」と別名をつけなさい。
-  answer_query: |
-    SELECT
-        COUNT(*) AS お得意様数 
-    FROM
-        Customers
-    ;
+  question: テーブルCustomersの顧客数を求めて、「お得意様数」と別名をつけなさい。
+  answer_query: "SELECT\n\tCOUNT(*) AS お得意様数 \nFROM\n\tCustomers\n;"
   check_mode: strict
 - chapter_number: 2
   section_number: 7
   question_number: 2
-  question: |
-    テーブルEmployeesのWeight合計を求め、「社員体重合計」と別名をつけなさい。
-  answer_query: |
-    SELECT
-        SUM(e.Weight) AS 社員体重合計 
-    FROM
-        Employees AS e
-    ;
+  question: テーブルEmployeesのWeight合計を求め、「社員体重合計」と別名をつけなさい。
+  answer_query: "SELECT\n\tSUM(e.Weight) AS 社員体重合計 \nFROM\n\tEmployees AS e\n;"
   check_mode: strict
 - chapter_number: 2
   section_number: 7
   question_number: 3
-  question: |
-    テーブルProductsのPriceの最大値を求め、「最高額価格」と別名をつけなさい。
-  answer_query: |
-    SELECT
-        MAX(p.Price) AS 最高額価格
-    FROM
-        Products AS p
-    ;
+  question: テーブルProductsのPriceの最大値を求め、「最高額価格」と別名をつけなさい。
+  answer_query: "SELECT\n\tMAX(p.Price) AS 最高額価格\nFROM\n\tProducts AS p\n;"
   check_mode: strict
 - chapter_number: 2
   section_number: 7
   question_number: 4
-  question: |
-    テーブルEmployeesのWeightの最小値を求め、「最軽量体重」と別名をつけなさい。
-  answer_query: |
-    SELECT
-        MIN(e.Weight) AS 最軽量体重
-    FROM
-        Employees AS e
-    ;
+  question: テーブルEmployeesのWeightの最小値を求め、「最軽量体重」と別名をつけなさい。
+  answer_query: "SELECT\n\tMIN(e.Weight) AS 最軽量体重\nFROM\n\tEmployees AS e\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 7
+  question_number: 5
+  question: テーブルEmployeesのHeight、Weightの平均値を求め、「平均身長」,「平均体重」と別名をつけなさい。
+  answer_query: "SELECT\n\tAVG(e.Height) AS 平均身長, \n\tAVG(e.Weight) AS 平均体重\nFROM\n\
+    \tEmployees AS e\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 8
+  question_number: 0
+  question: うちの会社でバスケットボールのチームを作ろうと思う。ついては、背の高い人をピックアップしてくれ
+  answer_query: "SELECT\n\te.EmployeeName AS 氏名\nFROM\n\tEmployees AS e\nORDER BY\n\
+    \te.Height DESC\nLIMIT\n\t3\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 8
+  question_number: 1
+  question: テーブルProductsからPriceが2,500以上のProductNameを取り出しなさい。
+  answer_query: "SELECT\n\tp.ProductName\nFROM\n\tProducts AS p\nWHERE\n\tp.Price\
+    \ >= 2500\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 8
+  question_number: 2
+  question: テーブルEmployeesからWeightが70以上のEmployeeName, Weightを取り出しなさい。
+  answer_query: "SELECT\n\te.EmployeeName, \n\te.Weight \nFROM\n\tEmployees AS e\n\
+    WHERE\n\te.Weight >= 70\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 8
+  question_number: 3
+  question: テーブルEmployeesからHeightが160以上180以下のEmployeeName、Heightを取り出しなさい。
+  answer_query: "SELECT\n\te.EmployeeName, \n\te.Height\nFROM\n\tEmployees AS e\n\
+    WHERE\n\te.Height BETWEEN 160 AND 180\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 8
+  question_number: 4
+  question: テーブルSalesからSaleDateが2007年6月1日以降のSaleIDを取り出しなさい。SaleDateの表記は「2007-06-01」となっています。
+  answer_query: "SELECT\n\ts.SaleID\nFROM\n\tSales AS s\nWHERE\n\ts.SaleDate >= '2007-06-01'\n\
+    ;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 8
+  question_number: 5
+  question: テーブルEmployeesからHeightが170以上、Weightが60以上のEmployeeName,Height,Weightを取り出しなさい。
+  answer_query: "SELECT\n\te.EmployeeName, \n\te.Height, \n\te.Weight\nFROM\n\tEmployees\
+    \ AS e\nWHERE\n\te.Height >= 170\n\tAND e.Weight >= 60\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 9
+  question_number: 0
+  question: 最近の女性の名前って、昔みたいに～子ってつく人少ない気がするんだよな。うちの会社だと何人いるんだろう
+  answer_query: "SELECT\n\tCOUNT(*) AS 子のつく社員の人数\nFROM\n\tEmployees AS e\nWHERE\n\t\
+    e.EmployeeName LIKE '%子'\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 9
+  question_number: 1
+  question: テーブルCustomersからCustomerNameに'株式会社'を含むCustomerNameを取り出しなさい。
+  answer_query: "SELECT\n\tc.CustomerName AS 会社名\nFROM\n\tCustomers AS c\nWHERE\n\t\
+    c.CustomerName Like '%株式会社%'\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 9
+  question_number: 2
+  question: テーブルEmployeesからEmployeeNameに'ー'を含むレコードのHeightの平均を求めなさい。
+  answer_query: "SELECT\n\tAVG(e.Height) AS 平均身長\nFROM\n\tEmployees AS e\nWHERE\n\t\
+    e.EmployeeName LIKE '%ー%'\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 9
+  question_number: 3
+  question: テーブルCustomersからCustomerNameに'株式会社'を含まないレコードの件数を求めなさい。
+  answer_query: "SELECT\n\tCOUNT(*) AS 顧客数\nFROM\n\tCustomers AS c\nWHERE\n\tc.CustomerName\
+    \ NOT LIKE '%株式会社%'\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 9
+  question_number: 4
+  question: テーブルEmployeesからEmployeeNameに'リ'を含み、身長が160以下のEmployeeName,Heightを取り出しなさい。
+  answer_query: "SELECT\n\te.EmployeeName, \n\te.Height\nFROM\n\tEmployees AS e\n\
+    WHERE\n\te.EmployeeName LIKE '%リ%'\n\tAND e.Height <= 160\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 9
+  question_number: 5
+  question: テーブルCustomersからCustomerNameに'株式会社'を含まず、Addressに'江戸川区'を含むレコードを取り出しなさい。
+  answer_query: "SELECT\n\tc.*\nFROM\n\tCustomers AS c\nWHERE\n\tc.CustomerName Not\
+    \ LIKE '%株式会社%'\n\tAND c.Address LIKE '%江戸川区%'\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 10
+  question_number: 0
+  question: うちの商品を価格帯別でランク付けしてみるとどうなるだろうか。ちょっと調べてくれ
+  answer_query: "SELECT\n\tp.ProductName AS 商品名, \n\tCASE\n\t\tWHEN p.Price > 2000\
+    \ THEN 'A'\n\t\tWHEN p.Price > 1000 THEN 'B'\n\t\tELSE 'C'\n\tEND AS ランク\nFROM\n\
+    \tProducts AS p\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 10
+  question_number: 1
+  question: テーブルEmployeesを身長によって160未満を「A」、160以上170未満を「B」、170以上180未満を「C」、180以上を「D」にランク分けし、EmployeeName（「社員名」という別名をつける）と「ランク」を表示しなさい。
+  answer_query: "SELECT\n\te.EmployeeName AS 社員名, \n\tCASE\n\t\tWHEN e.Height < 160\
+    \ THEN 'A'\n\t\tWHEN e.Height < 170 THEN 'B'\n\t\tWHEN e.Height < 180 THEN 'C'\n\
+    \t\tELSE 'D'\n\tEND AS ランク\nFROM\n\tEmployees AS e\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 10
+  question_number: 2
+  question: テーブルSalaryをAmountによって150,000未満を「D」、150,000以上300,000未満を「C」、300,000以上500,000未満を「B」、500,000以上を「A」にランク分けし、SalaryID、ランクを表示しなさい。
+  answer_query: "SELECT\n\ts.SalaryID AS 給与ID, \n\tCASE\n\t\tWHEN s.Amount < 150000\
+    \ THEN 'D' \n\t\tWHEN s.Amount < 300000 THEN 'C'\n\t\tWHEN s.Amount < 500000 THEN\
+    \ 'B'\n\t\tELSE 'A'\n\tEND AS ランク\nFROM\n\tSalary AS s  \n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 10
+  question_number: 3
+  question: テーブルEmployeesを体重によって60未満を「A」、60以上70未満を「B」、70以上80未満を「C」、80以上を「D」にランク分けし、EmployeeName、ランクを表示しなさい。
+  answer_query: "SELECT\n\te.EmployeeName AS 社員名, \n\tCASE\n\t\tWHEN e.Weight < 60\
+    \ THEN 'A' \n\t\tWHEN e.Weight < 70 THEN 'B'\n\t\tWHEN e.Weight < 80 THEN 'C'\n\
+    \t\tELSE 'D'\n\tEND AS ランク\nFROM\n\tEmployees AS e\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 10
+  question_number: 4
+  question: テーブルSalesをQuantityによって、10以上を「A」、10未満を「B」にランク分けし、SaleID（「販売ID」という別名をつける）、ランクを表示しなさい。
+  answer_query: "SELECT\n\ts.SaleID AS 販売ID, \n\tCASE\n\t\tWHEN s.Quantity >= 10 THEN\
+    \ 'A'\n\t\tELSE 'B'\n\tEND AS ランク\nFROM\n\tSales AS s\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 10
+  question_number: 5
+  question: テーブルEmployeesを身長によって160未満を「A」、160以上170未満を「B」、170以上180未満を「C」、180以上を「D」にランク分けし、EmployeeName（「社員名」と別名をつける）、Height（「身長」と別名をつける）とランクを表示しなさい。
+  answer_query: "SELECT\n\te.EmployeeName AS 社員名, \n\te.Height AS 身長, \n\tCASE\n\t\
+    \tWHEN e.Height < 160 THEN 'A'\n\t\tWHEN e.Height < 170 THEN 'B'\n\t\tWHEN e.Height\
+    \ < 180 THEN 'C'\n\t\tELSE 'D'\n\tEND AS ランク\nFROM\n\tEmployees AS e\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 11
+  question_number: 0
+  question: 都道府県別に、それぞれ何人ずつ顧客がいるのか教えてくれ
+  answer_query: "SELECT\n\tc.PrefecturalID AS 都道府県\n\t, COUNT(*) AS 顧客数\nFROM\n\t\
+    Customers AS c\nGROUP BY\n\tc.PrefecturalID\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 11
+  question_number: 1
+  question: テーブルSalesをCustomerIDでグループ化し、CustomerIDごとの件数を求めなさい。
+  answer_query: "SELECT\n\ts.CustomerID AS 顧客ID\n\t, COUNT(*) AS 件数\nFROM\n\tSales\
+    \ AS s\nGROUP BY\n\ts.CustomerID\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 11
+  question_number: 2
+  question: テーブルSalaryをEmployeeIDでグループ化し、EmployeeIDごとのAmount合計を求めなさい。
+  answer_query: "SELECT\n\ts.EmployeeID AS 社員ID\n\t, SUM(s.Amount) AS 合計\nFROM\n\t\
+    Salary AS s\nGROUP BY\n\ts.EmployeeID\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 11
+  question_number: 3
+  question: テーブルSalesをCustomerID、ProductIDでグループ化し、CustomerID、ProductIDごとのQuantity合計を求めなさい。
+  answer_query: "SELECT\n\ts.CustomerID AS 顧客ID\n\t, s.ProductID AS 商品ID\n\t, SUM(s.Quantity)\
+    \ AS 数量 \nFROM\n\tSales AS s\nGROUP BY\n\ts.CustomerID\n\t, s.ProductID\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 11
+  question_number: 4
+  question: テーブルEmployeesをBloodType（「血液型」と別名をつける）でグループ化し、Height、Weightの平均値（それぞれ別名は「平均身長」、「平均体重」とします）を求めなさい。
+  answer_query: "SELECT\n\te.BloodType AS 血液型\n\t, AVG(e.Height) AS 平均身長\n\t, AVG(e.Weight)\
+    \ AS 平均体重\nFROM\n\tEmployees AS e\nGROUP BY\n\te.BloodType\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 11
+  question_number: 5
+  question: テーブルSalaryをEmployeeID（別名は「社員ID」）でグループ化し、レコード数（別名は「支給回数」）、Amountの平均値（別名は「平均支給額」）を求めなさい。
+  answer_query: "SELECT\n\ts.EmployeeID AS 社員ID\n\t, COUNT(*) AS 支給回数\n\t, AVG(s.Amount)\
+    \ AS 平均支給額\nFROM\n\tSalary AS s\nGROUP BY\n\ts.EmployeeID\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 12
+  question_number: 0
+  question: テーブルSalaryからレコード数が12未満のEmployeeIDとレコード数を取り出しなさい。
+  answer_query: "SELECT\n\ts.EmployeeID AS 社員ID\n\t, COUNT(*) AS 支給回数\nFROM\n\tSalary\
+    \ AS s\nGROUP BY\n\ts.EmployeeID\nHAVING\n\tCOUNT(*) < 12\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 12
+  question_number: 1
+  question: テーブルCustomersをPrefecturalIDでグループ化し、複数レコードを持つPrefecturalIDを表示しなさい。
+  answer_query: "SELECT\n\tc.PrefecturalID AS 県ID\n\t, COUNT(*) AS 顧客数\nFROM\n\tCustomers\
+    \ AS c\nGROUP BY\n\tc.PrefecturalID\nHAVING\n\tCOUNT(*) > 1\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 12
+  question_number: 2
+  question: テーブルSalesをProductIDでグループ化し、レコードを10以上、50以下持つProductIDとそのレコード数を表示しなさい。
+  answer_query: "SELECT\n\ts.ProductID AS 商品ID\n\t, COUNT(*) AS 売上レコード数\nFROM\n\t\
+    Sales AS s\nGROUP BY\n\ts.ProductID\nHAVING\n\tCOUNT(*) >= 10 \n\tAND COUNT(*)\
+    \ <= 50\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 12
+  question_number: 3
+  question: テーブルEmployeesをBloodTypeでグループ化したとき、10件以上持つBloodType（別名は「血液型」）、データ数（別名は「データ件数」）を表示しなさい。
+  answer_query: "SELECT\n\te.BloodType AS 血液型\n\t, COUNT(*) AS データ件数\nFROM\n\tEmployees\
+    \ AS e\nGROUP BY\n\te.BloodType\nHAVING\n\tCOUNT(*) >= 10\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 12
+  question_number: 4
+  question: テーブルSalesをProductIDでグループ化したとき、Quantityの合計が100以上かつ200以下のProductID（別名は「商品ID」）、Quantity合計（別名は「数量合計」）を表示しなさい。
+  answer_query: "SELECT\n\ts.ProductID AS 商品ID\n\t, SUM(s.Quantity) AS 数量合計\nFROM\n\
+    \tSales AS s\nGROUP BY\n\ts.ProductID\nHAVING\n\tSUM(s.Quantity) >= 100 \n\tAND\
+    \ SUM(s.Quantity) <=200\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 13
+  question_number: 0
+  question: この前の都道府県別顧客数だけど、会員種別が法人の顧客数が2人以上の都道府県だけを出してくれ
+  answer_query: "SELECT\n\tc.PrefecturalID AS 都道府県\n\t, COUNT(*) AS 顧客数\nFROM\n\t\
+    Customers AS c\nWHERE\n\tc.CustomerClassID = 1\nGROUP BY\n\tc.PrefecturalID\n\
+    HAVING\n\tCOUNT(*) >= 2\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 13
+  question_number: 1
+  question: テーブルCustomersをPrefecturalIDでグループ化したとき、PrefecturalIDが10以上で複数の顧客を持つPrefecturalID、レコード数を表示しなさい。
+  answer_query: "SELECT\n\tc.PrefecturalID AS 県ID\n\t, COUNT(*) AS 顧客数\nFROM \n\t\
+    Customers AS c\nWHERE\n\tc.PrefecturalID >= 10\nGROUP BY \n\tc.PrefecturalID\n\
+    HAVING \n\tCOUNT(*) > 1 \n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 13
+  question_number: 2
+  question: テーブルSalaryからレコード数が12以上、EmployeeIDが20以上のEmployeeIDとレコード数を取り出しなさい。
+  answer_query: "SELECT\n\ts.EmployeeID AS 社員ID\n\t, COUNT(*) AS 支給回数\nFROM\n\tSalary\
+    \ AS s\nWHERE\n\ts.EmployeeID >= 20\nGROUP BY\n\ts.EmployeeID\nHAVING\n\tCOUNT(*)\
+    \ >= 12\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 13
+  question_number: 3
+  question: テーブルSalesをProductIDでグループ化し、レコードを30以上持ち、かつProductIDが20以上30以下のProductIDとそのレコード数を表示しなさい。
+  answer_query: "SELECT\n\ts.ProductID AS 商品ID\n\t, COUNT(*) AS 売上レコード数 \nFROM\n\t\
+    Sales AS s\nWHERE\n\ts.ProductID >= 20 \n\tAND s.ProductID <= 30\nGROUP BY\n\t\
+    s.ProductID\nHAVING\n\tCOUNT(*) >= 30\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 13
+  question_number: 4
+  question: テーブルEmployeesをBloodTypeでグループ化したとき、Heightが165以上の社員データを5件以上持つBloodType（別名は「血液型」）、データ数（別名は「データ件数」）を表示しなさい。
+  answer_query: "SELECT\n\te.BloodType AS 血液型\n\t, COUNT(*) AS データ件数\nFROM\n\tEmployees\
+    \ AS e\nWHERE\n\te.Height >= 165\nGROUP BY\n\te.BloodType\nHAVING\n\tCOUNT(*)\
+    \ >= 5\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 13
+  question_number: 5
+  question: テーブルSalesをProductIDでグループ化したとき、SaleDateが2007-06-01以降でQuantityの合計が200以上のProductID（別名は「商品ID」）、Quantity合計（別名は「数量合計」）を表示しなさい。
+  answer_query: "SELECT\n\ts.ProductID AS 商品ID\n\t, SUM(s.Quantity) AS 数量合計\nFROM\n\
+    \tSales AS s\nWHERE\n\ts.SaleDate >= '2007-06-01'\nGROUP BY\n\ts.ProductID\nHAVING\n\
+    \tSUM(s.Quantity) >= 200\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 14
+  question_number: 0
+  question: うちの会社って、血液型は何が多いんだろうね。それぞれの人数を入社年度ごとに出してくれ
+  answer_query: "SELECT\n\te.HireFiscalYear AS 入社年度\n\t, SUM(\n\t\tCASE\n\t\t\tWHEN\
+    \ e.BloodType = 'A' THEN 1\n\t\t\tELSE 0\n\t\tEND\n\t) AS A型\n\t, SUM(\n\t\tCASE\n\
+    \t\t\tWHEN e.BloodType = 'B' THEN 1\n\t\t\tELSE 0\n\t\tEND\n\t) AS B型\n\t, SUM(\n\
+    \t\tCASE\n\t\t\tWHEN e.BloodType = 'O' THEN 1\n\t\t\tELSE 0\n\t\tEND\n\t) AS O型\n\
+    \t, SUM(\n\t\tCASE\n\t\t\tWHEN e.BloodType = 'AB' THEN 1\n\t\t\tELSE 0\n\t\tEND\n\
+    \t) AS AB型\nFROM\n\tEmployees AS e\nGROUP BY\n\te.HireFiscalYear\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 14
+  question_number: 1
+  question: テーブルEmployeesをHireFiscalYear（入社年度）でグループ化したとき、Height（身長）を次の4つの範囲に分けて、それぞれの人数を表示しなさい。「160cm以下：Heightが160以下」「170cm以下：Heightが170以下」「180cm以下：Heightが180以下」「180cm超：Heightが180より大きい」
+  answer_query: "SELECT\n\te.HireFiscalYear AS 入社年度\n\t, SUM(\nCASE\n\tWHEN e.Height\
+    \ <= 160 THEN 1\n\tELSE 0 \nEND\n\t) AS \"160cm以下\"\n\t, SUM(\n\t\tCASE \n\t\t\
+    \tWHEN e.Height > 160 AND e.Height <= 170 THEN 1\n\t\t\tELSE 0 \nEND\n\t) AS \"\
+    170cm以下\"\n\t, SUM(\n\t\tCASE \n\t\t\tWHEN e.Height > 170 AND e.Height <= 180\
+    \ THEN 1\n\t\t\tELSE 0 \n\t\tEND\n\t) AS \"180cm以下\"\n\t, SUM(\n\t\tCASE \n\t\t\
+    \tWHEN e.Height > 180 THEN 1\n\t\t\tELSE 0 \n\t\tEND\n\t) AS \"180cm超\"\nFROM\
+    \ \n\tEmployees AS e\nGROUP BY \n\te.HireFiscalYear\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 14
+  question_number: 2
+  question: テーブルProductsをCategoryID（商品カテゴリID）でグループ化したとき、Price（単価）を次の4つの範囲に分けて、それぞれの商品数を表示しなさい。「100円未満：Priceが100未満」「400円未満：Priceが400未満」「1000円未満：Priceが1000未満」「1000円以上：Priceが1000以上」
+  answer_query: "SELECT\n\tp.CategoryID AS 商品カテゴリID\n\t, SUM(\n\t\tCASE\n\t\t\tWHEN\
+    \ p.Price < 100 THEN 1\n\t\t\tELSE 0 \n\t\tEND\n\t) AS \"100円未満\"\n\t, SUM(\n\t\
+    \tCASE \n\t\t\tWHEN p.Price >= 100 AND p.Price < 400 THEN 1\n\t\t\tELSE 0 \n\t\
+    \tEND\n\t) AS \"400円未満\"\n\t, SUM(\n\t\tCASE \n\t\t\tWHEN p.Price >= 400 AND p.Price\
+    \ < 1000 THEN 1\n\t\t\tELSE 0 \n\t\tEND\n\t) AS \"1000円未満\"\n\t, SUM(\n\t\tCASE\n\
+    \t\t\tWHEN p.Price >= 1000 THEN 1\n\t\t\tELSE 0 \n\t\tEND\n\t) AS \"1000円以上\"\n\
+    FROM \n\tProducts AS p\nGROUP BY\n\tp.CategoryID\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 14
+  question_number: 3
+  question: テーブルSalesをCustomerID（顧客ID）でグループ化したとき、SaleDate（販売日）の月を9月・10月・11月の3つに区分けして、それぞれの合計販売個数を表示しなさい。なお、抽出条件として販売日の年は2006年のみとします。
+  answer_query: "SELECT\n\ts.CustomerID AS 顧客ID\n\t, SUM(\n\t\tCASE\n\t\t\tWHEN MONTH(s.SaleDate)\
+    \ = 9 THEN s.Quantity\n\t\t\tELSE 0\n\t\tEND        \n\t) AS \"9月\"\n\t, SUM(\n\
+    \t\tCASE\n\t\t\tWHEN MONTH(s.SaleDate) = 10 THEN s.Quantity\n\t\t\tELSE 0\n\t\t\
+    END        \n\t) AS \"10月\"\n\t, SUM(\n\t\tCASE\n\t\t\tWHEN MONTH(s.SaleDate)\
+    \ = 11 THEN s.Quantity\n\t\t\tELSE 0\n\t\tEND        \n\t) AS \"11月\"\nFROM\n\t\
+    Sales AS s\nWHERE\n\tYEAR(s.SaleDate) = 2006\nGROUP BY\n\ts.CustomerID\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 14
+  question_number: 4
+  question: テーブルCustomersをPrefecturalID（都道府県ID）でグループ化したとき、CustomerClassID（顧客クラス）を次の2つに区分けして、それぞれの顧客数を表示しなさい。「法人：CustomerClassIDが1」「個人：CustomerClassIDが2」
+  answer_query: "SELECT\n\tc.PrefecturalID AS 都道府県ID\n\t, SUM(\n\t\tCASE\n\t\t\tWHEN\
+    \ c.CustomerClassID = 1 THEN 1\n\t\t\tELSE 0\n\t\tEND\n\t) AS 法人\n\t, SUM(\n\t\
+    \tCASE\n\t\t\tWHEN c.CustomerClassID = 2 THEN 1\n\t\t\tELSE 0\n\t\tEND\n\t) AS\
+    \ 個人\nFROM\n\tCustomers AS c\nGROUP BY\n\tc.PrefecturalID\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 14
+  question_number: 5
+  question: テーブルEmployeesをHireFiscalYear（入社年度）でグループ化したとき、Weight（体重）を次の4つの範囲に分けて、それぞれの人数を表示しなさい。「50kg以下（別名は「50kg以下」とします）：Weightが50以下」「60kg以下（別名は「51～60kg」とします）：Weightが60以下」「80kg以下（別名は「61～80kg」とします）：Weightが80以下」「80kg超（別名は「80kg超」とします）：Weightが80より大きい」
+  answer_query: "SELECT\n\te.HireFiscalYear AS 入社年度\n\t, SUM(\n\t\tCASE\n\t\t\tWHEN\
+    \ e.Weight <= 50 THEN 1\n\t\t\tELSE 0\n\t\tEND\n\t) AS \"50kg以下\"\n\t, SUM(\n\t\
+    \tCASE\n\t\t\tWHEN e.Weight > 50 AND e.Weight <= 60 THEN 1\n\t\t\tELSE 0\n\t\t\
+    END\n\t) AS \"51～60kg\"\n\t, SUM(\n\t\tCASE\n\t\t\tWHEN e.Weight > 60 AND e.Weight\
+    \ <= 80 THEN 1\n\t\t\tELSE 0\n\t\tEND\n\t) AS \"61～80kg\"\n\t, SUM(\n\t\tCASE\n\
+    \t\t\tWHEN e.Weight > 80 THEN 1\n\t\t\tELSE 0\n\t\tEND\n\t) AS \"80kg超\"\nFROM\n\
+    \tEmployees AS e\nGROUP BY\n\te.HireFiscalYear\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 15
+  question_number: 0
+  question: 今、うちの会社が扱っている商品の名前を単価の安い順に一覧で全部出してくれ
+  answer_query: "SELECT\n\tp.ProductName\nFROM\n\tProducts AS p\nORDER BY\n\tp.Price\
+    \ ASC\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 15
+  question_number: 1
+  question: テーブルEmployeesをBirthdayで昇順に並べ、EmployeeID、EmployeeName、Birthdayを表示しなさい。
+  answer_query: "SELECT\n\te.EmployeeID\n\t, e.EmployeeName\n\t, e.Birthday\nFROM\n\
+    \tEmployees AS e\nORDER BY\n\te.Birthday ASC\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 15
+  question_number: 2
+  question: テーブルSalesをCustomerID、ProductIDで昇順、SaleDate降順に並べ、SaleID、Quantity、CustomerID、ProductID、SaleDateを表示しなさい。
+  answer_query: "SELECT\n\ts.SaleID\n\t, s.Quantity\n\t, s.CustomerID\n\t, s.ProductID\n\
+    \t, s.SaleDate\nFROM\n\tSales AS s\nORDER BY\n\ts.CustomerID ASC\n\t, s.ProductID\
+    \ ASC\n\t, s.SaleDate DESC\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 15
+  question_number: 3
+  question: テーブルProductsのPriceが1,000以下のデータをCategoryIDでグループ化し、レコード数が5未満のデータをCategoryIDで昇順に並べCategoryID、レコード数を表示しなさい。
+  answer_query: "SELECT\n\tp.CategoryID\n\t, COUNT(*) AS 商品数\nFROM\n\tProducts AS\
+    \ p\nWHERE\n\tp.Price <= 1000\nGROUP BY\n\tp.CategoryID\nHAVING\n\tCOUNT(*) <\
+    \ 5\nORDER BY\n\tp.CategoryID ASC\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 15
+  question_number: 4
+  question: テーブルSalaryをEmployeeIDでグループ化、Amountを合計し、Amount合計が多い順に並べてEmployeeID（別名は「社員ID」）、Amount合計（別名は「給与合計」）を表示しなさい。
+  answer_query: "SELECT\n\ts.EmployeeID AS 社員ID\n\t, SUM(s.Amount) AS 給与合計\nFROM\n\
+    \tSalary AS s\nGROUP BY\n\ts.EmployeeID\nORDER BY\n\tSUM(s.Amount) DESC\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 15
+  question_number: 5
+  question: テーブルBelongToで現在所属しているEmployee（EndDateがNULL）をカウントし、レコードの多い順にDepartmentID（別名は「部署ID」）、レコード数を表示しなさい。
+  answer_query: "SELECT\n\tbt.DepartmentID AS 部署ID\n\t, COUNT(*) AS レコード数\nFROM\n\t\
+    BelongTo AS bt\nWHERE\n\tbt.EndDate IS NULL\nGROUP BY\n\tbt.DepartmentID\nORDER\
+    \ BY\n\tCOUNT(*) DESC\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 16
+  question_number: 0
+  question: 客の中で同じ住所のデータがあるよね。住所だけで一覧を出してくれ。ダブってるのはまとめてくれて構わないから
+  answer_query: "SELECT DISTINCT\n\tc.Address AS 住所\nFROM\n\tCustomers AS c\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 16
+  question_number: 1
+  question: テーブルEmployeesから重複を除いてHireFiscalYearを求めなさい。
+  answer_query: "SELECT DISTINCT\n\te.HireFiscalYear\nFROM\n\tEmployees AS e\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 16
+  question_number: 2
+  question: テーブルSalesから重複を除いてCustomerID、ProductIDを求めなさい。
+  answer_query: "SELECT DISTINCT\n\ts.CustomerID\n\t, s.ProductID\nFROM\n\tSales AS\
+    \ s\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 16
+  question_number: 3
+  question: テーブルCustomersから重複を除いて、CustomerClassID、PrefecturalIDを求めなさい。
+  answer_query: "SELECT DISTINCT\n\tc.CustomerClassID\n\t, c.PrefecturalID\nFROM\n\
+    \tCustomers AS c\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 16
+  question_number: 4
+  question: テーブルSalesから重複を除いてCustomerID、ProductID、EmployeeIDを求めなさい。結果を第2問の結果と比較しなさい。
+  answer_query: "SELECT DISTINCT\n\ts.CustomerID\n\t, s.ProductID\n\t, s.EmployeeID\n\
+    FROM\n\tSales AS s\n;"
+  check_mode: strict
+- chapter_number: 2
+  section_number: 16
+  question_number: 5
+  question: テーブルProductsから重複を除いてPrice、CategoryIDを求めなさい。
+  answer_query: "SELECT DISTINCT\n\tp.Price\n\t, p.CategoryID\nFROM\n\tProducts AS\
+    \ p\n;"
+  check_mode: strict
+
+# 第3章
+- chapter_number: 3
+  section_number: 1
+  question_number: 0
+  question: ひょっとして全然売れてない商品があるんじゃないか？今まで一度も販売されたことがない商品の一覧を出してくれ
+  answer_query: "SELECT\n\tp.*\nFROM\n\tProducts AS p\nWHERE\n\tp.ProductID NOT IN\
+    \ (\n\t\tSELECT\n\t\t\ts.ProductID\n\t\tFROM\n\t\t\tSales AS s      \n\t)\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 1
+  question_number: 1
+  question: テーブルEmployeesから各EmployeeIDについて、SalaryのAmountの最高が300,000以上のデータを取り出し、EmployeeID、EmployeeNameを表示しなさい。
+  answer_query: "SELECT\n\te.EmployeeID\n\t, e.EmployeeName\nFROM\n\tEmployees AS\
+    \ e\nWHERE\n\te.EmployeeID IN (\n\t\tSELECT\n\t\t\ts.EmployeeID\n\t\tFROM\n\t\t\
+    \tSalary AS s\n\t\tGROUP BY\n\t\t\ts.EmployeeID\n\t\tHAVING\n\t\t\tMAX(s.Amount)\
+    \ >= 300000\n\t)\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 1
+  question_number: 2
+  question: テーブルSalesのQuantityが100以上のレコードを取り出し、SaleID、Quantity、CustomerID、CustomerNameを表示しなさい。
+  answer_query: "SELECT\n\ts.SaleID\n\t, s.Quantity\n\t, s.CustomerID\n\t(\n\t\tSELECT\n\
+    \t\t\tc.CustomerName\n\t\tFROM\n\t\t\tCustomers AS c\n\t\tWHERE\n\t\t\tc.CustomerID\
+    \ = s.CustomerID\n\t\t) AS 顧客名\nFROM\n\tSales AS s\nWHERE\n\tQuantity >= 100\n\
+    ;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 1
+  question_number: 3
+  question: テーブルProductsからSalesでQuantityの合計が100以上のレコードを取り出し、ProductID、ProductNameを表示しなさい。
+  answer_query: "SELECT\n\tp.ProductID\n\t, p.ProductName\nFROM\n\tProducts AS p\n\
+    WHERE\n\tp.ProductID IN (\n\t\tSELECT\n\t\t\ts.ProductID\n\t\tFROM\n\t\t\tSales\
+    \ AS s\n\t\tGROUP BY\n\t\t\ts.ProductID\n\t\tHAVING\n\t\t\tSUM(s.Quantity) >=\
+    \ 100\n\t)\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 1
+  question_number: 4
+  question: 第1問でAmountの最高額（別名は「最高給与額」）も表示するよう変更しなさい。
+  answer_query: "SELECT\n\te.EmployeeID\n\t, e.EmployeeName\n\t, (\n\t\tSELECT\n\t\
+    \t\tMAX(s1.Amount)\n\t\tFROM\n\t\t\tSalary AS s1\n\t\tWHERE\n\t\t\ts1.EmployeeID\
+    \ = e.EmployeeID\n\t) AS 最高給与額\nFROM\n\tEmployees AS e\nWHERE\n\te.EmployeeID\
+    \ IN (\n\t\tSELECT\n\t\t\ts2.EmployeeID\n\t\tFROM\n\t\t\tSalary AS s2\n\t\tGROUP\
+    \ BY\n\t\t\ts2.EmployeeID\n\t\tHAVING\n\t\t\tMAX(s2.Amount) >= 300000\n\t)\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 1
+  question_number: 5
+  question: 第2問で商品名も表示するよう変更しなさい。
+  answer_query: "SELECT\n\ts.SaleID\n\t, s.Quantity\n\t, s.CustomerID\n\t, (\n\t\t\
+    SELECT\n\t\t\tc.CustomerName\n\t\tFROM\n\t\t\tCustomers AS c\n\t\tWHERE\n\t\t\t\
+    c.CustomerID = s.CustomerID\n\t) AS 顧客名\n\t, (\n\t\tSELECT\n\t\t\tp.ProductName\n\
+    \t\tFROM\n\t\t\tProducts AS p\n\t\tWHERE\n\t\t\tp.ProductID = s.ProductID\n\t\
+    ) AS 商品名\nFROM\n\tSales AS s\nWHERE\n\ts.Quantity >= 100\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 2
+  question_number: 0
+  question: 都道府県別に、それぞれ何人ずつ顧客がいるのか教えてくれ。そうそう、この前のは都道府県の名前が出てなかったぞ。ID だけじゃわからないのでちゃんと表示してくれ
+  answer_query: "SELECT\n\tc.PrefecturalID\n\t, pf.PrefecturalName AS 都道府県名\n\t, COUNT(*)\
+    \ AS 顧客数\nFROM\n\tCustomers AS c\n\tJOIN\n\t\tPrefecturals AS pf\n\t\tON pf.PrefecturalID\
+    \ = c.PrefecturalID\nGROUP BY\n\tc.PrefecturalID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 2
+  question_number: 1
+  question: テーブルSalaryとEmployeesを結合してEmployeeName、PayDate、AmountをEmployeeID昇順で表示しなさい。
+  answer_query: "SELECT\n\te.EmployeeName\n\t, s.PayDate\n\t, s.Amount\nFROM\n\tSalary\
+    \ AS s \n\t\tJOIN\n\t\t\tEmployees AS e \n\t\t\tON e.EmployeeID = s.EmployeeID\
+    \ \nORDER BY\n\ts.EmployeeID ASC\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 2
+  question_number: 2
+  question: テーブルSales、Customers、Employees、Productsを結合して、Sales.Quantityが200以上のデータについてQuantity、CustomerName、ProductName、EmployeeNameを表示しなさい。
+  answer_query: "SELECT\n\ts.Quantity\n\t, c.CustomerName\n\t, p.ProductName\n\t,\
+    \ e.EmployeeName\nFROM\n\tSales AS s\n\t\tJOIN\n\t\t\tCustomers AS c\n\t\t\tON\
+    \ c.CustomerID = s.CustomerID \n\t\tJOIN\n\t\t\tProducts AS p\n\t\t\tON p.ProductID\
+    \ = s.ProductID \n\t\tJOIN\n\t\t\tEmployees AS e\n\t\t\tON e.EmployeeID = s.EmployeeID\
+    \ \nWHERE\n\ts.Quantity >= 200\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 2
+  question_number: 3
+  question: テーブルSalesとProductsを結合し、SalesをProductIDでグループ化、Quantityの合計が300以上のデータについてQuantity合計、ProductID、ProductNameを表示しなさい。JOINを使用すること。
+  answer_query: "SELECT\n\ts.ProductID\n\t, p.ProductName\n\t, SUM(s.Quantity) AS\
+    \ 数量合計\nFROM\n\tSales AS s\n\tJOIN\n\t\tProducts AS p\n\t\tON p.ProductID = s.ProductID\n\
+    GROUP BY\n\ts.ProductID\n\t, p.ProductName\nHAVING\n\tSUM(s.Quantity) >= 300\n\
+    ;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 2
+  question_number: 4
+  question: 第2問をJOINを用いずに書きなさい。
+  answer_query: "SELECT\n\ts.Quantity\n\t, (\n\t\tSELECT\n\t\t\tc.CustomerName\n\t\
+    \tFROM\n\t\t\tCustomers AS c\n\t\tWHERE\n\t\t\tc.CustomerID = s.CustomerID\n\t\
+    ) AS CustomerName\n\t, (\n\t\tSELECT\n\t\t\tp.ProductName\n\t\tFROM\n\t\t\tProducts\
+    \ AS p\n\t\tWHERE\n\t\t\tp.ProductID = s.ProductID\n\t) AS ProductName\n\t, (\n\
+    \t\tSELECT\n\t\t\te.EmployeeName\n\t\tFROM\n\t\t\tEmployees AS e\n\t\tWHERE\n\t\
+    \t\te.EmployeeID = s.EmployeeID\n\t) AS EmployeeName\nFROM\n\tSales AS s\nWHERE\n\
+    \ts.Quantity >= 200\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 2
+  question_number: 5
+  question: テーブルCustomers、Prefecturals、CustomerClassesをWHERE句を使って結合し、PrefecturalID昇順で並べ、CustomerName、PrefecturalName、CustomerClassNameを表示しなさい。
+  answer_query: "SELECT\n\tc.CustomerName\n\t, pf.PrefecturalName\n\t, cc.CustomerClassName\n\
+    FROM\n\tCustomers AS c\n\t, Prefecturals AS pf\n\t, CustomerClasses AS cc\nWHERE\n\
+    \tpf.PrefecturalID = c.PrefecturalID\n\tAND cc.CustomerClassID = c.CustomerClassID\n\
+    ORDER BY\n\tc.PrefecturalID ASC\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 3
+  question_number: 0
+  question: 部門別の平均給与額を一覧で出してくれ。ちゃんと部門名を入れてくれよ
+  answer_query: "SELECT\n\td.DepartmentName AS 部門名\n\t, AVG(s.Amount) AS 部門別平均給与額\n\
+    FROM\n\tSalary AS s\n\tJOIN\n\t\tBelongTo AS bt\n\t\tON bt.EmployeeID = s.EmployeeID\n\
+    \tJOIN\n\t\tDepartments AS d\n\t\tON d.DepartmentID = bt.DepartmentID\nGROUP BY\n\
+    \td.DepartmentName\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 3
+  question_number: 1
+  question: テーブルSales、Products、Categoriesを連結し、SalesをCategoryIDでグループ化、CategoryID、CategoryName、Quantityの合計を表示しなさい。
+  answer_query: "SELECT\n\tp.CategoryID, \n\tc.CategoryName AS カテゴリ名, \n\tSUM(s.Quantity)\
+    \ AS 数量合計\nFROM\n\tSales AS s\n\t\tJOIN\n\t\t\tProducts AS p\n\t\t\tON\n\t\t\t\
+    \tp.ProductID = s.ProductID\n\t\tJOIN\n\t\t\tCategories AS c\n\t\t\tON c.CategoryID\
+    \ = p.CategoryID\nGROUP BY\n\tp.CategoryID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 3
+  question_number: 2
+  question: テーブルSales、Customers、Prefecturalsを結合し、PrefecturalIDでグループ化、Quantityの合計、PrefecturalID、PrefecturalNameを表示しなさい。
+  answer_query: "SELECT\n\tSUM(s.Quantity) AS 合計数量\n\t, c.PrefecturalID\n\t, MAX(pf.PrefecturalName)\
+    \ AS 県名\nFROM\n\tSales AS s\n\t\tJOIN\n\t\t\tCustomers AS c\n\t\t\tON c.CustomerID\
+    \ = s.CustomerID \n\t\tJOIN\n\t\t\tPrefecturals AS pf\n\t\t\tON pf.PrefecturalID\
+    \ = c.PrefecturalID \nGROUP BY\n\tc.PrefecturalID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 3
+  question_number: 3
+  question: テーブルSales、Customers、CustomerClassesを結合し、CustomerClassIDでグループ化、Quantityの最大値、CustomerClassID、CustomerClassNameを表示しなさい。
+  answer_query: "SELECT\n\tMAX(s.Quantity) AS 最大数量\n\t, c.CustomerClassID\n\t, MAX(cc.CustomerClassName)\
+    \ AS 顧客クラス名\nFROM\n\tSales AS s\n\tJOIN\n\t\tCustomers AS c\n\t\tON c.CustomerID\
+    \ = s.CustomerID\n\tJOIN\n\t\tCustomerClasses AS cc\n\t\tON cc.CustomerClassID\
+    \ = c.CustomerClassID\nGROUP BY\n\tc.CustomerClassID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 3
+  question_number: 4
+  question: 第2問をJOINを用いずに書きなさい。
+  answer_query: "SELECT\n\tSUM(s.Quantity) AS 合計数量\n\t, c.PrefecturalID, \n\t, MAX(pf.PrefecturalName)\
+    \ AS 県名\nFROM\n\tSales AS s\n\t, Customers AS c\n\t, Prefecturals AS pf\nWHERE\n\
+    \ts.CustomerID = c.CustomerID\n\tAND c.PrefecturalID = pf.PrefecturalID\nGROUP\
+    \ BY\n\tc.PrefecturalID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 3
+  question_number: 5
+  question: 第3問をJOINを用いずに書きなさい。
+  answer_query: "SELECT\n\tMAX(s.Quantity) AS 最大数量\n\t, c.CustomerClassID\n\t, MAX(cc.CustomerClassName)\
+    \ AS 顧客クラス名\nFROM\n\tSales AS s\n\t, Customers AS c\n\t, CustomerClasses AS cc\n\
+    WHERE\n\ts.CustomerID = c.CustomerID\n\tAND c.CustomerClassID = cc.CustomerClassID\n\
+    GROUP BY\n\tc.CustomerClassID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 4
+  question_number: 0
+  question: 金額ベースで全部の売上についての平均を知りたいな。全部の商品の平均販売単価を一覧で出してくれ
+  answer_query: "SELECT\n\tp.ProductName\n\t, AVG(p.Price * \n\t\tCASE\n\t\t\tWHEN\
+    \ s.Quantity IS NULL THEN 0\n\t\t\tELSE s.Quantity\n\t\tEND\n\t) AS 平均販売価格\nFROM\n\
+    \tProducts AS p\n\tLEFT JOIN\n\t\tSales AS s\n\t\tON s.ProductID = p.ProductID\n\
+    GROUP BY\n\tp.ProductName\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 4
+  question_number: 1
+  question: テーブルCustomers、Salesを外部結合してCustomerIDごとのQuantity合計を求めてCustomerNameと合計を表示しなさい。ただしSalesデータが存在しないCustomerIDの合計は0を表示しなさい。
+  answer_query: "SELECT\n\tc.CustomerName\n\t, SUM( \n\t\tCASE\n\t\t\tWHEN s.Quantity\
+    \ IS NULL THEN 0\n\t\t\tELSE s.Quantity \n\t\tEND\n\t) AS 販売数量合計\nFROM\n\tCustomers\
+    \ AS c\n\tLEFT OUTER JOIN\n\t\tSales AS s\n\t\tON s.CustomerID = c.CustomerID\n\
+    GROUP BY\n\tc.CustomerName\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 4
+  question_number: 2
+  question: テーブルEmployees、Salesを外部結合し、EmployeeIDごとのSalesレコード数を求めてEmployeeID、社員名と販売件数を表示しなさい。ただし、Salesデータが存在しない場合は0を表示しなさい。
+  answer_query: "SELECT\n\te.EmployeeID, \n\tMAX(e.EmployeeName) AS 社員名, \n\tSUM(\n\
+    \t\tCASE\n\t\t\tWHEN s.EmployeeID IS NULL THEN 0\n\t\t\tELSE 1\n\t\tEND\n\t) AS\
+    \ 販売件数\nFROM\n\tEmployees AS e\n\t\tLEFT OUTER JOIN\n\t\t\tSales AS s\n\t\t\t\
+    ON\n\t\t\t\ts.EmployeeID = e.EmployeeID \nGROUP BY\n\te.EmployeeID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 4
+  question_number: 3
+  question: テーブルPrefecturals、Customersを外部結合し、PrefecturalIDごとのCustomersレコード数を求め、PrefecturalNameとレコード数を表示しなさい。ただしCustomersデータが存在しない場合は0を表示しなさい。
+  answer_query: "SELECT\n\tpf.PrefecturalName\n\t, SUM(\n\t\tCASE\n\t\t\tWHEN c.PrefecturalID\
+    \ IS NULL THEN 0\n\t\t\tELSE 1\n\t\tEND\n\t) AS 顧客数\nFROM\n\tPrefecturals AS pf\n\
+    \tLEFT JOIN\n\t\tCustomers AS c\n\t\t\tON c.PrefecturalID = pf.PrefecturalID\n\
+    GROUP BY\n\tpf.PrefecturalName  \n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 4
+  question_number: 4
+  question: テーブルEmployees、Salesを使った副問い合わせを外部結合し、EmployeeIDごとの販売件数を求めなさい。
+  answer_query: "SELECT\n\te.EmployeeID\n\t, CASE\n\t\tWHEN s_cnt.cnt IS NULL THEN\
+    \ 0\n\t\tELSE s_cnt.cnt\n\tEND AS 販売件数\nFROM\n\tEmployees AS e\n\tLEFT JOIN\n\t\
+    \t(\n\t\t\tSELECT\n\t\t\t\ts.EmployeeID\n\t\t\t\t, COUNT(*) AS cnt\n\t\t\tFROM\n\
+    \t\t\t\tSales AS s\n\t\t\tGROUP BY\n\t\t\t\ts.EmployeeID\n\t\t)  AS s_cnt\n\t\t\
+    ON s_cnt.EmployeeID = e.EmployeeID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 4
+  question_number: 5
+  question: テーブルEmployees、SalaryからEmployeeごとの'2007-02-25'支給のAmountを求めて、EmployeeName、Amount（別名は「支給額」）を表示しなさい。Amountデータが存在しない場合は0を表示しなさい。
+  answer_query: "SELECT\n\te.EmployeeName\n\t, CASE\n\t\tWHEN ss.Amount IS NULL THEN\
+    \ 0\n\t\tELSE ss.Amount\n\tEND AS 支給額\nFROM\n\tEmployees AS e\n\tLEFT JOIN\n\t\
+    \t(\n\t\t\tSELECT\n\t\t\t\ts.EmployeeID\n\t\t\t\t, s.Amount\n\t\t\tFROM\n\t\t\t\
+    \tSalary AS s\n\t\t\tWHERE\n\t\t\t\ts.PayDate = '2007-02-25'\n\t\t) AS ss\n\t\t\
+    ON\n\t\t\tss.EmployeeID = e.EmployeeID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 5
+  question_number: 0
+  question: 同じカテゴリーの商品同士を組み合わせて、商品名をそれぞれ表示しなさい。
+  answer_query: "SELECT\n\tp1.ProductName AS 商品名1, \n\tp2.ProductName AS 商品名2\nFROM\n\
+    \tProducts AS p1\n\t\tJOIN\n\t\t\tProducts AS p2\n\t\t\tON \n\t\t\t\tp1.ProductID\
+    \ < p2.ProductID\n\t\t\t\tAND p1.CategoryID = p2.CategoryID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 5
+  question_number: 1
+  question: 同じ都道府県の顧客同士で、かつ同じCustomerClassIDを持つ顧客同士を組み合わせて、顧客名をそれぞれ表示しなさい。
+  answer_query: "SELECT\n\tc1.CustomerName AS 顧客名1\n\t, c2.CustomerName AS 顧客名2\n\
+    FROM\n\tCustomers AS c1\n\tJOIN\n\t\tCustomers AS c2\n\t\tON c1.CustomerID < c2.CustomerID\n\
+    \t\tAND c1.PrefecturalID = c2.PrefecturalID\n\t\tAND c1.CustomerClassID = c2.CustomerClassID\n\
+    ;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 5
+  question_number: 2
+  question: カテゴリー同士を組み合わせて、カテゴリー名をそれぞれ表示しなさい（別名は「カテゴリー1」「カテゴリー2」）。
+  answer_query: "SELECT\n\tcat1.CategoryName AS カテゴリ名1\n\t, cat2.CategoryName AS カテゴリ名2\n\
+    FROM\n\tCategories AS cat1\n\tJOIN\n\t\tCategories AS cat2\n\t\tON cat1.CategoryID\
+    \ < cat2.CategoryID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 5
+  question_number: 3
+  question: 第2問に対して、PrefecturalIDが13以外のものだけに絞り込んでください。
+  answer_query: "SELECT\n\tc1.CustomerName AS 顧客名1\n\t, c2.CustomerName AS 顧客名2\n\
+    FROM\n\tCustomers AS c1\n\tJOIN\n\t\tCustomers AS c2\n\t\tON c1.CustomerID < c2.CustomerID\n\
+    \t\tAND c1.PrefecturalID = c2.PrefecturalID\n\t\tAND c1.CustomerClassID = c2.CustomerClassID\n\
+    WHERE\n\tc1.PrefecturalID <> 13\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 6
+  question_number: 0
+  question: 商品ごとの販売数量の平均を上回った日を一覧で出してくれ。商品単位で比較してくれよ。あ、商品名は当然つけてくれよ。結果はProductIDの昇順、SaleDateの降順で出力してくれ。
+  answer_query: "SELECT\n\tp.ProductName\n\t, s1.SaleDate\nFROM\n\tSales AS s1\n\t\
+    \tJOIN\n\t\t\tProducts AS p\n\t\t\tON s1.ProductID = p.ProductID\nWHERE\n\ts1.Quantity\
+    \ > (\n\t\tSELECT\n\t\t\tAVG(s2.Quantity)\n\t\tFROM\n\t\t\tSales AS s2\n\t\tWHERE\n\
+    \t\t\ts1.ProductID = s2.ProductID\n\t)\nORDER BY\n\tp.ProductID ASC\n\t, s1.SaleDate\
+    \ DESC\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 6
+  question_number: 1
+  question: テーブルProductsから、テーブルSalesにないProductIDとそのProductNameを表示しなさい（第2問および、第3章その10第3問の結果と比較しなさい）。
+  answer_query: "SELECT\n\tp.ProductID\n\t, p.ProductName\nFROM\n\tProducts AS p\n\
+    WHERE\n\tNOT EXISTS (\n\t\tSELECT\n\t\t\t'X'     \n\t\tFROM\n\t\t\tSales AS s\n\
+    \tWHERE\n\t\t\tp.ProductID = s.ProductID \n\t)\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 6
+  question_number: 2
+  question: 第1問をJOINを使って書きなさい。
+  answer_query: "SELECT\n\tsubquery_s.ProductID\n\t, p.ProductName\n\t, ss.Quantity\n\
+    FROM\n\t(\n\t\tSELECT\n\t\t\ts.ProductID\n\t\t\t, MAX(s.Quantity) AS Quantity\n\
+    \t\tFROM\n\t\t\tSales AS s\n\t\tGROUP BY\n\t\t\ts.ProductID\n\t) AS ss\n\tJOIN\n\
+    \t\tProducts AS p\n\t\tON p.ProductID = ss.ProductID\nORDER BY\n\tss.ProductID\
+    \ ASC\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 7
+  question_number: 0
+  question: 世の中どんな名前があるのか興味あるよね。一覧で出してくれ
+  answer_query: "SELECT\n\tc.CustomerName AS 氏名\nFROM\n\tCustomers AS c\nUNION ALL\n\
+    SELECT\n\te.EmployeeName AS 氏名\nFROM\n\tEmployees AS e\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 7
+  question_number: 1
+  question: テーブルDepartmentsとCategoriesをUNION ALLで1つにまとめなさい。
+  answer_query: "SELECT\n\tdp.DepartmentID AS ID\n\t, dp.DepartmentName AS 名前\nFROM\n\
+    \tDepartments AS dp\nUNION ALL\nSELECT\n\tcat.CategoryID AS ID\n, cat.CategoryName\
+    \ AS 名前\nFROM\n\tCategories AS cat\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 7
+  question_number: 2
+  question: テーブルDepartmentsとCategoriesをテーブル名を付してUNION ALLで1つにまとめなさい。結果をテーブル名、IDの昇順に並べなさい。
+  answer_query: "SELECT \n\t'Departments' AS テーブル名 \n\t, dp.DepartmentID AS ID \n\t\
+    , dp.DepartmentName AS 名前 \nFROM \n\tDepartments AS dp\nUNION ALL \nSELECT \n\t\
+    'Categories' AS テーブル名 \n\t, cat.CategoryID AS ID \n, cat.CategoryName AS 名前 \n\
+    FROM \n\tCategories AS cat\nORDER BY \n\tテーブル名 ASC\n\t, ID ASC\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 7
+  question_number: 3
+  question: テーブルDepartments、CustomerClasses、Categories、PrefecturalsをUNION ALLで1つにまとめなさい。
+  answer_query: "SELECT\n\tdp.DepartmentID AS ID\n\t, dp.DepartmentName AS 名前\nFROM\n\
+    \tDepartments AS dp\nUNION ALL\nSELECT\n\tcc.CustomerClassID AS ID\n\t, cc.CustomerClassName\
+    \ AS 名前\nFROM\n\tCustomerClasses AS cc\nUNION ALL\nSELECT\n\tcat.CategoryID AS\
+    \ ID\n\t, cat.CategoryName AS 名前\nFROM\n\tCategories AS cat\nUNION ALL\nSELECT\n\
+    \tpf.PrefecturalID AS ID\n\t, pf.PrefecturalName AS 名前\nFROM\n\tPrefecturals AS\
+    \ pf\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 7
+  question_number: 4
+  question: 第3問の各テーブルにテーブル名を付してUNION ALLで1つにまとめなさい。結果をテーブル名、IDの昇順に並べなさい。
+  answer_query: "SELECT\n\t'Departments' AS テーブル名\n\t, dp.DepartmentID AS ID\n\t,\
+    \ dp.DepartmentName AS 名前\nFROM\n\tDepartments AS dp\nUNION ALL\nSELECT\n\t'CustomerClasses'\
+    \ AS テーブル名\n\t, cc.CustomerClassID AS ID\n\t, cc.CustomerClassName AS 名前\nFROM\n\
+    \tCustomerClasses AS cc\nUNION ALL\nSELECT\n\t'Categories' AS テーブル名\n\t, cat.CategoryID\
+    \ AS ID\n\t, cat.CategoryName AS 名前\nFROM\n\tCategories AS cat\nUNION ALL\nSELECT\n\
+    \t'Prefecturals' AS テーブル名\n\t, pf.PrefecturalID AS ID\n\t, pf.PrefecturalName\
+    \ AS 名前\nFROM\n\tPrefecturals AS pf\nORDER BY\n\tテーブル名 ASC\n\t, ID ASC\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 7
+  question_number: 5
+  question: テーブルSalesの中から、CustomerClassID=2（個人）の顧客でQuantityが10以上のデータと、CustomerClassID=1（法人）の顧客でQuantityが100以上のデータをUNION
+    ALLで1つにまとめなさい。SaleID、ProductID、Quantity、CustomerClassID、CustomerNameの各項目を表示しなさい（第3章その8第5問、その9第5問、その10第4問、その10第5問の結果と比較しなさい）。
+  answer_query: "SELECT\n\ts1.SaleID\n\t, s1.ProductID\n\t, s1.Quantity\n\t, c1.CustomerClassID\n\
+    \t, c1.CustomerName\nFROM\n\tSales AS s1\n\tJOIN\n\t\tCustomers AS c1\n\t\tON\
+    \ c1.CustomerID = s1.CustomerID\nWHERE\n\tc1.CustomerClassID = 2\n\tAND s1.Quantity\
+    \ >= 10\nUNION ALL\nSELECT\n\ts2.SaleID\n\t, s2.ProductID\n\t, s2.Quantity\n\t\
+    , c2.CustomerClassID\n\t, c2.CustomerName\nFROM\n\tSales AS s2\n\tJOIN\n\t\tCustomers\
+    \ AS c2\n\t\tON c2.CustomerID = s2.CustomerID\nWHERE\n\tc2.CustomerClassID = 1\n\
+    \tAND s2.Quantity >= 100\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 8
+  question_number: 0
+  question: 給料日でもしっかりと売上を上げる奴ってやっぱり真面目な感じがするよね。一覧で出してみてくれ
+  answer_query: "SELECT\n\te1.EmployeeName AS 氏名\n\t, sla.PayDate AS 日付\nFROM\n\t\
+    Employees AS e1\n\tJOIN\n\t\tSalary AS sla\n\t\tON sla.EmployeeID = e1.EmployeeID\n\
+    INTERSECT\nSELECT\n\te2.EmployeeName AS 氏名\n\t, sle.SaleDate AS 氏名\nFROM\n\tEmployees\
+    \ AS e2\n\tJOIN\n\t\tSales AS sle\n\t\tON sle.EmployeeID = e2.EmployeeID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 8
+  question_number: 1
+  question: テーブルCustomersとEmployeesをINTERSECTで1つにまとめ、それぞれのID順に表示しなさい（第3章その8第1問、その10第1問の結果と比較しなさい）。
+  answer_query: "SELECT\n\tc.CustomerID AS ID\n\t, c.CustomerName AS 名前\nFROM\n\t\
+    Customers AS c\nINTERSECT\nSELECT\n\te.EmployeeID AS ID\n\t, e.EmployeeName AS\
+    \ 名前\nFROM\n\tEmployees AS e\nORDER BY\nID ASC\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 8
+  question_number: 2
+  question: テーブルEmployeesの、EmployeeIDとEmployeeNameを表示させたものをINTERSECTで1つにまとめなさい。結果はEmployeeID順に表示しなさい（第3章その8第2問、その10第2問の結果と比較しなさい）。
+  answer_query: "SELECT\n\te.EmployeeID AS ID\n\t, e.EmployeeName AS 名前\nFROM\n\t\
+    Employees AS e\nINTERSECT\nSELECT\n\te.EmployeeID AS ID\n\t, e.EmployeeName AS\
+    \ 名前\nFROM\n\tEmployees AS e\nORDER BY\n\tID ASC\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 8
+  question_number: 3
+  question: テーブルProductsとSalesのProductIDをINTERSECTで1つにまとめ、ProductID順に表示しなさい（第3章その6第2問、その8第3問、その10第3問の結果と比較しなさい）。
+  answer_query: "SELECT\n\tp.ProductID\nFROM\n\tProducts AS p\nINTERSECT\nSELECT\n\
+    \ts.ProductID\nFROM\n\tSales AS s\nORDER BY\n\tProductID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 8
+  question_number: 4
+  question: テーブルSalesの中から、SaleDateが'2006-10-01' と '2006-12-31'の間でQuantityが10以上のデータと、SaleDateが'2007-01-01'
+    と '2007-03-31'の間でQuantityが10以上のデータと、SaleDateが'2007-04-01' と '2007-06-30'の間でQuantityが10以上のデータをINTERSECTで1つにまとめなさい。CustomerIDとProductIDを昇順に並べて表示しなさい（第3章その8第4問の結果と比較しなさい）。
+  answer_query: "SELECT\n\ts.CustomerID\n\t, s.ProductID\nFROM\n\tSales AS s\nWHERE\n\
+    \ts.SaleDate BETWEEN '2006-10-01' AND '2006-12-31'\n\tAND s.Quantity >= 10\nINTERSECT\n\
+    SELECT\n\ts.CustomerID\n\t, s.ProductID\nFROM\n\tSales AS s\nWHERE\n\ts.SaleDate\
+    \ BETWEEN '2007-01-01' AND '2007-03-31'\n\tAND s.Quantity >= 10\nINTERSECT\nSELECT\n\
+    \ts.CustomerID\n\t, s.ProductID\nFROM\n\tSales AS s\nWHERE\n\ts.SaleDate BETWEEN\
+    \ '2007-04-01' AND '2007-06-30'\n\tAND s.Quantity >= 10\nORDER BY\n\tCustomerID\
+    \ ASC\n\t, ProductID ASC\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 8
+  question_number: 5
+  question: テーブルSalesの中から、CustomerClassID=2（個人）の顧客でQuantityが10以上の場合と、CustomerClassID=1（法人）の顧客でQuantityが100以上の場合をINTERSECTで1つにまとめなさい。ProductIDをその順に表示しなさい（第3章その7第5問、その8第5問、その10第4問、その10第5問の結果と比較しなさい）。
+  answer_query: "SELECT\n\ts.ProductID\nFROM\n\tSales AS s\n\tJOIN\n\t\tCustomers\
+    \ AS c\n\t\tON c.CustomerID = s.CustomerID\nWHERE\n\tc.CustomerClassID = 2\n\t\
+    AND s.Quantity >= 10\nINTERSECT\nSELECT\n\ts.ProductID\nFROM\n\tSales AS s\n\t\
+    JOIN\n\t\tCustomers AS c\n\t\tON c.CustomerID = s.CustomerID\nWHERE\n\tc.CustomerClassID\
+    \ = 1\n\tAND s.Quantity >= 100\nORDER BY\n\tProductID\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 9
+  question_number: 0
+  question: テーブルCustomersとEmployeesをEXCEPTで1つにまとめ、それぞれのID順に表示しなさい（第3章その8第1問、その9第1問の結果と比較しなさい）。
+  answer_query: "SELECT \n\tc.CustomerID AS ID\n\t, c.CustomerName AS 名前 \nFROM \n\
+    \tCustomers AS c\nEXCEPT\nSELECT\n\te.EmployeeID AS ID\n\t, e.EmployeeName AS\
+    \ 名前 \nFROM \n\tEmployees AS e\nORDER BY\n\tID ASC  \n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 9
+  question_number: 1
+  question: テーブルEmployeesの、EmployeeIDとEmployeeNameを表示させたものをEXCEPTで1つにまとめなさい。結果はEmployeeID順に表示しなさい（第3章その8第2問、その9第2問の結果と比較しなさい）。
+  answer_query: "SELECT \n\te.EmployeeID AS ID\n\t, e.EmployeeName AS 名前 \nFROM \n\
+    \tEmployees AS e\nEXCEPT \nSELECT\n\te.EmployeeID AS ID\n\t, e.EmployeeName AS\
+    \ 名前 \nFROM \n\tEmployees AS e\nORDER BY \n\tID ASC\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 9
+  question_number: 2
+  question: テーブルProductsとSalesのProductIDをEXCEPTで1つにまとめ、ProductID順に表示しなさい（第3章その6第3問、その8第3問、その9第3問の結果と比較しなさい）。
+  answer_query: "SELECT\n\tp.ProductID\nFROM\n\tProducts AS p\nEXCEPT\nSELECT\n\t\
+    s.ProductID\nFROM\n\tSales AS s\nORDER BY\n\tProductID ASC\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 9
+  question_number: 3
+  question: テーブルSalesの中の、CustomerClassID=1（法人）の顧客でQuantityが100以上のデータのProductIDから、CustomerClassID=2（個人）の顧客でQuantityが10以上のデータのProductIDを差し引いた残りのProductIDをその順に表示しなさい（第5問および、第3章その7第5問、その8第5問、その9第5問の結果と比較しなさい）。
+  answer_query: "SELECT\n\ts.ProductID\nFROM\n\tSales AS s\n\tJOIN\n\t\tCustomers\
+    \ AS c\n\t\tON c.CustomerID = s.CustomerID\nWHERE\n\tc.CustomerClassID = 1\n\t\
+    AND s.Quantity >= 100\nEXCEPT\nSELECT\n\ts.ProductID\nFROM\n\tSales AS s\n\tJOIN\n\
+    \t\tCustomers AS c\n\t\tON c.CustomerID = s.CustomerID\nWHERE\n\tc.CustomerClassID\
+    \ = 2\n\tAND s.Quantity >= 10\nORDER BY\n\tProductID ASC\n;"
+  check_mode: strict
+- chapter_number: 3
+  section_number: 9
+  question_number: 4
+  question: 第4問とは逆に、テーブルSalesの中の、CustomerClassID=2（個人）の顧客でQuantityが10以上のデータのProductIDから、CustomerClassID=1（法人）の顧客でQuantityが100以上のデータのProductIDを差し引いた残りのProductIDをその順に表示しなさい（第4問および、第3章その7第5問、その8第5問、その9第5問の結果と比較しなさい）。
+  answer_query: "SELECT\n\ts.ProductID\nFROM\n\tSales AS s\n\tJOIN\n\t\tCustomers\
+    \ AS c\n\t\tON c.CustomerID = s.CustomerID\nWHERE\n\tc.CustomerClassID = 2\n\t\
+    AND s.Quantity >= 10\nEXCEPT\nSELECT\n\ts.ProductID\nFROM\n\tSales AS s\n\tJOIN\n\
+    \t\tCustomers AS c\n\t\tON c.CustomerID = s.CustomerID\nWHERE\n\tc.CustomerClassID\
+    \ = 1\n\tAND s.Quantity >= 100\nORDER BY\n\tProductID ASC\n;"
   check_mode: strict
 
 # 第5章
