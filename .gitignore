@@ -1,6 +1,7 @@
 .env
 test_dbapp_env/*
 import_data.py
+conv_sml_2_yaml.py
 memo.md
 chatgpt.md
 __pycache__/
@@ -10,3 +11,6 @@ jquery*
 storage/
 *source.xlsm
 practice.db
+*.opml
+output*.yaml
+test.py
