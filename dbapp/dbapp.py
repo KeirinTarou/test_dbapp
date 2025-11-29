@@ -1,6 +1,7 @@
 from flask import (
     Flask, render_template, abort, request, flash, redirect, 
     url_for, session)
+from flask_wtf.csrf import CSRFProtect, generate_csrf
 from dotenv import load_dotenv
 # import pyodbc
 
@@ -28,7 +29,9 @@ from dbapp.services.session_service import (
 load_dotenv()
 
 app = Flask(__name__)
-
+# CSRF対策
+app.config['SECRET_KEY'] = 'aho_aho_aho_no_sakata'
+csrf = CSRFProtect(app)
 # セッション用の秘密鍵設定
 app.secret_key = "kps"
 
@@ -254,6 +257,7 @@ def questions_edit(chapter, section, question):
     chapter_number = chapter
     section_number = section
     question_number = question
+    token = generate_csrf()
 
     if request.method == "POST":
         # フォームから受け取った問題・クエリでDBを更新
@@ -276,6 +280,7 @@ def questions_edit(chapter, section, question):
 
     return render_template(
         'pages/editor/question_editor.html', 
+        csrf_token=token, 
         chapter_number=chapter_number, 
         chapter_title=chapter_title, 
         section_number=section_number, 

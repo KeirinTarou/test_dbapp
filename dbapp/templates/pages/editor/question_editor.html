@@ -19,6 +19,7 @@
             method="post"
             class="form"
         >
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
             <div class="form--block">
                 <label 
                     class="text text--lead"
@@ -42,7 +43,7 @@
                 {% include "components/query_editor/sql_editor.html" %}
                 <label style="display: none;">チェックモード</label>
                 <select name="check_mode" id="check_mode" style="display: none;">
-                    <option value="strict"></option>
+                    <option value="strict" selected></option>
                     <option value="loose"></option>
                     <option value="rule"></option>
                 </select>
