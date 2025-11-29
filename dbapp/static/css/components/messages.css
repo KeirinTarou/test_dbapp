@@ -1,0 +1,58 @@
+/* フラッシュメッセージ関連 */
+
+/* ===== フラッシュメッセージ（ul.messages） ===== */
+.messages {
+  list-style: none;
+  margin: 0.6rem 0 1rem;
+  padding: 0;
+  display: block;
+}
+
+/* 各メッセージ（デフォルト） */
+.messages li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-warning);
+  color: #6a3f00;
+  border: 1px solid #ffd7a8;
+  box-shadow: var(--shadow-sm);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+  font-size: 0.98rem;
+}
+
+/* 先頭に小さなアイコンを出す（疑似要素） */
+.messages li::before {
+  content: "⚠️";
+  display: inline-block;
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+/* 成功メッセージ */
+.messages li.success {
+  background-color: #e8fff0;
+  color: var(--text-success);
+  border: 1px solid #b7f0c9;
+}
+.messages li.success::before { content: "✅"; }
+
+/* 情報メッセージ */
+.messages li.info {
+  background-color: #eef6ff;
+  color: var(--text-info);
+  border: 1px solid #cfe6ff;
+}
+.messages li.info::before { content: "ℹ️"; }
+
+/* エラーメッセージ */
+.messages li.error {
+  background-color: #fff0f0;
+  color: var(--text-danger);
+  border: 1px solid #f5c6c6;
+}
+.messages li.error::before { content: "❗"; }
