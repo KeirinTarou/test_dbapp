@@ -7,23 +7,33 @@
         /* --------------------------------------------------------------------
             ページ読み込み時の処理
         -------------------------------------------------------------------- */
+            // Flashメッセージのフェイドアウト
+            $('.flash').each(function() {
+                const $msg = $(this);
+
+                setTimeout(() => {
+                    $msg.addClass('fadeout');
+                    setTimeout(() => {
+                        $msg.remove();    
+                    }, 1500);
+                }, 2000);
+            });
+
             // ローカルストレージにテーブル構造のデータがあれば、
             // テーブル構造表示領域を描画する
-            $(document).ready(function() {
-                // 最後に見たテーブルのテーブル名を取得
-                const lastViewed = localStorage.getItem("lastViewedTable");
-                // キャッシュデータがあれば、データを取得して描画
-                if (lastViewed) {
-                    const cacheKey = `table:${lastViewed}`;
-                    const cachedData = localStorage.getItem(cacheKey);
-                    if (cachedData) {
-                        const data = JSON.parse(cachedData);
-                        $("#table-structure-wrapper").show();
-                        $("#table-structure-title").text(`${lastViewed} テーブルの構造（キャッシュ）`);
-                        renderTableStructureTable(data);
-                    }
+            // 最後に見たテーブルのテーブル名を取得
+            const lastViewed = localStorage.getItem("lastViewedTable");
+            // キャッシュデータがあれば、データを取得して描画
+            if (lastViewed) {
+                const cacheKey = `table:${lastViewed}`;
+                const cachedData = localStorage.getItem(cacheKey);
+                if (cachedData) {
+                    const data = JSON.parse(cachedData);
+                    $("#table-structure-wrapper").show();
+                    $("#table-structure-title").text(`${lastViewed} テーブルの構造（キャッシュ）`);
+                    renderTableStructureTable(data);
                 }
-            });
+            }
 
             // ウィンドウ読み込み時
             $(window).on('load', function() {
@@ -157,9 +167,9 @@
         -------------------------------------------------------------------- */
             // textareaをCodeMirrorに置き換え
             const textarea = document.getElementById('sql_query');
-            let editor
+            let sqlEditor
             if (textarea) {
-                editor = 
+                sqlEditor = 
                     CodeMirror.fromTextArea(
                         // 置き換えるHTML要素
                         textarea, 
@@ -191,41 +201,39 @@
             }
 
             // CodeMirrorラッパーのdata属性から受け取った値をCodeMirrorオブジェクトにセット
-            const height = $('#sql_query_wrapper').data('sql-query-height')
-            if (height) {
-                editor.setSize("100%", parseInt(height) + "px");
+            const $queryWrapper = $('#sql_query_wrapper');
+            const height = $queryWrapper.data('sql-query-height')
+            if (sqlEditor && height) {
+                sqlEditor.setSize("100%", parseInt(height) + "px");
             }
 
             // フォームサブミット時にCodeMirrorラッパーの高さをinput:hiddenに入れる
-            $('form').on('submit', function() {
-                const height = $('#sql_query_wrapper').outerHeight();
+            //      -> CodeMirrorの値をtextareaに反映
+            $('#form--submit-query').on('submit', function() {
+                const height = $queryWrapper.outerHeight();
                 $('#sql_query_height').val(height);
+                if (sqlEditor) sqlEditor.save(); // textareaの値にコピー
             });
 
-            // フォームサブミット時にCodeMirrorの値をtextareaに反映
-            $('form').on('submit', function() {
-                editor.save(); // textareaの値にコピー
-            });
-
-            $("#sql_query_wrapper").resizable({
+            $queryWrapper?.resizable({
                 handles: "s", // 下側だけリサイズ可
                 minHeight: 200, 
                 maxHeight: 600, 
                 resize: function(event, ui) {
                     // CodeMirrorの高さをラッパーdivに合わせる
-                    editor.setSize(null, ui.size.height);
+                    sqlEditor.setSize(null, ui.size.height + "px");
                 }
             });
 
             // クリアボタン押下で
             $("#clear-query-btn").on("click", function() {
-                const val = editor.getValue()
+                const val = sqlEditor.getValue()
                 let msg = "";
                 if (val === "") {
                     msg = "( ´,_ゝ`) < 何も書いてへんがなｗｗｗ"
                 } else if (confirm("( ´_ゝ`) < 入力したクエリをクリアします。")) {
                     // CodeMirrorのテキストをクリア
-                    editor.setValue("");
+                    sqlEditor.setValue("");
                     // 元のtextareaのテキストもクリア
                     $("#sql_query").val("");
                     msg = "( ´,_ゝ`) < クリアしましたｗ";
@@ -243,7 +251,7 @@
             $('#copy-query-btn').on('click', async function() {
                 try {
                     // エディタの値を取得
-                    const text = editor.getValue();
+                    const text = sqlEditor.getValue();
                     // クリップボードに書き込み
                     await navigator.clipboard.writeText(text);
 
@@ -262,9 +270,9 @@
             });
 
             // 問題データ編集用のエディタ
-            const answerEditor = document.getElementById('answer_edit')
-            if (answerEditor) {
-                const editor = CodeMirror.fromTextArea(answerEditor, {
+            const answerEditorEl = document.getElementById('answer_edit')
+            if (answerEditorEl) {
+                const answerEditor = CodeMirror.fromTextArea(answerEditorEl, {
                     mode: 'text/x-sql', 
                     theme: 'eclipse', 
                     lineNumbers: true, 
@@ -288,8 +296,8 @@
                     }
                 });
 
-                $('form').on('submit', function() {
-                    editor.save(); // textareaの値にコピー
+                $('#form--edit-question').on('submit', function() {
+                    answerEditor.save(); // textareaの値にコピー
                 });
             }
         

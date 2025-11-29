@@ -17,9 +17,10 @@
         <form 
             action="{{ url_for('questions_edit', chapter=chapter_number, section=section_number, question=question_number) }}" 
             method="post"
-            class="form"
+            id="form--edit-question"
+            class="form form-edit-question"
         >
-            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}"/>
             <div class="form--block">
                 <label 
                     class="text text--lead"
@@ -53,6 +54,14 @@
             </div>
         </form>
     </section>
-    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-container">
+                {% for category, msg in messages %}
+                    <div class="flash flash--{{ category }}">{{ msg }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
 </main>
 {% endblock %}

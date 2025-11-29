@@ -56,3 +56,36 @@
   border: 1px solid #f5c6c6;
 }
 .messages li.error::before { content: "❗"; }
+
+/* テロップ風フラッシュメッセージ */
+.flash-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2000;
+  width: 100%;
+  max-width: 800px;
+}
+
+.flash {
+  padding: 5rem 1.5rem;
+  margin: 0 auto;
+  text-align: center;
+  font-weight: bold;
+  color: var(--text-white);
+  opacity: 0.8;
+  transition: var(--transition-veryslow);
+}
+
+.flash.fadeout {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.flash--error {
+  background-color: #ff4d4d;
+}
+.flash--success {
+  background-color: #34c759;
+}

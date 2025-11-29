@@ -260,6 +260,15 @@ def questions_edit(chapter, section, question):
     token = generate_csrf()
 
     if request.method == "POST":
+        # フォームから受け取ったデータの検証
+        question_text = request.form.get("question_text", "").strip()
+        answer_query = request.form.get("answer_edit", "").strip()
+        check_mode = request.form.get("check_mode", "strict")
+        # 問題文・正解クエリが空 -> 不受理
+        if not question_text or not answer_query:
+            flash("m9(^Д^) < 問題文と正解クエリは必須です。", "error")
+            return redirect(request.url)
+
         # フォームから受け取った問題・クエリでDBを更新
 
         # 成功/失敗のメッセージをセッションに保存
