@@ -2,6 +2,8 @@
 
 @import "base/variables.css";
 
+@import "layout/page.css";
+
 @import "components/codemirror.css";
 @import "components/practice.css";
 @import "components/pill.css";
@@ -15,19 +17,6 @@
 @import "ui/toggle-header.css";
 @import "ui/loading-logo.css";
 
-/* ===== ページ全体 ===== */
-.page {
-    font-family: "Helvetica Neue", Arial, sans-serif;
-    color: var(--text-default);
-    padding: 2rem;
-    background-color: var(--bg-page);
-}
-
-/* ページバリエーション（SQLページ用） */
-.page--sql {
-    max-width: 1600px;
-    margin: 0 auto;
-}
 
 /* ===== セクション共通 ===== */
 .section {

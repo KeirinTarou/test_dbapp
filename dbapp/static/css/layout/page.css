@@ -1,0 +1,14 @@
+/* ページ全体の枠やレイアウト */
+
+.page {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: var(--text-default);
+    padding: 2rem;
+    background-color: var(--bg-page);
+}
+
+/* ページバリエーション（SQLページ用） */
+.page--sql {
+    max-width: 1600px;
+    margin: 0 auto;
+}
