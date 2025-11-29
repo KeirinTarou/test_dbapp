@@ -1,0 +1,20 @@
+/* クエリコピー用アイコンのスタイル */
+
+.copy-btn {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: var(--transition-slow);
+    z-index: 10;
+}
+.copy-btn:hover {
+    opacity: 1.0;
+}
+.copy-btn:active {
+    opacity: 0.8;
+}

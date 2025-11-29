@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 @import "base/variables.css";
+
 @import "components/codemirror.css";
 @import "components/practice.css";
 @import "components/pill.css";
@@ -8,6 +9,8 @@
 @import "components/buttons.css";
 @import "components/tables.css";
 @import "components/forms.css";
+
+@import "ui/query-copy-btn.css";
 
 /* ===== ページ全体 ===== */
 .page {
@@ -138,24 +141,7 @@
     flex-shrink: 0;
 }
 
-/* ===== クエリコピー関係 ===== */
-/* コピーボタン */
-.copy-btn {
-    position: absolute;
-    top: 6px;
-    right: 8px;
-    background: none;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-    opacity: 0.8;
-    transition: var(--transition-slow);
-    z-index: 10;
-}
-.copy-btn:hover {
-    opacity: 1.0;
-}
-
+/* トースト通知 */
 .toast {
     position: fixed;
     bottom: 20px;
