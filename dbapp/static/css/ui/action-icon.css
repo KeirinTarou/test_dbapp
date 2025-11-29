@@ -1,0 +1,36 @@
+/* アクション系アイコンのスタイル */
+
+/* クエリコピーアイコン */
+.copy-btn {
+    position: absolute;
+    top: 6px;
+    right: 8px;
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: var(--transition-slow);
+    z-index: 10;
+}
+.copy-btn:hover {
+    opacity: 1.0;
+}
+.copy-btn:active {
+    opacity: 0.8;
+}
+
+/* キャッシュクリアアイコン */
+#cache-clear-icon {
+    display: inline-block;
+    line-height: 1;
+    font-size: 1rem;
+    transform-origin: center;
+    margin-left: 0.5em;
+    opacity: 0; 
+    cursor: pointer;
+    user-select: none;
+    transition: var(--transition-fast);
+    vertical-align: middle;
+}
+
