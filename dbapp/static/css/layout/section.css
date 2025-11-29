@@ -1,0 +1,69 @@
+/* セクションレベル */
+
+/* ===== セクション共通 ===== */
+.section {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    background-color: var(--bg-section);
+    box-shadow: var(--shadow-sm);
+}
+
+/* セクション固有 */
+.section--footer {
+    padding: 1rem;
+}
+.section--footer .footer-text {
+    color: var(--text-muted);
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-muted);
+    text-align: center;
+}
+
+.section--query {
+    background-color: var(--bg-query);
+}
+
+.section--result {
+    background-color: var(--bg-result);
+}
+
+/* 結果判定メッセージ用セクション */
+.section--judge-message {
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.5rem;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    text-align: left;
+}
+
+.section--judge-message .text--success, 
+.section--judge-message .text--danger {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.section--judge-message .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* 判定結果詳細表示領域セクション */
+.section--judge-detail {
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.5rem;
+    border-radius: var(--radius-md);
+    background-color: var(--bg-accent);
+    box-shadow: var(--shadow-sm);
+}
+
+.section--judge-detail .detail-box {
+    background: var(--bg-default);
+    padding: .5rem .8rem;
+    border: 1px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    margin-top: .5rem;
+}
