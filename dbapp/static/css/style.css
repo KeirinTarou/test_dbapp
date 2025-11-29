@@ -12,6 +12,7 @@
 
 @import "ui/action-icon.css";
 @import "ui/toast.css";
+@import "ui/toggle-header.css";
 
 /* ===== ページ全体 ===== */
 .page {
@@ -141,47 +142,6 @@
 .header-actions { 
     flex-shrink: 0;
 }
-
-/* ===== 判定結果表示ページのレコードセットトグル ===== */
-.heading.toggle-header {
-    position: relative;
-    padding-left: 1.5em;
-    cursor: pointer;
-    transition: var(--transition-slow);
-}
-/* 回転アイコン用 */
-/* アイコン（👉）固定 */
-.heading.heading.toggle-header::before {
-    content: "👉";
-    position: absolute;
-    left: 0;
-    top: 0.1em;
-    transition: var(--transition-fast);
-    display: inline-block;
-}
-/* 閉じているときは90°回転（👇） */
-.heading.heading.toggle-header.is-close::before {
-    transform: rotate(90deg);
-}
-/* 開いているとき（👉）: 回転なし */
-.heading.toggle-header.is-open::before {
-    transform: rotate(0deg);
-}
-/* マウスホバー時 */
-.heading.toggle-header:hover {
-    opacity: 0.6;
-}
-
-.table-container.table-compact.toggle-content.is-close {
-    max-height: 0;
-    overflow: hidden;
-    transition: var(--transition-slow);
-}
-
-.table-container.table-compact.toggle-content.is-open {
-    transition: var(--transition-slow);
-}
-
 
 /* ===== テーブル構造表示エリア ===== */
 

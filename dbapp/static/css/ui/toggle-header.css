@@ -1,0 +1,42 @@
+/* トグル表示 */
+
+/* ===== 見出しクリックによるトグル表示 ===== */
+.heading.toggle-header {
+    position: relative;
+    padding-left: 1.5em;
+    cursor: pointer;
+    transition: var(--transition-slow);
+}
+/* 回転アイコン用 */
+/* アイコン（👉）固定 */
+.heading.heading.toggle-header::before {
+    content: "👉";
+    position: absolute;
+    left: 0;
+    top: 0.1em;
+    transition: var(--transition-fast);
+    display: inline-block;
+}
+/* 閉じているときは90°回転（👇） */
+.heading.heading.toggle-header.is-close::before {
+    transform: rotate(90deg);
+}
+/* 開いているとき（👉）: 回転なし */
+.heading.toggle-header.is-open::before {
+    transform: rotate(0deg);
+}
+/* マウスホバー時 */
+.heading.toggle-header:hover {
+    opacity: 0.6;
+}
+
+/* テーブルの高さをトグル */
+.table-container.table-compact.toggle-content.is-close {
+    max-height: 0;
+    overflow: hidden;
+    transition: var(--transition-slow);
+}
+
+.table-container.table-compact.toggle-content.is-open {
+    transition: var(--transition-slow);
+}
