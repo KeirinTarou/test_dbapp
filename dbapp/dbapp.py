@@ -111,7 +111,7 @@ def index():
 
     # レコードセットをテンプレートに渡す
     return render_template(
-        "pages/index.html", 
+        "pages/top/index.html", 
         columns=columns, 
         rows=rows, 
         table_names=dbq.TABLE_NAMES, 
