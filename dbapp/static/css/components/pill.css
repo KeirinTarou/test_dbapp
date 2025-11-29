@@ -1,0 +1,43 @@
+/* ピル風リンクのスタイル */
+
+/* ===== タグ風リンク ===== */
+.pill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1rem;
+}
+
+.pill {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border: none;
+    border-radius: 9999px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--text-default);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-fast);
+    opacity: 0.6;
+}
+
+/* カラーバリエーション（7色ローテーション） */
+.pill--0 { background-color: var(--color-pink); } 
+.pill--1 { background-color: var(--color-coral); } 
+.pill--2 { background-color: var(--color-yellow); } 
+.pill--3 { background-color: var(--color-lemon); }  
+.pill--4 { background-color: var(--color-mint); } 
+.pill--5 { background-color: var(--color-sky); } 
+.pill--6 { background-color: var(--color-lavender); } /* ラベンダー */
+
+/* ホバー・フォーカス時 */
+.pill:hover,
+.pill:focus {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    opacity: 0.95;
+}
+.pill:active {
+    transform: translateY(0);
+}
