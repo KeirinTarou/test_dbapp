@@ -1,0 +1,63 @@
+/* フォーム周り */
+
+.form textarea {
+    width: 100%;
+    min-height: 200px;
+    padding: 0.8rem;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--border-default);
+    font-family: "Courier New", monospace;
+    font-size: 1rem;
+    resize: vertical;
+    background-color: #fffdfc;
+    transition: var(--transition-fast);
+    /* タブサイズ */
+    tab-size: 4;       /* タブを半角4文字分に */
+    -moz-tab-size: 4;  /* Firefox対応 */
+    -o-tab-size: 4;    /* 古いブラウザ対応 */
+}
+
+.form--query {
+    width: 100%;
+}
+
+.textarea--sql {
+    width: 100%;
+    box-sizing: border-box; /* paddingも幅に含める */
+}
+
+/* .form textarea:focus {
+    border-color: #ff9c6e;
+    box-shadow: 0 0 5px rgba(255, 156, 110, 0.5);
+    outline: none;
+} */
+
+/* ===== フォームアクション（ボタン右寄せ） ===== */
+.form-actions {
+    text-align: right;
+    margin-top: 0.6rem;
+}
+
+/* 各行右寄せ */
+.form-actions-row {
+    text-align: right;
+    margin-top: 0.5em;
+}
+
+/* 1段目のボタン間隔 */
+.form-actions-row:first-child .btn, 
+.form-actions-row:first-child .btn--clear {
+    margin-left: 0.5rem;
+}
+
+/* 2段目: ラベルは左に出して、入力欄・ボタンは右寄せ */
+.form-actions-row:nth-child(2) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-actions-row input[type="text"] {
+    padding: 0.5em 1em;
+}
