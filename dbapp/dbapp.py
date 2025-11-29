@@ -277,7 +277,7 @@ def playground():
     scroll_to_editor = pop_scroll_to_editor(page="playground")
     
     return render_template(
-        'pages/playground.html', 
+        'pages/_legacy/playground.html', 
         columns=columns, 
         rows=rows, 
         table_names=dbq.TABLE_NAMES,
@@ -304,7 +304,7 @@ def show_table_structure(table_name):
 
     # テンプレートにデータを投げる
     return render_template(
-        "pages/table.html", 
+        "pages/_legacy/table.html", 
         table_names=allowed_tables, 
         table_name=table_name, 
         columns=fields, 
