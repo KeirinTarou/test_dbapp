@@ -1,0 +1,71 @@
+/* 練習問題ページ関連 */
+
+/* ===== 練習問題一覧部分 ===== */
+.section--practice-list {
+    background-color: var(--bg-practice);
+}
+
+.section {
+    margin-top: 1.5rem;
+    padding: 1rem 1.2rem;
+    border-radius: var(--radius-md);
+    background-color: var(--bg-default);
+    box-shadow: var(--shadow-sm);
+}
+
+/* 章タイトル */
+.section-title {
+    margin-bottom: 0.5rem;
+    color: var(--color-pink);
+}
+
+/* 問題リスト全体 */
+.practice-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* 各問題アイテム */
+.practice-item {
+    margin-bottom: 0.4rem;
+}
+
+/* リンク（各問題へのリンク） */
+.practice-item a {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.6rem 0.9rem;
+    border-radius: var(--radius-sm);
+    background-color: var(--bg-result);
+    color: var(--text-link);
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+    transition:
+        background-color 0.3s ease, 
+        transform 0.3 ease, 
+}
+
+/* ホバー時のアクセント */
+.practice-item a:hover {
+    background-color: #d9ecff;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* クリック時 */
+.practice-item a:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-xxs);
+}
+
+/* ===== 問題文表示領域 ===== */
+.practice-question {
+    margin-top: 0.5rem;
+    padding: 1rem;
+    background-color: #fdd;
+    border-radius: var(--radius-sm);
+    border: solid 2px #6fafff;
+}
