@@ -1,0 +1,12 @@
+{% extends 'components/header_base.html' %}
+{% block explain %}問題・正解クエリデータを編集します。{% endblock %}
+{% block action_parts %}
+    <a 
+        href="{{ url_for('practices') }}"
+        class="btn btn--back"
+    >🔙問題一覧に戻る</a>
+    <a 
+        href="{{ url_for('index') }}"
+        class="btn btn--back"
+    >🔙トップページに戻る</a>
+{% endblock %}
