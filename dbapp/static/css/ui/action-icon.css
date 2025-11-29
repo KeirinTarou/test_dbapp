@@ -33,4 +33,15 @@
     transition: var(--transition-fast);
     vertical-align: middle;
 }
+#cache-clear-icon:hover {
+    opacity: 1;
+    transform: translateY(-1px) scale(1.2);
+}
+#cache-clear-icon:active {
+    transform: translateY(0) scale(1.0);
+    filter: brightness(1.5);
+}
 
+.section--tables h2.heading--lg:hover #cache-clear-icon {
+    opacity: 0.5;
+}
