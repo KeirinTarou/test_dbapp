@@ -1,0 +1,111 @@
+/* --------------------------
+    各種ボタンの設定
+-------------------------- */
+.btn {
+    display: inline-block;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 0.4rem 1.2rem;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+/* 実行ボタン */
+.btn--execute {
+    background-color: var(--btn-execute-bg); 
+    color: var(--text-white);
+    box-shadow: var(--shadow-sm);
+}
+.btn--execute:hover {
+    opacity: 0.6;
+    background-color: var(--btn-execute-hover);
+    transform: translateY(-2px);
+}
+.btn--execute:active {
+    opacity: 1;
+    background-color: var(--btn-execute-active);
+    transform: translateY(0);
+}
+
+/* クリアボタン */
+.btn--clear {
+    display: inline-block;
+    background-color: var(--btn-clear-bg);
+    color: var(--text-default);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    text-decoration: none;
+    margin-left: 0.5rem;
+    transition: var(--transition-fast);
+}
+.btn--clear:hover {
+    background-color: var(--btn-clear-bg);
+    transform: translateY(-2px);
+    opacity: 0.6;
+}
+.btn--clear:active {
+    background-color: var(--btn-clear-bg);
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* 保存ボタン */
+.btn--save {
+    background-color: var(--color-mint); 
+    color: var(--text-white);
+    box-shadow: var(--shadow-sm);
+}
+.btn--save:hover {
+    opacity: 0.6;
+    transform: translateY(-2px);
+}
+.btn--save:active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 戻る系ボタン */
+.btn--back {
+    display: inline-block;
+    background-color: var(--color-coral);
+    color: var(--text-default);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+}
+.btn--back:hover {
+    background-color: var(--color-yellow);
+    transform: translateY(-2px);
+}
+.btn--back:active {
+    background-color: var(--color-coral);
+    transform: translateY(0)
+}
+
+/* 進む系ボタン */
+.btn--proceed {
+    display: inline-block;
+    background-color: #4cd964;
+    color: var(--text-white);
+    padding: 0.4rem 0.8rem;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+}
+.btn--proceed:hover {
+    background-color: #34c759;
+    transform: translateY(-2px);
+}
+.btn--proceed:active {
+    background-color: #4cd964;
+    transform: translateY(0)
+}
