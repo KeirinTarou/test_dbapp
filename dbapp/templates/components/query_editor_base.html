@@ -19,7 +19,7 @@
         method="post" 
         action="{% block action_url %}{% endblock %}"
     >
-        <input type="hidden" name="csrf_token" value="{{ csrf_token }}"/>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
         <!-- CodeMirrorラッパーの高さを保持 -->
         <input 
             type="hidden" 

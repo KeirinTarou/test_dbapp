@@ -20,7 +20,7 @@
             id="form--edit-question"
             class="form form-edit-question"
         >
-            <input type="hidden" name="csrf_token" value="{{ csrf_token }}"/>
+            <input type="hidden" name="csrf_token" value="{{ token }}"/>
             <div class="form--block">
                 <label 
                     class="text text--lead"
@@ -30,6 +30,7 @@
                     name="question_text" 
                     id="question_text"
                     class="textarea--sql"
+                    placeholder="( ´,_ゝ`) < いや、空白はあかんやろｗｗｗ"
                 >{{ question_text }}</textarea>
             </div>
             <div class="form--block">

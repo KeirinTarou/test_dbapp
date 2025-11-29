@@ -289,7 +289,7 @@ def questions_edit(chapter, section, question):
 
     return render_template(
         'pages/editor/question_editor.html', 
-        csrf_token=token, 
+        token=token, 
         chapter_number=chapter_number, 
         chapter_title=chapter_title, 
         section_number=section_number, 
