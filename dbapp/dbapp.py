@@ -270,13 +270,22 @@ def questions_edit(chapter, section, question):
             return redirect(request.url)
 
         # フォームから受け取った問題・クエリでDBを更新
+        try: 
+            pq.update_question(
+                chapter_number=chapter, 
+                section_number=section, 
+                question_number=question, 
+                question_text=question_text, 
+                answer_query=answer_query, 
+                check_mode=check_mode
+            )
+            flash("( *´∀`) < 更新しました。", "success")
+        except Exception as e:
+            flash(f"(((( ；ﾟДﾟ))) < 更新失敗……。{e}...", "error")
+            return redirect(request.url)
 
-        # 成功/失敗のメッセージをセッションに保存
-
-        # 問題一覧ページにリダイレクト
-        #   -> 遷移後、セッションに保存したメッセージを使って
-        #      フラッシュメッセージを出す？
-        pass
+        # 編集画面へリダイレクト
+        return redirect(request.url)
     
     # DBから問題・正解クエリのデータを取得
     result = pq.get_question_data(chapter_number=chapter_number, section_number=section_number, question_number=question_number)
