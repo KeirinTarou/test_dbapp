@@ -45,3 +45,30 @@
 .section--tables h2.heading--lg:hover #cache-clear-icon {
     opacity: 0.5;
 }
+
+/* .practice-titleの中にある歯車アイコン */
+.practice-title .edit-icon {
+    display: inline-block;
+    margin-left: 0.5em;
+    font-size: 1rem;
+    opacity: 0;
+    cursor: pointer;
+    user-select: none;
+    transform-origin: center;
+    transition: var(--transition-slow);
+    vertical-align: middle;
+}
+/* 行にホバーしたとき */
+.practice-title:hover .edit-icon {
+    opacity: 0.5;
+}
+/* アイコン本体にホバーしたとき */
+.practice-title .edit-icon:hover {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.2);
+}
+/* クリックしたとき */
+.practice-title .edit-icon:active {
+    transform: translateY(0) scale(1.0);
+    filter: brightness(1.4);
+}

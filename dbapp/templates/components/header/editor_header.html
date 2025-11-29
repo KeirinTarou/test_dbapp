@@ -2,9 +2,9 @@
 {% block explain %}問題・正解クエリデータを編集します。{% endblock %}
 {% block action_parts %}
     <a 
-        href="{{ url_for('practices') }}"
+        href="{{ url_for('practice_detail', chapter=chapter_number, section=section_number, question=question_number) }}"
         class="btn btn--back"
-    >🔙問題一覧に戻る</a>
+    >🔙問題に戻る</a>
     <a 
         href="{{ url_for('index') }}"
         class="btn btn--back"

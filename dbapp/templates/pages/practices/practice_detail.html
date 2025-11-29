@@ -9,12 +9,27 @@
         <h2 class="heading heading--lg">第{{ row.ChapterNumber }}章 {{ row.ChapterTitle }}</h2>
         <h3 class="heading heading--md">【その{{ row.SectionNumber }}】{{ row.SectionTitle }}</h3>
         <div class="practice-question">
-            <p class="text text--lead">
+            {% set edit_url = url_for(
+                "questions_edit", 
+                chapter=row.ChapterNumber, 
+                section=row.SectionNumber, 
+                question=row.QuestionNumber) 
+            %}
+            <p class="text text--lead practice-title">
                 {% if row.QuestionNumber == 0 %}
                     書いてみよう
                 {% else %}
                     第{{ row.QuestionNumber }}問
                 {% endif %}
+                <span 
+                    class="edit-icon"
+                    title="この問題を編集する"
+                    aria-label="問題編集"
+                    onclick="location.href='{{ edit_url }}'"
+                >
+                    ⚙️
+                </span>
+
             </p><br>
             <p class="text">
                 {{ row.Question | safe }}
