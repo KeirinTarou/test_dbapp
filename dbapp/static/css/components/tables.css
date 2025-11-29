@@ -1,0 +1,91 @@
+/* テーブル関連 */
+
+/* ===== テーブル ===== */
+/* テーブルコンテナ（スクロール用） */
+.table-container {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 600px;
+    min-width: 400px;
+    border-radius: var(--radius-md);
+    margin-top: 1rem;
+    padding: 0 0.5em;
+    background-color: var(--bg-default);
+}
+
+/* 判定結果表示ページ用コンパクトサイズ */
+.table-container.table-compact {
+    max-height: 240px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    background-color: var(--bg-default);
+}
+
+.table table {
+    margin: 0 auto;
+}
+
+/* テーブルヘッダー */
+.table--result thead th {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #ffe4e1; /* パステルピンク */
+    color: #ff5c8d;
+    text-align: left;
+    padding: 0.75rem;
+    font-weight: 600;
+}
+
+/* テーブルボディ */
+.table--result tbody td {
+    padding: 0.65rem;
+    background-color: #fff7f6; /* パステル系明るめ */
+    border-bottom: 1px solid #ffeaea;
+    color: var(--text-default);
+}
+
+/* 行のホバー効果 */
+.table--result tbody tr:hover td {
+    background-color: #ffe0e6; /* ほんのりピンクのハイライト */
+}
+
+/* ===== テーブルボディのストライプ ===== */
+.table--result tbody tr:nth-child(odd) td {
+    background-color: #e0f7e9; /* パステルグリーン */
+}
+
+.table--result tbody tr:nth-child(even) td {
+    background-color: #e0f0ff; /* パステルブルー */
+}
+
+/* ホバー効果は少し強めに */
+.table--result tbody tr:hover td {
+    background-color: #cdeffd; /* 淡い水色系ハイライト */
+}
+
+/* ===== テーブル構造結果表示テーブル ===== */
+#table-structure-wrapper {
+    padding: 0.5em;
+    margin-top: 1em;
+    background-color: var(--bg-default);
+    border-radius: var(--radius-sm);
+}
+
+.table--structure th {
+    padding: 0.25em 0.5em;
+    text-align: left;
+    background: var(--bg-dark);
+    color: var(--text-white);
+}
+
+.table--structure td {
+    padding: 0.25em 0.5em;
+    color: var(--text-default);
+}
