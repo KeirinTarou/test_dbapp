@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Top Page{% endblock %}
+{% block contents %}
+<!-- イントロダクション部分 -->
+{% include "components/header/top_header.html" %}
+<main class="page page--sql">
+    <!-- テーブル一覧部分（`table_names`を渡す必要あり） -->
+    {% include "components/table_structure/table_structure.html" %}
+    <!-- クエリエディタ部分 -->
+    {% include "components/query_editor/query_editor_full.html" %}
+    <!-- 結果表示部分 -->
+    <!-- 結果セット（`columns`, `rows`を渡す必要あり） -->
+    {% include "components/show_result/show_result.html" %}
+</main>
+{% endblock %}
