@@ -247,17 +247,43 @@ def judge_result():
     )
 
 # 問題・正解クエリの編集ページ
-@app.route("/questions/edit/<int:chapter>/<int:section>/<int:question>")
+@app.route(
+    "/questions/edit/<int:chapter>/<int:section>/<int:question>", 
+    methods=["GET", "POST"])
 def questions_edit(chapter, section, question):
     chapter_number = chapter
     section_number = section
     question_number = question
 
+    if request.method == "POST":
+        # フォームから受け取った問題・クエリでDBを更新
+
+        # 成功/失敗のメッセージをセッションに保存
+
+        # 問題一覧ページにリダイレクト
+        #   -> 遷移後、セッションに保存したメッセージを使って
+        #      フラッシュメッセージを出す？
+        pass
+    
+    # DBから問題・正解クエリのデータを取得
+    result = pq.get_question_data(chapter_number=chapter_number, section_number=section_number, question_number=question_number)
+
+    chapter_title = result["ChapterTitle"]
+    section_title = result["SectionTitle"]
+    question_text = result["Question"]
+    answer_query = result["AnswerQuery"]
+    check_mode = result["CheckMode"]
+
     return render_template(
         'pages/editor/question_editor.html', 
         chapter_number=chapter_number, 
+        chapter_title=chapter_title, 
         section_number=section_number, 
-        question_number=question_number
+        section_title=section_title,  
+        question_number=question_number, 
+        question_text=question_text, 
+        answer_query=answer_query, 
+        check_mode=check_mode
     )
 
 # クエリを実行するだけのページ

@@ -260,6 +260,38 @@
                     setTimeout(() => toast.remove(), 2000);
                 }
             });
+
+            // 問題データ編集用のエディタ
+            const answerEditor = document.getElementById('answer_edit')
+            if (answerEditor) {
+                const editor = CodeMirror.fromTextArea(answerEditor, {
+                    mode: 'text/x-sql', 
+                    theme: 'eclipse', 
+                    lineNumbers: true, 
+                    tabSize: 4, 
+                    indentUnit: 4, 
+                    indentWithTabs: true, 
+                    smartIndent: true, 
+                    autofocus: true, 
+                    placeholder:"( ´,_ゝ`) < なんで空白やねんｗｗｗ", 
+                    extraKeys: {
+                        "Tab": function(cm) {
+                            if (cm.somethingSelected()) {
+                                cm.indentSelection("add");
+                            } else {
+                                cm.replaceSelection("\t");
+                            }
+                        }, 
+                        "Shift-Tab": function(cm) {
+                            cm.indentSelection("subtract");
+                        }
+                    }
+                });
+
+                $('form').on('submit', function() {
+                    editor.save(); // textareaの値にコピー
+                });
+            }
         
         /* --------------------------------------------------------------------
             スクロール関係

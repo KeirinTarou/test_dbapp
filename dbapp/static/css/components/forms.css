@@ -26,11 +26,21 @@
     box-sizing: border-box; /* paddingも幅に含める */
 }
 
-/* .form textarea:focus {
+.form textarea:focus {
     border-color: #ff9c6e;
     box-shadow: 0 0 5px rgba(255, 156, 110, 0.5);
     outline: none;
-} */
+}
+
+/* フォーム内のブロック */
+.form--block {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+.form--block label {
+    margin-bottom: 0.5rem;
+}
 
 /* ===== フォームアクション（ボタン右寄せ） ===== */
 .form-actions {

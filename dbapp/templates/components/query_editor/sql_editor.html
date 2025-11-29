@@ -1,0 +1,8 @@
+<div class="cm-wrapper">
+    <textarea 
+        name="{{ textarea_name | default('sql_editor') }}" 
+        id="{{ textarea_id | default('sql_editor') }}"
+        class="textarea textarea--sql"
+        placeholder="{{ placeholder | default('SQLクエリを入力') }}"
+    >{{ value | default('', true) }}</textarea>
+</div>
