@@ -32,6 +32,11 @@
 .text { margin: 0; }
 .text--lead { font-size: 1.1rem; font-weight: bold; color: #555; }
 
+/* テキストの折り返し有効 */
+.text--pre-wrap {
+    white-space: pre-wrap;
+}
+
 /* 判定メッセージ */
 .text--success {
     color: var(--text-success);
