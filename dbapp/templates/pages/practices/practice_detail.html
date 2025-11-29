@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Practice{% endblock %}
 {% block contents %}
-{% include "parts/header/practice_detail_header.html" %}
+{% include "components/header/practice_detail_header.html" %}
 <main class="page page--sql">
-    {% include "parts/table_structure/table_structure.html" %}
+    {% include "components/table_structure/table_structure.html" %}
 
     <section class="section">
         <h2 class="heading heading--lg">第{{ row.ChapterNumber }}章 {{ row.ChapterTitle }}</h2>
@@ -22,7 +22,7 @@
         </div>
     </section>
 
-    {% include "parts/query_editor/query_editor_practice.html" %}
+    {% include "components/query_editor/query_editor_practice.html" %}
 
 </main>
 {% endblock %}

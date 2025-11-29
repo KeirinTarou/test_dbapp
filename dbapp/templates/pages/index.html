@@ -2,14 +2,14 @@
 {% block title %}Top Page{% endblock %}
 {% block contents %}
 <!-- イントロダクション部分 -->
-{% include "parts/header/top_header.html" %}
+{% include "components/header/top_header.html" %}
 <main class="page page--sql">
     <!-- テーブル一覧部分（`table_names`を渡す必要あり） -->
-    {% include "parts/table_structure/table_structure.html" %}
+    {% include "components/table_structure/table_structure.html" %}
     <!-- クエリエディタ部分 -->
-    {% include "parts/query_editor/query_editor_full.html" %}
+    {% include "components/query_editor/query_editor_full.html" %}
     <!-- 結果表示部分 -->
     <!-- 結果セット（`columns`, `rows`を渡す必要あり） -->
-    {% include "parts/show_result/show_result.html" %}
+    {% include "components/show_result/show_result.html" %}
 </main>
 {% endblock %}

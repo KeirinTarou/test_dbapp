@@ -2,31 +2,31 @@
 {% block title %}結果判定{% endblock %}
 {% block contents %}
     <main class="page page--sql">
-        {% include "parts/header/judge_result_header.html" %}
-        {% include "parts/judge/message.html" %}
+        {% include "components/header/judge_result_header.html" %}
+        {% include "components/judge/message.html" %}
         <!-- 正解時はクエリと実行結果を表示 -->
         {% if result %}
             {% set codeblock_title = "👏👏👏お見事なあなたのクエリ👏👏👏" %}
             {% set user_query = user_query %}
-            {% include "parts/judge/codeblock.html" %}
+            {% include "components/judge/codeblock.html" %}
             {% set table_title = "🎊🎊🎊すばらしいあなたのクエリの結果🎊🎊🎊" %}
             {% set columns = user_columns %}
             {% set rows = user_rows %}
-            {% include "parts/judge/result_table.html" %}
+            {% include "components/judge/result_table.html" %}
         <!-- 不正解時に不一致の詳細を表示する -->
         {% else %}
-            {% include "parts/judge/detail.html" %}
+            {% include "components/judge/detail.html" %}
             {% set codeblock_title = "🤮くそキモいあなたのクエリ" %}
             {% set user_query = user_query %}
-            {% include "parts/judge/codeblock.html" %}
+            {% include "components/judge/codeblock.html" %}
             {% set table_title = "🤪あなたがたどり着けなかった正解クエリの結果" %}
             {% set columns = answer_columns %}
             {% set rows = answer_rows %}
-            {% include "parts/judge/result_table.html" %}
+            {% include "components/judge/result_table.html" %}
             {% set table_title = "💩くっそダサいあなたのクエリの結果" %}
             {% set columns = user_columns %}
             {% set rows = user_rows %}
-            {% include "parts/judge/result_table.html" %}
+            {% include "components/judge/result_table.html" %}
         {% endif %}
     </main>
 {% endblock %}

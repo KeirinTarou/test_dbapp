@@ -35,11 +35,11 @@
             {% set columns = user_columns %}
             {% set rows = detail.extra %}
             {% set table_title = "🤔あなたが何を血迷ったのか勝手に抽出したレコードの例" %}
-            {% include "parts/judge/result_table.html" %}
+            {% include "components/judge/result_table.html" %}
             {% set columns = user_columns %}
             {% set rows = detail.missing %}
             {% set table_title = "🤣あなたが無能ゆえに抽出できなかったレコードの例" %}
-            {% include "parts/judge/result_table.html" %}
+            {% include "components/judge/result_table.html" %}
         {% endif %}
     </section>
 {% endif %}

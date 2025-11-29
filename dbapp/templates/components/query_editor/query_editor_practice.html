@@ -1,4 +1,4 @@
-{% extends 'parts/query_editor_base.html' %}
+{% extends 'components/query_editor_base.html' %}
 {% block action_url %}{{ url_for('judge_result') }}{% endblock %}
 {% block query_editor_actions %}
     <input type="hidden" name="chapter_number" value="{{ row.ChapterNumber }}">
