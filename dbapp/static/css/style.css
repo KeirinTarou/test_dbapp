@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 @import "base/variables.css";
+@import "components/codemirror.css";
 
 /* ===== ページ全体 ===== */
 .page {
@@ -558,27 +559,6 @@
 .related-tables .heading--lg {
     color: #6fafff;
     margin-bottom: 0.5rem;
-}
-
-/* CodeMirror用 */
-.CodeMirror {
-    font-size: 1rem;
-    line-height: 1.4;
-    height: auto;
-}
-/* CodeMirror placeholder 用 */
-.CodeMirror-placeholder {
-    color: #999 !important;       /* 薄いグレー */
-    opacity: 0.6;
-}
-
-/* CodeMirrorラッパー */
-.cm-wrapper {
-    min-height: 200px;
-    max-height: 600px;
-    border: 1px solid var(--border-default);
-    border-radius: var(--radius-sm);
-    overflow: hidden;   /* CodeMirror内でスクロール */
 }
 
 /* ===== 練習問題一覧部分 ===== */
