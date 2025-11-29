@@ -247,9 +247,18 @@ def judge_result():
     )
 
 # 問題・正解クエリの編集ページ
-@app.route("/questions/edit/<chapter>/<section>/<question>")
-def questions_edit():
-    pass
+@app.route("/questions/edit/<int:chapter>/<int:section>/<int:question>")
+def questions_edit(chapter, section, question):
+    chapter_number = chapter
+    section_number = section
+    question_number = question
+
+    return render_template(
+        'pages/editor/question_editor.html', 
+        chapter_number=chapter_number, 
+        section_number=section_number, 
+        question_number=question_number
+    )
 
 # クエリを実行するだけのページ
 @app.route('/playground', methods=['GET', 'POST'])
