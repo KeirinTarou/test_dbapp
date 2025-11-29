@@ -5,7 +5,7 @@
 /* ===== ページ全体 ===== */
 .page {
     font-family: "Helvetica Neue", Arial, sans-serif;
-    color: #333;
+    color: var(--text-default);
     padding: 2rem;
     background-color: var(--bg-page);
 }
@@ -30,10 +30,10 @@
     padding: 1rem;
 }
 .section--footer .footer-text {
-    color: #888;
+    color: var(--text-muted);
     margin-top: 1rem;
     padding-top: 1rem;
-    border-top: 1px solid #888;
+    border-top: 1px solid var(--border-muted);
     text-align: center;
 }
 
@@ -72,14 +72,14 @@
     padding: 1rem 1.2rem;
     margin-bottom: 1.5rem;
     border-radius: var(--radius-md);
-    background-color: #f7faff;
+    background-color: var(--bg-accent);
     box-shadow: var(--shadow-sm);
 }
 
 .detail-box {
-    background: #fff;
+    background: var(--bg-default);
     padding: .5rem .8rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-default);
     border-radius: var(--radius-sm);
     margin-top: .5rem;
 }
@@ -137,7 +137,7 @@
     min-height: 200px;
     padding: 0.8rem;
     border-radius: var(--radius-sm);
-    border: 2px solid #ddd;
+    border: 2px solid var(--border-default);
     font-family: "Courier New", monospace;
     font-size: 1rem;
     resize: vertical;
@@ -158,11 +158,11 @@
     box-sizing: border-box; /* paddingも幅に含める */
 }
 
-.form textarea:focus {
+/* .form textarea:focus {
     border-color: #ff9c6e;
     box-shadow: 0 0 5px rgba(255, 156, 110, 0.5);
     outline: none;
-}
+} */
 
 /* ===== クエリコピー関係 ===== */
 /* コピーボタン */
@@ -186,8 +186,8 @@
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: #333;
-    color: #fff;
+    background: var(--bg-toast);
+    color: var(--text-white);
     padding: 16px 24px;
     border-radius: var(--radius-xxs);
     opacity: 0.9;
@@ -212,7 +212,7 @@
     border-radius: var(--radius-md);
     margin-top: 1rem;
     padding: 0 0.5em;
-    background-color: #fff;
+    background-color: var(--bg-default);
 }
 
 /* 判定結果表示ページ用コンパクトサイズ */
@@ -226,7 +226,7 @@
     border-spacing: 0;
     border-radius: var(--radius-md);
     font-size: 0.95rem;
-    background-color: #fff;
+    background-color: var(--bg-default);
 }
 
 .table table {
@@ -250,7 +250,7 @@
     padding: 0.65rem;
     background-color: #fff7f6; /* パステル系明るめ */
     border-bottom: 1px solid #ffeaea;
-    color: #333;
+    color: var(--text-default);
 }
 
 /* 行のホバー効果 */
@@ -390,20 +390,20 @@
 #table-structure-wrapper {
     padding: 0.5em;
     margin-top: 1em;
-    background-color: #fff;
+    background-color: var(--bg-default);
     border-radius: var(--radius-sm);
 }
 
 .table--structure th {
     padding: 0.25em 0.5em;
     text-align: left;
-    background: #333;
-    color: #fff;
+    background: var(--bg-dark);
+    color: var(--text-white);
 }
 
 .table--structure td {
     padding: 0.25em 0.5em;
-    color: #333;
+    color: var(--text-default);
 }
 
 /* ===== ページヘッダー ===== */
@@ -417,7 +417,7 @@
 .btn--back {
     display: inline-block;
     background-color: var(--color-coral);
-    color: #333;
+    color: var(--text-default);
     padding: 0.4rem 0.8rem;
     border-radius: var(--radius-sm);
     font-weight: 600;
@@ -434,7 +434,7 @@
 .btn--proceed {
     display: inline-block;
     background-color: #4cd964;
-    color: #fff;
+    color: var(--text-white);
     padding: 0.4rem 0.8rem;
     border-radius: var(--radius-sm);
     font-weight: 600;
@@ -498,27 +498,27 @@
 
 /* 実行ボタン */
 .btn--execute {
-    background-color: var(--color-sky); 
-    color: #fff;
+    background-color: var(--btn-execute-bg); 
+    color: var(--text-white);
     box-shadow: var(--shadow-sm);
 }
 
 .btn--execute:hover {
     opacity: 0.6;
-    background-color: #6fafff;
+    background-color: var(--btn-execute-hover);
     transform: translateY(-2px);
 }
 .btn--execute:active {
     opacity: 1;
-    background-color: var(--color-sky);
+    background-color: var(--btn-execute-active);
     transform: translateY(0);
 }
 
 /* クリアボタン */
 .btn--clear {
     display: inline-block;
-    background-color: #ddd;
-    color: #333;
+    background-color: var(--btn-clear-bg);
+    color: var(--text-default);
     padding: 0.4rem 0.8rem;
     border-radius: var(--radius-sm);
     font-weight: 600;
@@ -531,12 +531,12 @@
 }
 
 .btn--clear:hover {
-    background-color: #bbb;
+    background-color: var(--btn-clear-bg);
     transform: translateY(-2px);
     opacity: 0.6;
 }
 .btn--clear:active {
-    background-color: #ddd;
+    background-color: var(--btn-clear-bg);
     transform: translateY(0);
     opacity: 1;
 }
@@ -544,7 +544,7 @@
 /* 保存ボタン */
 .btn--save {
     background-color: var(--color-mint); 
-    color: #fff;
+    color: var(--text-white);
     box-shadow: var(--shadow-sm);
 }
 
@@ -561,7 +561,7 @@
 .related-tables {
     margin-top: 2rem;
     padding-top: 1rem;
-    border-top: 2px dashed #ddd;
+    border-top: 2px dashed var(--border-default);
 }
 
 .related-tables .heading--lg {
@@ -585,21 +585,21 @@
 .cm-wrapper {
     min-height: 200px;
     max-height: 600px;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-default);
     border-radius: var(--radius-sm);
     overflow: hidden;   /* CodeMirror内でスクロール */
 }
 
 /* ===== 練習問題一覧部分 ===== */
 .section--practice-list {
-    background-color: #fff8f5;
+    background-color: var(--bg-practice);
 }
 
 .section {
     margin-top: 1.5rem;
     padding: 1rem 1.2rem;
     border-radius: var(--radius-md);
-    background-color: #fff;
+    background-color: var(--bg-default);
     box-shadow: var(--shadow-sm);
 }
 
@@ -629,7 +629,7 @@
     padding: 0.6rem 0.9rem;
     border-radius: var(--radius-sm);
     background-color: var(--bg-result);
-    color: #0b4d8a;
+    color: var(--text-link);
     font-weight: 600;
     text-decoration: none;
     box-shadow: var(--shadow-sm);
@@ -758,7 +758,7 @@
 /* 情報メッセージ */
 .messages li.info {
   background-color: #eef6ff;
-  color: #0b4d8a;
+  color: var(--text-info);
   border: 1px solid #cfe6ff;
 }
 .messages li.info::before { content: "ℹ️"; }

@@ -9,15 +9,38 @@
         --color-lavender:   #c7a0e8;
     
     /* Background */
+        --bg-default:   #fff;
+        --bg-accent:    #f7faff;
+        --bg-dark:      #333;
         --bg-page:      #fdfcfb;
+        --bg-practice:  #fff8f5;
         --bg-section:   #fffdf6;
         --bg-query:     #fef3f8;
         --bg-result:    #f0f7ff;
         --bg-warning:   #fff8f0;
+        --bg-toast:     #333;
+
+    /* Border Colors */
+        --bodrer-default:    #ddd;
+        --border-muted:     #bbb;
+        --border-accent:    #6fafff;
+
+    /* Button Colors */
+        --btn-execute-bg:       #84b6f4;
+        --btn-execute-hover:    #6fafff;
+        --btn-execute-active:   #84b6f4;
+        --btn-clear-bg:         #ddd;
+        --btn-proceed-bg:       #4cd964;
+        --btn-proceed-hover:    #34c759;
     
     /* Text Colors */
-        --text-success: #046b2e;
-        --text-danger:  #8b0f12;
+        --text-default:     #333;
+        --text-muted:       #888;
+        --text-white:       #fff;
+        --text-link:        #0b4d8a;
+        --text-info:        #0b4d8a;
+        --text-success:     #046b2e;
+        --text-danger:      #8b0f12;
 
     /* Radius */
         --radius-xxs:   2px;
