@@ -264,9 +264,9 @@ def questions_edit(chapter, section, question):
         question_text = request.form.get("question_text", "").strip()
         answer_query = request.form.get("answer_edit", "").strip()
         check_mode = request.form.get("check_mode", "strict")
-        # 問題文・正解クエリが空 -> 不受理
+        # 問題文・正解クエリが空 -> 不受理・差し戻し＆煽りメッセージ
         if not question_text or not answer_query:
-            flash("m9(^Д^) < 問題文と正解クエリは必須です。", "error")
+            flash("m9(^Д^) < 問題文と正解クエリは必須ですｗｗｗ", "error")
             return redirect(request.url)
 
         # フォームから受け取った問題・クエリでDBを更新

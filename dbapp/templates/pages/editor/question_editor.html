@@ -1,61 +1,63 @@
 {% extends 'base.html' %}
+
+{% set messages = get_flashed_messages(with_categories=true) %}
+
 {% block title %}Editor{% endblock %}
 {% block contents %}
-<main class="page page--edit">
-    <!-- イントロダクション部分 -->
-    {% include "components/header/editor_header.html" %}
-    <section class="section section--editor">
-        <h2 class="heading heading--xl">第{{ chapter_number }}章 {{ chapter_title }}</h2>
-        <h3 class="heading heading--lg">【その{{ section_number }}】{{ section_title }}</h3>
-        <h4 class="heading heading--md">
-            {% if question_number == 0 %}
-            やってみよう
-            {% else %}
-            第{{ question_number }}問
-            {% endif %}
-        </h4>
-        <form 
-            action="{{ url_for('questions_edit', chapter=chapter_number, section=section_number, question=question_number) }}" 
-            method="post"
-            id="form--edit-question"
-            class="form form-edit-question"
-        >
-            <input type="hidden" name="csrf_token" value="{{ token }}"/>
-            <div class="form--block">
-                <label 
-                    class="text text--lead"
-                    for="question_text"
-                >問題文</label>
-                <textarea 
-                    name="question_text" 
-                    id="question_text"
-                    class="textarea--sql"
-                    placeholder="( ´,_ゝ`) < いや、空白はあかんやろｗｗｗ"
-                >{{ question_text }}</textarea>
-            </div>
-            <div class="form--block">
-                <label 
-                    class="text text--lead"
-                    for="answer_edit"
-                >正解クエリ</label>
-                <!-- id属性を`sql_query`にする <- CodeMirrorで置き換えるため -->
-                {% set textarea_name = "answer_edit" %}
-                {% set textarea_id = "answer_edit" %}
-                {% set value = answer_query %}
-                {% include "components/query_editor/sql_editor.html" %}
-                <label style="display: none;">チェックモード</label>
-                <select name="check_mode" id="check_mode" style="display: none;">
-                    <option value="strict" selected></option>
-                    <option value="loose"></option>
-                    <option value="rule"></option>
-                </select>
-            </div>
-            <div class="form form-actions">
-                <button class="btn btn--execute">更新</button>
-            </div>
-        </form>
-    </section>
-    {% with messages = get_flashed_messages(with_categories=true) %}
+    <main class="page page--edit">
+        <!-- イントロダクション部分 -->
+        {% include "components/header/editor_header.html" %}
+        <section class="section section--editor">
+            <h2 class="heading heading--xl">第{{ chapter_number }}章 {{ chapter_title }}</h2>
+            <h3 class="heading heading--lg">【その{{ section_number }}】{{ section_title }}</h3>
+            <h4 class="heading heading--md">
+                {% if question_number == 0 %}
+                やってみよう
+                {% else %}
+                第{{ question_number }}問
+                {% endif %}
+            </h4>
+            <form 
+                action="{{ url_for('questions_edit', chapter=chapter_number, section=section_number, question=question_number) }}" 
+                method="post"
+                id="form--edit-question"
+                class="form form-edit-question"
+            >
+                <input type="hidden" name="csrf_token" value="{{ token }}"/>
+                <div class="form--block">
+                    <label 
+                        class="text text--lead"
+                        for="question_text"
+                    >問題文</label>
+                    <textarea 
+                        name="question_text" 
+                        id="question_text"
+                        class="textarea--sql"
+                        placeholder="( ´,_ゝ`) < いや、空白はあかんやろｗｗｗ"
+                    >{{ question_text }}</textarea>
+                </div>
+                <div class="form--block">
+                    <label 
+                        class="text text--lead"
+                        for="answer_edit"
+                    >正解クエリ</label>
+                    <!-- id属性を`sql_query`にする <- CodeMirrorで置き換えるため -->
+                    {% set textarea_name = "answer_edit" %}
+                    {% set textarea_id = "answer_edit" %}
+                    {% set value = answer_query %}
+                    {% include "components/query_editor/sql_editor.html" %}
+                    <label style="display: none;">チェックモード</label>
+                    <select name="check_mode" id="check_mode" style="display: none;">
+                        <option value="strict" selected></option>
+                        <option value="loose"></option>
+                        <option value="rule"></option>
+                    </select>
+                </div>
+                <div class="form form-actions">
+                    <button class="btn btn--execute">更新</button>
+                </div>
+            </form>
+        </section>
         {% if messages %}
             <div class="flash-container">
                 {% for category, msg in messages %}
@@ -63,6 +65,21 @@
                 {% endfor %}
             </div>
         {% endif %}
-    {% endwith %}
-</main>
+    </main>
+{% endblock %}
+{# errorカテゴリが含まれる場合のみ、変数`has_error`にTrueが入るようにする #}
+    {# 
+        - `selectattr(0, 'equalto', 'error')`で、
+            - `messages`（タプルのリスト）のうち、
+            - タプルの0番目の要素が'error'である要素をフィルターし、
+            - タプルのリストを取得する
+        - 得られたリストについて要素数が0よりも大きければ'error'カテゴリあり
+    #}
+{% set has_error = messages | selectattr(0, 'equalto', 'error') | list | length > 0 %}
+{% block loading_logo %}
+    {% if has_error %}
+        <div id="loading-logo">
+            <img src="{{ url_for('static', filename='img/aori-face.png') }}" alt="loading logo">
+        </div>
+    {% endif %}
 {% endblock %}

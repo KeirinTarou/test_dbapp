@@ -35,16 +35,14 @@
                 }
             }
 
-            // ウィンドウ読み込み時
-            $(window).on('load', function() {
-                const logo = $('#loading-logo');
-                // アニメーション開始
-                logo.addClass('show');
-                // アニメーション完了後にDOMから除去
-                setTimeout(() => {
-                    logo.remove();
-                }, 1500);
-            });
+            // 煽り画像ズーム
+            const logo = $('#loading-logo');
+            // アニメーション開始
+            logo.addClass('show');
+            // アニメーション完了後にDOMから除去
+            setTimeout(() => {
+                logo.remove();
+            }, 1500);
 
         /* --------------------------------------------------------------------
             ローカルストレージのテーブル構造情報のキャッシュをクリアする
