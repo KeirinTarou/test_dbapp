@@ -97,12 +97,6 @@
     margin-top: .5rem;
 }
 
-.table-result-scroll {
-    max-height: 260px;
-    overflow-y: auto;
-    margin-top: 1rem;
-}
-
 /* ===== タイトル・テキスト ===== */
 .heading {
     margin: 0 0 0.5rem 0;
