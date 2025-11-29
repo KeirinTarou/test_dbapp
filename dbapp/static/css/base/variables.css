@@ -55,4 +55,8 @@
         --shadow-xs: 0 2px 4px rgba(0,0,0,0.5);
         --shadow-sm: 0 2px 6px rgba(0,0,0,0.5);
         --shadow-md: 0 4px 10px rgba(0,0,0,0.7);
+    
+    /* Transitions */
+        --transition-fast: all 0.3s ease;    /* サッと変化 */
+        --transition-slow: all 0.6s ease-in-out;    /* ふわっと変化 */
 }
