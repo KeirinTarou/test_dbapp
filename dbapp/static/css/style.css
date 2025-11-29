@@ -11,6 +11,7 @@
 @import "components/forms.css";
 
 @import "ui/query-copy-btn.css";
+@import "ui/toast.css";
 
 /* ===== ページ全体 ===== */
 .page {
@@ -139,27 +140,6 @@
 
 .header-actions { 
     flex-shrink: 0;
-}
-
-/* トースト通知 */
-.toast {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: var(--bg-toast);
-    color: var(--text-white);
-    padding: 16px 24px;
-    border-radius: var(--radius-xxs);
-    opacity: 0.9;
-    font-size: 14px;
-    z-index: 9999;
-    animation: fadeout 2s forwards;
-}
-@keyframes fadeout {
-    0% { opacity: 0; transform: translateY(10px); }
-    10%, 
-    90% { opacity: 0.9; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-10px); }
 }
 
 /* ===== 判定結果表示ページのレコードセットトグル ===== */

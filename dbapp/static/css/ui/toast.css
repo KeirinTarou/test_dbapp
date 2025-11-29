@@ -1,0 +1,21 @@
+/* トースト通知 */
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--bg-toast);
+    color: var(--text-white);
+    padding: 16px 24px;
+    border-radius: var(--radius-xxs);
+    opacity: 0.9;
+    font-size: 14px;
+    z-index: 9999;
+    animation: fadeout 2s forwards;
+}
+@keyframes fadeout {
+    0% { opacity: 0; transform: translateY(10px); }
+    10%, 
+    90% { opacity: 0.9; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
