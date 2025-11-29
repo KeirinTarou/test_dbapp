@@ -10,6 +10,26 @@
 }
 
 /* セクション固有 */
+
+/* ヘッダー */
+/* ヘッダーだけのスタイルはない */
+.section--header .header-row {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.section--header .header-row-right {
+    justify-content: flex-end;
+}
+
+.section--header .header-actions { 
+    flex-shrink: 0;
+}
+
+/* フッター */
 .section--footer {
     padding: 1rem;
 }

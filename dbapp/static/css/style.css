@@ -42,43 +42,6 @@
     font-weight: bold;
 }
 
-/* ===== ページのヘッダー部分 ===== */
-.header-row {
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-}
-
-.header-row-right {
-    justify-content: flex-end;
-}
-
-.header-actions { 
-    flex-shrink: 0;
-}
-
-/* ===== ページヘッダー ===== */
-.page-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-}
-
-/* ===== 関連テーブル一覧 ===== */
-.related-tables {
-    margin-top: 2rem;
-    padding-top: 1rem;
-    border-top: 2px dashed var(--border-default);
-}
-
-.related-tables .heading--lg {
-    color: #6fafff;
-    margin-bottom: 0.5rem;
-}
-
 /* ===== コードブロック風 ===== */
 /* コードブロック */
 .codeblock {
@@ -118,3 +81,25 @@
         font-size: 0.95rem;
     }
 }
+
+/* ----------------------------------------------------------
+    `/table/<table_name>`ページだけで使われているスタイル
+        -> ページを廃止するときに一緒にポアする
+---------------------------------------------------------- */
+    .page-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.5rem;
+    }
+
+    .related-tables {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 2px dashed var(--border-default);
+    }
+
+    .related-tables .heading--lg {
+        color: #6fafff;
+        margin-bottom: 0.5rem;
+    }
