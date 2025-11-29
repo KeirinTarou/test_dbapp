@@ -1,0 +1,19 @@
+/* ===== コードブロック風 ===== */
+/* コードブロック */
+.codeblock {
+    background-color: #f5f7fa; /* パステル系の淡い水色 */
+    border: 1px solid #d1e3f0; /* 薄めの青で柔らかい境界 */
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    font-family: "Courier New", monospace;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    overflow-x: auto;
+    white-space: pre-wrap; /* 行が長い場合は折り返す */
+    word-break: break-word;
+    box-shadow: var(--shadow-sm);
+    /* タブ幅を半角スペース4文字分に */
+    tab-size: 4;
+    -moz-tab-size: 4;  /* Firefox対応 */
+    -o-tab-size: 4;    /* 古いブラウザ対応 */
+}
