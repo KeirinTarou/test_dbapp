@@ -6,34 +6,36 @@
     <!-- 練習問題リスト -->
     {% for chapter in chapters %}
         <section class="section section--practice-list">
-            <h2 class="heading heading--lg">
+            <h2 class="heading heading--lg toggle-header is-close">
                 第{{ chapter.chapter_number }}章 {{ chapter.chapter_title }}
             </h2>
-            {% for section in chapter.sections %}
-                <article class="section">
-                    <h3 class="heading heading--md section-title">
-                        【その{{ section.section_number }}】{{ section.section_title }}
-                    </h3>
-                    <ul class="practice-list">
-                        {% for q in section.questions %}
-                            <li class="practice-item">
-                                <a href="{{ url_for(
-                                    'practice_detail', 
-                                    chapter=q.ChapterNumber, 
-                                    section=q.SectionNumber, 
-                                    question=q.QuestionNumber) }}"
-                                >
-                                    {% if q.QuestionNumber == 0 %}
-                                        書いてみよう
-                                    {% else %}
-                                        第{{ q.QuestionNumber }}問
-                                    {% endif %}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </article>
-            {% endfor %}
+            <div class="toggle-content is-close">
+                {% for section in chapter.sections %}
+                    <article class="section">
+                        <h3 class="heading heading--md section-title">
+                            【その{{ section.section_number }}】{{ section.section_title }}
+                        </h3>
+                        <ul class="practice-list">
+                            {% for q in section.questions %}
+                                <li class="practice-item">
+                                    <a href="{{ url_for(
+                                        'practice_detail', 
+                                        chapter=q.ChapterNumber, 
+                                        section=q.SectionNumber, 
+                                        question=q.QuestionNumber) }}"
+                                    >
+                                        {% if q.QuestionNumber == 0 %}
+                                            書いてみよう
+                                        {% else %}
+                                            第{{ q.QuestionNumber }}問
+                                        {% endif %}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </article>
+                {% endfor %}
+            </div>
         </section>
     {% endfor %}
 </main>

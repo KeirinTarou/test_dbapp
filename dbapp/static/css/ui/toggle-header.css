@@ -40,3 +40,20 @@
 .table-container.table-compact.toggle-content.is-open {
     transition: var(--transition-slow);
 }
+
+/* 問題一覧をトグル */
+.section--practice-list .toggle-content {
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.section--practice-list .toggle-content.is-close {
+    max-height: 0;
+    overflow: hidden;
+    transition: var(--transition-slow);
+}
+
+.section--practice-list .toggle-content.is-open {
+    overflow: auto;
+    transition: var(--transition-slow);
+}
