@@ -195,10 +195,13 @@ from dbapp.data import practice_queries as pq
 # 正解/不正解判定用
 from dbapp.services.practice_service import compare_queries
 # 結果表示用データ取得用
-from .services.query_compare.messages import (
+from dbapp.services.query_compare.messages import (
     CompareResult, 
     COMPARE_RESULT_MESSAGES
 )
+# セッションのデータ消去用
+from dbapp.services.session_service import clear_editor_query
+
 @app.route('/practices/judge_result', methods=["POST"])
 def judge_result():
     """ 答案クエリと正解クエリを受け取って、正誤を判定
@@ -239,6 +242,9 @@ def judge_result():
             rule=None, 
             use_excel=using_excel
         )
+    # 合格だったら、セッションのクエリ情報は不要なのでポア
+    if result:
+        clear_editor_query(page="practice")
 
     return render_template(
         "pages/practices/judge_result.html", 
