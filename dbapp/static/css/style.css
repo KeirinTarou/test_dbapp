@@ -31,6 +31,7 @@
 
 .text { margin: 0; }
 .text--lead { font-size: 1.1rem; font-weight: bold; color: #555; }
+.text--small {font-size: 0.8em; font-weight: 400; color: var(--text-muted);}
 
 /* テキストの折り返し有効 */
 .text--pre-wrap {

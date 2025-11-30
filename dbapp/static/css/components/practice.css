@@ -43,9 +43,10 @@
     font-weight: 600;
     text-decoration: none;
     box-shadow: var(--shadow-sm);
-    transition:
-        background-color 0.3s ease, 
-        transform 0.3 ease, 
+    transition: var(--transition-fast);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /* ホバー時のアクセント */

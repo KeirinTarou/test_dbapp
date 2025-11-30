@@ -17,7 +17,10 @@
                         </h3>
                         <ul class="practice-list">
                             {% for q in section.questions %}
-                                <li class="practice-item">
+                                <li 
+                                    class="practice-item"
+                                    title="{{ q.Question }}"
+                                >
                                     <a href="{{ url_for(
                                         'practice_detail', 
                                         chapter=q.ChapterNumber, 
@@ -29,6 +32,7 @@
                                         {% else %}
                                             第{{ q.QuestionNumber }}問
                                         {% endif %}
+                                        ：<span class="text--small">{{ q.Question }}</span>
                                     </a>
                                 </li>
                             {% endfor %}
