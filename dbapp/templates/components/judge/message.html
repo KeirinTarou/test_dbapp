@@ -1,8 +1,32 @@
 <section class="section section--judge-message">
     {% if result %}
+        {% if question_info[2] == 0 %}
+            {% set q = "やってみよう" %}
+        {% else %}
+            {% set q = "第{}問".format(question_info[2]) %}
+        {% endif %}
         <h2 class="heading heading--lg text--success">🎯 合格！</h2>
         <p class="text">{{ message }}</p>
+        <p class="text">第{{ question_info[0] }}章 【その{{ question_info[1] }}】の {{ q }} に合格しました (･∀･)ﾆﾔﾆﾔ</p>
+        {% if next_question_info is none %}
+            {% set has_next = false %}
+        {% else %}
+            {% set has_next = true %}
+        {% endif %}
         <div class="actions">
+            {% if has_next %}
+            <a 
+                href="{{ url_for(
+                    'practice_detail', 
+                    chapter=next_question_info[0], 
+                    section=next_question_info[1], 
+                    question=next_question_info[2]
+                ) }}"
+                class="btn btn--proceed"
+            >
+                ⏭️次の問題へ
+            </a>
+            {% endif %}
             <a 
                 href="{{ url_for('practices') }}"
                 class="btn btn--back"

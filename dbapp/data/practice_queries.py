@@ -4,6 +4,20 @@ from .sqlite_connection import (
     get_connection
 )
 
+SELECT_ALL_QUESTIONS_QUERY = """
+    SELECT
+        q.ChapterNumber
+        , q.SectionNumber
+        , q.QuestionNumber
+    FROM
+        Questions AS q
+    ORDER BY
+        q.ChapterNumber ASC
+        , q.SectionNumber ASC
+        , q.QuestionNumber ASC
+    ;
+"""
+
 PRACTICES_LIST_QUERY = """
 SELECT
     c.ChapterNumber
@@ -171,3 +185,35 @@ def update_question(chapter_number:int, section_number: int, question_number: in
         if cur.rowcount == 0:
             raise ValueError("指定の問題が存在しません。")
         conn.commit()
+
+def get_all_ordered_question_keys():
+    """ 全問題の章・節・問題番号のセットを取得
+        章 > 節 > 問題の順に並べ替え済み
+    """
+    with get_connection() as conn:
+        cur = conn.cursor()
+        cur.execute(SELECT_ALL_QUESTIONS_QUERY)
+        # 章・節・問題番号のレコードセットを取得
+        rows = cur.fetchall()
+        # タプルにして返す
+        return [(int(r[0]), int(r[1]), int(r[2])) for r in rows]
+    
+def get_next_question_key(current_key):
+    """ 現在の問題の章・節・問題番号のタプルを受け取って、
+        次の問題の章・節・問題番号のタプルを返す
+    """
+    all_keys = get_all_ordered_question_keys()
+    try: 
+        idx = all_keys.index(current_key)
+    except ValueError:
+        # 現在の問題が章・節・問題番号リストに存在しない
+        #   -> Noneを返す
+        return None
+
+    # ここに来た -> 次の問題がある
+    if idx + 1 < len(all_keys):
+        return all_keys[idx + 1]
+    
+    # 現在の問題が最後の問題のときはここに来る
+    #   -> Noneを返す
+    return None

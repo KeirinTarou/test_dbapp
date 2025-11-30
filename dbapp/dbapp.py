@@ -208,7 +208,14 @@ def judge_result():
     chapter_number = request.form.get("chapter_number")
     section_number = request.form.get("section_number")
     question_number = request.form.get("question_number")
-    question_info = (chapter_number, section_number, question_number)
+    # タプルにまとめる
+    question_info = (
+        int(chapter_number), 
+        int(section_number), 
+        int(question_number)
+    )
+    # 次の問題の情報（タプル）を取得
+    next_question_info = pq.get_next_question_key(question_info)
 
     # 正解クエリとチェックモードを取得
     answer_data = pq.fetch_one(pq.SELECT_ANSWER_QUERY, params=question_info)
@@ -240,6 +247,7 @@ def judge_result():
         message=message, 
         detail=detail, 
         question_info=question_info,
+        next_question_info=next_question_info, 
         user_columns=user_columns, 
         user_rows=user_rows, 
         answer_columns=answer_columns, 
