@@ -78,6 +78,15 @@
     border-radius: var(--radius-sm);
 }
 
+#table-structure-container {
+    opacity: 0;
+    transition: var(--transition-slow);
+}
+
+#table-structure-container.show {
+    opacity: 1;
+}
+
 .table--structure th {
     padding: 0.25em 0.5em;
     text-align: left;

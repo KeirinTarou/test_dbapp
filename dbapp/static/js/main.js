@@ -80,7 +80,12 @@
         /* --------------------------------------------------------------------
             テーブル詳細表示関係
         -------------------------------------------------------------------- */
-            $(".pill-list").on("click", ".pill", function(){
+            $(".pill-list").on("click", ".pill", function() {
+                // 一旦`show`クラスをはがす
+                const $container = $('#table-structure-container');
+                if ($container.hasClass('show')) {
+                    $container.removeClass('show')
+                }
                 // クリックしたピルケースのdata属性からテーブル名を取得
                 const tableName = $(this).data("table");
                 // キャッシュのキーを作成
@@ -152,12 +157,19 @@
 
             // テーブル構造表示テーブル描画用関数
             function renderTableStructureTable(data) {
-                const thead = data.columns.map(col => `<th>${col}</th>`).join("");
-                $("#table-structure thead").html(`<tr>${thead}</tr>`);
+                const $container = $("#table-structure-container");
+                $container.removeClass('show');
 
-                const rows = data.rows.map(row => 
-                    `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("");
-                $("#table-structure tbody").html(rows);
+                setTimeout(() => {
+                    const thead = data.columns.map(col => `<th>${col}</th>`).join("");
+                    $("#table-structure thead").html(`<tr>${thead}</tr>`);
+
+                    const rows = data.rows.map(row => 
+                        `<tr>${row.map(cell => `<td>${cell}</td>`).join("")}</tr>`).join("");
+                    $("#table-structure tbody").html(rows);
+
+                    $container.addClass('show');
+                }, 20);
             }
 
         /* --------------------------------------------------------------------
