@@ -144,7 +144,7 @@ def api_table_structure(table_name):
         "rows": rows_list, 
     }
 
-from .data.practices import (
+from dbapp.db.practices import (
     generate_structured_practice_list
 )
 # 練習問題の一覧を表示するページ
@@ -162,7 +162,7 @@ def practices():
         chapters=chapters
     )
 
-from .data.practices import fetch_question
+from dbapp.db.practices import fetch_question
 
 # 練習問題のページ
 @app.route('/practices/<int:chapter>/<int:section>/<int:question>', methods=["GET"])
@@ -191,7 +191,7 @@ def practice_detail(chapter, section, question):
     )
 
 # 正解データ取得用
-from dbapp.data import practice_queries as pq
+from dbapp.db import practice_queries as pq
 # 正解/不正解判定用
 from dbapp.services.practice_service import compare_queries
 # 結果表示用データ取得用
