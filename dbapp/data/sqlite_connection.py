@@ -1,9 +1,10 @@
 import sqlite3
 import os
 
-BASE_DIR = os.path.dirname(__file__)
-DB_PATH = os.path.join(BASE_DIR, "practice.db")
-SRC_PATH = os.path.join(BASE_DIR, "src")
+_CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = os.path.dirname(_CURRENT_DIR)
+DB_PATH = os.path.join(BASE_DIR, "data", "practice.db")
+SRC_PATH = os.path.join(BASE_DIR, "data", "src")
 
 def get_connection() -> sqlite3.Connection:
     conn = sqlite3.connect(DB_PATH)
