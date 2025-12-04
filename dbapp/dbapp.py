@@ -30,10 +30,10 @@ load_dotenv()
 
 app = Flask(__name__)
 # CSRF対策
-app.config['SECRET_KEY'] = 'aho_aho_aho_no_sakata'
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY")
 csrf = CSRFProtect(app)
 # セッション用の秘密鍵設定
-app.secret_key = "kps"
+app.secret_key = os.getenv("SESSION_SECRET_KEY")
 
 # クエリ保存用フォルダを用意
 STORAGE_DIR = os.path.join(os.getcwd(), "storage", "queries")
