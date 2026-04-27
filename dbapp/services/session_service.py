@@ -57,10 +57,8 @@ def save_result_to_session(columns, rows):
     """ クエリの実行結果をセッションに保存する
         services/session_service
     """
-    safe_rows = []
-    # Rowオブジェクト -> dictに変換
-    for r in rows:
-        safe_rows.append(dict(zip(columns, list(r))))
+    # Rowオブジェクト -> listに変換
+    safe_rows = [list(r) for r in rows]
     session["result_columns"] = columns
     session["result_rows"] = safe_rows
     session.modified = True
