@@ -23,6 +23,8 @@ from dbapp.services.session_service import (
     save_query_editor_height, load_query_editor_height, clear_query_editor_height, 
     # エディタへのスクロールフラグ
     set_scroll_to_editor, pop_scroll_to_editor, 
+    # クエリ実行結果
+    save_result_to_session, pop_result_from_session
 )
 
 # `.env`読み込み
@@ -99,13 +101,23 @@ def index():
         elif "execute" in request.form:
             # クエリ実行 -> レコードセット取得
             columns, rows = _exec_sql_query(sql_query=sql_query, page="index", use_excel=using_excel)
+            # 結果をセッションに保存
+            save_result_to_session(columns, rows)
+            # エディタのクエリをセッションに保存
+            save_editor_query(sql_query=sql_query, page="index")
+            # セッションにスクロールフラグを立てる
+            set_scroll_to_editor(True)
+            # トップページにリダイレクト
+            return redirect(url_for("index"))
 
     # GETリクエストのとき
     else:
         # セッションに保存した直近のクエリをテンプレートに渡す
         sql_query = pop_editor_query("index")
-        # デフォルトの擬似テーブルを表示
-        columns, rows = [DEFAULT_COLUMNS, DEFAULT_ROWS]
+        columns, rows = pop_result_from_session()
+        if not columns: 
+            # デフォルトの擬似テーブルを表示
+            columns, rows = [DEFAULT_COLUMNS, DEFAULT_ROWS]
 
     # エディタの高さ情報をセッションから取り出し
     sql_query_height = load_query_editor_height("index")
