@@ -1,6 +1,6 @@
 from flask import session
 from dbapp.config import DEFAULT_EDITOR_HEIGHT
-from typing import Any, Tuple, List, Optional
+from typing import Any, Tuple, List
 
 from file_service import load_temp_result
 
@@ -75,10 +75,22 @@ def save_result_to_session(temp_id: str) -> None:
     session["last_temp_id"] = temp_id
     
 
-def pop_result_from_session():
-    """ セッションから結果を取り出す
-        services/session_service
+def get_result_from_session() -> (
+        Tuple[List[str], List[List[Any]]] | Tuple[None, None]):
+    """ セッションから一時ファイルのIDを取り出す
+        
+    :return: カラム名のリストと各行のデータのリストのリストを詰め込んだタプル
+    :rtype: Tuple[List[str]], List[List[Any]]] or Tuple[None, None]
+    .. note::
+        - 一時ファイルのIDがセッションにないときは、(None, None)が返る
+    .. warning::
+        - 特になし
+    .. hint::
+        - services/session_service.py
+    .. important::
+        - 特になし
     """
-    columns = session.pop("result_columns", None)
-    rows = session.pop("result_rows", None)
-    return columns, rows
+    temp_id = session.get("last_temp_id")
+    if not temp_id:
+        return None, None
+    return load_temp_result(temp_id)
