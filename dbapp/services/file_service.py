@@ -2,6 +2,13 @@ import os
 import re
 from datetime import datetime
 from typing import Tuple, Optional
+from pathlib import Path
+import uuid
+import json
+
+# 結果セット一時保存用
+TMP_DIR = Path(__file__).resolve().parent.parent / "storage" / "tmp"
+TMP_DIR.mkdir(parents=True, exist_ok=True)
 
 def save_query_to_file(sql_query: str, user_filename: str, storage_dir: str) -> Tuple[Optional[str], str, str]:
     """ SQLクエリを`.sql`ファイルとして保存する
@@ -25,3 +32,4 @@ def save_query_to_file(sql_query: str, user_filename: str, storage_dir: str) -> 
         f.write(sql_query)
 
     return filename, f"クエリを`.sql`ファイルとして保存しました。: ", "success"
+
