@@ -2,7 +2,8 @@ from flask import session
 from dbapp.config import DEFAULT_EDITOR_HEIGHT
 from typing import Any, Tuple, List
 
-from file_service import load_temp_result
+from file_service import (
+    load_temp_result, delete_temp_result)
 
 def save_editor_query(sql_query: str, page: str):
     """ エディタのクエリをセッションに保存
@@ -83,6 +84,7 @@ def get_result_from_session() -> (
     :rtype: Tuple[List[str]], List[List[Any]]] or Tuple[None, None]
     .. note::
         - 一時ファイルのIDがセッションにないときは、(None, None)が返る
+        - file_service.load_temp_result()を呼び出す
     .. warning::
         - 特になし
     .. hint::
@@ -94,3 +96,21 @@ def get_result_from_session() -> (
     if not temp_id:
         return None, None
     return load_temp_result(temp_id)
+
+def delete_result_from_session() -> None:
+    """  セッションの一時ファイルのIDを消す
+        
+    :return: 返り値なし
+    :rtype: None
+    .. note::
+        - file_service.delete_temp_result()を呼び出す
+    .. warning::
+        - 特になし
+    .. hint::
+        - services/session_service.py
+    .. important::
+        - 特になし
+    """
+    temp_id = session.pop("last_temp_id", None)
+    if temp_id: 
+        delete_temp_result(temp_id)
