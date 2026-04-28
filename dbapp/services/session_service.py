@@ -1,5 +1,8 @@
 from flask import session
 from dbapp.config import DEFAULT_EDITOR_HEIGHT
+from typing import Any, Tuple, List, Optional
+
+from file_service import load_temp_result
 
 def save_editor_query(sql_query: str, page: str):
     """ エディタのクエリをセッションに保存
@@ -53,15 +56,24 @@ def pop_scroll_to_editor(page: str):
     """
     return session.pop(f"{page}_scroll_to_editor", False)
 
-def save_result_to_session(columns, rows):
-    """ クエリの実行結果をセッションに保存する
-        services/session_service
+def save_result_to_session(temp_id: str) -> None:
+    """ クエリの実行結果を保存した一時ファイルのIDをセッションに保存する
+
+    :param tmp_id: 一時ファイルのUUID
+    :type tmp_id: str
+    :return: 返り値なし
+    :rtype: None
+    .. note::
+        - 特になし
+    .. warning::
+        - 特になし
+    .. hint::
+        - services/session_service.py
+    .. important::
+        - 特になし
     """
-    # Rowオブジェクト -> listに変換
-    safe_rows = [list(r) for r in rows]
-    session["result_columns"] = columns
-    session["result_rows"] = safe_rows
-    session.modified = True
+    session["last_temp_id"] = temp_id
+    
 
 def pop_result_from_session():
     """ セッションから結果を取り出す
