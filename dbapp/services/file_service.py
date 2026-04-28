@@ -58,3 +58,39 @@ def save_query_to_file(sql_query: str, user_filename: str, storage_dir: str) -> 
 
     return filename, "クエリを`.sql`ファイルとして保存しました。: ", "success"
 
+def save_temp_result(columns: List[str], rows: List[pyodbc.Row]) -> str:
+    """ 結果セットを一時ファイルに保存し、ファイルID（UUID）を返す
+
+    :param columns: カラム名のリスト
+    :type columns: List[str]
+    :param rows: pyodbc.Rowオブジェクトのリスト
+    :type rows: List[pyodbc.Row]
+    :return: 一時ファイルのファイルID
+    :rtype: str
+
+    .. note::
+        - 保存先ディレクトリは`storage/tmp`
+
+    .. warning::
+        - 特になし
+
+    .. hint::
+        - services/file_service.py
+
+    .. important::
+        - 特になし
+    """
+    tmp_id = str(uuid.uuid4())
+    path = TMP_DIR / f"{tmp_id}.json"
+
+    # pyodbc.Rowオブジェクトをリスト化
+    safe_rows = [list(r) for r in rows]
+
+    with path.open("w", encoding="utf-8") as f:
+        # "columns"、"rows"をキーとし、
+        # リスト`columns`、`safe_rows`をそれぞれバリューとする
+        # dictをJSON形式にエンコードしてファイルに書き込む
+        json.dump({"columns": columns, "rows": safe_rows}, f)
+
+    return tmp_id
+
