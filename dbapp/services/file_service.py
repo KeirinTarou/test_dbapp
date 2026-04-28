@@ -22,17 +22,13 @@ def save_query_to_file(sql_query: str, user_filename: str, storage_dir: str) -> 
     :type storage_dir: str
     :return: ファイル名・成功/失敗メッセージ・メッセージカテゴリのタプル
     :rtype: Tuple[Optional[str], str, str]
-
     .. note::
         - `.sql`ファイルの保存先は`storage/queries`
         - `category`は`success` or `error`
-    
     .. warning::
         - 特になし
-
     .. hint::
         - services/file_service.py
-
     .. important::
         - 特になし
     """
@@ -67,16 +63,12 @@ def save_temp_result(columns: List[str], rows: List[pyodbc.Row]) -> str:
     :type rows: List[pyodbc.Row]
     :return: 一時ファイルのファイルID
     :rtype: str
-
     .. note::
         - 保存先ディレクトリは`storage/tmp`
-
     .. warning::
         - 特になし
-
     .. hint::
         - services/file_service.py
-
     .. important::
         - 特になし
     """
@@ -101,16 +93,12 @@ def load_temp_result(tmp_id: str) -> Tuple[List[str], List[List[Any]]]:
     :type tmp_id: str
     :return: カラム名のリストと各行のデータのリストのリスト
     :rtype: Tuple[List[str], List[List[Any]]]
-    
     .. note::
         - 特になし
-
     .. warning::
         - 特になし
-
     .. hint::
         - services/file_service.py
-
     .. important::
         - 特になし
     """
@@ -122,3 +110,22 @@ def load_temp_result(tmp_id: str) -> Tuple[List[str], List[List[Any]]]:
 
     return data.get("columns"), data.get("rows")
 
+def delete_temp_result(tmp_id: str) -> None:
+    """ 一時ファイルを削除
+
+    :param tmp_id: 一時ファイルのUUID
+    :type tmp_id: str
+    :return: 返り値なし
+    :rtype: None
+    .. note::
+        - 特になし
+    .. warning::
+        - 特になし
+    .. hint::
+        - services/file_service.py
+    .. important::
+        - 特になし
+    """
+    path = TMP_DIR / f"{tmp_id}.json"
+    if path.exists():
+        path.unlink()
