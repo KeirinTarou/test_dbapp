@@ -40,7 +40,7 @@ def save_query_to_file(sql_query: str, user_filename: str, storage_dir: str) -> 
         return None, "( ´,_ゝ｀) < クエリが空のため、保存できません。", "error"
     
     if user_filename and user_filename.strip():
-        safe_name = re.sub(r'[\/\\:\*\?h"<>\|]', '_', user_filename.strip())
+        safe_name = re.sub(r'[\/\\:\*\?"<>\|]', '_', user_filename.strip())
     else:
         safe_name = f"query_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 
