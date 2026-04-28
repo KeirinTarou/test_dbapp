@@ -94,3 +94,31 @@ def save_temp_result(columns: List[str], rows: List[pyodbc.Row]) -> str:
 
     return tmp_id
 
+def load_temp_result(tmp_id: str) -> Tuple[List[str], List[List[Any]]]:
+    """ 一時ファイルから結果セットを読み込む
+
+    :param tmp_id: 一時ファイルのUUID
+    :type tmp_id: str
+    :return: カラム名のリストと各行のデータのリストのリスト
+    :rtype: Tuple[List[str], List[List[Any]]]
+    
+    .. note::
+        - 特になし
+
+    .. warning::
+        - 特になし
+
+    .. hint::
+        - services/file_service.py
+
+    .. important::
+        - 特になし
+    """
+    # 一時ファイルのパスを構築
+    path = TMP_DIR / f"{tmp_id}.json"
+    # 読み出しモードで開いて変数`f`にぶち込む
+    with path.open("r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    return data.get("columns"), data.get("rows")
+
