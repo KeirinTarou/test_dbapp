@@ -57,6 +57,8 @@ def save_query_to_file(sql_query: str, user_filename: str, storage_dir: str) -> 
 def save_temp_result(columns: List[str], rows: List[pyodbc.Row]) -> str:
     """ 結果セットを一時ファイルに保存し、ファイルID（UUID）を返す
 
+    :param page: クエリ実行ページの名前（`index`, `practice`, ...）
+    :type page: str
     :param columns: カラム名のリスト
     :type columns: List[str]
     :param rows: pyodbc.Rowオブジェクトのリスト

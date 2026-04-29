@@ -57,7 +57,7 @@ def pop_scroll_to_editor(page: str):
     """
     return session.pop(f"{page}_scroll_to_editor", False)
 
-def save_result_to_session(temp_id: str) -> None:
+def save_result_to_session(page: str, temp_id: str) -> None:
     """ クエリの実行結果を保存した一時ファイルのIDをセッションに保存する
 
     :param tmp_id: 一時ファイルのUUID
@@ -73,13 +73,15 @@ def save_result_to_session(temp_id: str) -> None:
     .. important::
         - 特になし
     """
-    session["last_temp_id"] = temp_id
+    session[f"{page}_last_temp_id"] = temp_id
     
 
-def get_result_from_session() -> (
+def get_result_from_session(page: str) -> (
         Tuple[List[str], List[List[Any]]] | Tuple[None, None]):
     """ セッションから一時ファイルのIDを取り出す
-        
+    
+    :param page: クエリを実行したページの名前（`index`, `practice`, ...）
+    :type page: str
     :return: カラム名のリストと各行のデータのリストのリストを詰め込んだタプル
     :rtype: Tuple[List[str]], List[List[Any]]] or Tuple[None, None]
     .. note::
@@ -92,14 +94,16 @@ def get_result_from_session() -> (
     .. important::
         - 特になし
     """
-    temp_id = session.get("last_temp_id")
+    temp_id = session.get(f"{page}_last_temp_id")
     if not temp_id:
         return None, None
     return load_temp_result(temp_id)
 
-def delete_result_from_session() -> None:
+def delete_result_from_session(page: str) -> None:
     """  セッションの一時ファイルのIDを消す
-        
+    
+    :param page: クエリを実行したページの名前
+    :type page: str
     :return: 返り値なし
     :rtype: None
     .. note::
@@ -111,6 +115,6 @@ def delete_result_from_session() -> None:
     .. important::
         - 特になし
     """
-    temp_id = session.pop("last_temp_id", None)
+    temp_id = session.pop(f"{page}_last_temp_id", None)
     if temp_id: 
         delete_temp_result(temp_id)
