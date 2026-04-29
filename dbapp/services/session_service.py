@@ -2,7 +2,7 @@ from flask import session
 from dbapp.config import DEFAULT_EDITOR_HEIGHT
 from typing import Any, Tuple, List
 
-from file_service import (
+from dbapp.services.file_service import (
     load_temp_result, delete_temp_result)
 
 def save_editor_query(sql_query: str, page: str):
