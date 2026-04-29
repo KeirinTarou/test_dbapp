@@ -14,17 +14,21 @@ import dbapp.db.import_from_excel as db_excel
 import re
 from datetime import datetime
 import os
-from dbapp.services.file_service import save_query_to_file
+from dbapp.services.file_service import (
+    # ユーザクエリの保存
+    save_query_to_file, 
+    # 結果セットの一時保存まわり
+    save_temp_result, load_temp_result, delete_temp_result)
 from dbapp.services.query_service import exec_query
 from dbapp.services.session_service import (
     # エディタのクエリ保存関係
-    save_editor_query, pop_editor_query, clear_editor_query, 
+    save_editor_query, get_editor_query, clear_editor_query, 
     # エディタの高さ関連
     save_query_editor_height, load_query_editor_height, clear_query_editor_height, 
     # エディタへのスクロールフラグ
     set_scroll_to_editor, pop_scroll_to_editor, 
     # クエリ実行結果
-    save_result_to_session, pop_result_from_session
+    save_result_to_session, get_result_from_session, delete_result_from_session
 )
 
 # `.env`読み込み
@@ -101,8 +105,9 @@ def index():
         elif "execute" in request.form:
             # クエリ実行 -> レコードセット取得
             columns, rows = _exec_sql_query(sql_query=sql_query, page="index", use_excel=using_excel)
-            # 結果をセッションに保存
-            save_result_to_session(columns, rows)
+            # 結果を一時ファイルに保存
+            temp_id = save_temp_result(columns, rows)
+            save_result_to_session(temp_id)
             # エディタのクエリをセッションに保存
             save_editor_query(sql_query=sql_query, page="index")
             # セッションにスクロールフラグを立てる
@@ -113,8 +118,8 @@ def index():
     # GETリクエストのとき
     else:
         # セッションに保存した直近のクエリをテンプレートに渡す
-        sql_query = pop_editor_query("index")
-        columns, rows = pop_result_from_session()
+        sql_query = get_editor_query("index")
+        columns, rows = get_result_from_session()
         if not columns: 
             # デフォルトの擬似テーブルを表示
             columns, rows = [DEFAULT_COLUMNS, DEFAULT_ROWS]
