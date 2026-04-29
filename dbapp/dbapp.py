@@ -107,7 +107,7 @@ def index():
             columns, rows = _exec_sql_query(sql_query=sql_query, page="index", use_excel=using_excel)
             # 結果を一時ファイルに保存
             temp_id = save_temp_result(columns, rows)
-            save_result_to_session(temp_id)
+            save_result_to_session(page="index", temp_id=temp_id)
             # エディタのクエリをセッションに保存
             save_editor_query(sql_query=sql_query, page="index")
             # セッションにスクロールフラグを立てる
@@ -119,7 +119,7 @@ def index():
     else:
         # セッションに保存した直近のクエリをテンプレートに渡す
         sql_query = get_editor_query("index")
-        columns, rows = get_result_from_session()
+        columns, rows = get_result_from_session("index")
         if not columns: 
             # デフォルトの擬似テーブルを表示
             columns, rows = [DEFAULT_COLUMNS, DEFAULT_ROWS]
