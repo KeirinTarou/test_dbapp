@@ -11,11 +11,11 @@ def save_editor_query(sql_query: str, page: str):
     """
     session[f"{page}_last_posted_query"] = sql_query
 
-def pop_editor_query(page: str):
+def get_editor_query(page: str):
     """ セッションに保存されたクエリを返す
         services/session_service
     """
-    return session.pop(f"{page}_last_posted_query", "")
+    return session.get(f"{page}_last_posted_query", "")
 
 def clear_editor_query(page: str):
     """ セッションに保存したクエリをクリアする
